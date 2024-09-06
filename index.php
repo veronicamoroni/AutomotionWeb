@@ -1,20 +1,26 @@
 <?php
-// Incluye el archivo principal de Smarty. Ajusta la ruta según sea necesario.
-require_once('C:\xampp\htdocs\app1\libs\Smarty.class.php');
 
+require_once ('C:\xampp\htdocs\automotionweb\frontend\libs\Smarty.class.php');
+require_once ('C:\xampp\htdocs\automotionweb\configs\conexion.php');     // Configuración de base de datos
+
+// Crea una instancia de Smarty
 
 $smarty = new Smarty\Smarty;
 
-// Configura los directorios de Smarty. Usa __DIR__ para obtener la ruta absoluta
-$smarty->setTemplateDir(__DIR__ . '/templates');
+// Se Configura los directorios de Smarty. 
+$smarty->setTemplateDir('C:\xampp\htdocs\automotionweb\frontend\templates');
 $smarty->setCompileDir(__DIR__ . '/templates_c');
 $smarty->setCacheDir(__DIR__ . '/cache');
 $smarty->setConfigDir(__DIR__ . '/configs');
+// Obtener la acción desde la URL
+$action = isset($_GET['action']) ? $_GET['action'] : 'index';
 
-// Prueba la instalación de Smarty para asegurarte de que todo esté configurado correctamente
-$smarty->testInstall();
-
-// Muestra la plantilla
-$smarty->display('templates.tpl');
-
+// Mostrar la plantilla correspondiente según la acción
+if ($action == 'register') {
+    // Cargar la plantilla del formulario de registro
+    $smarty->display('registro.tpl');
+} else {
+    // Cargar la plantilla del índice por defecto (inicio de sesión)
+    $smarty->display('index.tpl');
+}
 ?>
