@@ -1,6 +1,6 @@
 <?php
 require_once('C:\xampp\htdocs\automotionweb\configs\conexion.php');
-require_once('C:\xampp\htdocs\automotionweb\frontend\modelos\model.php'); 
+require_once('C:\xampp\htdocs\automotionweb\Model\Model.php'); 
 $model = new Model();
 
 try {

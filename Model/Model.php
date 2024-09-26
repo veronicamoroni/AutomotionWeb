@@ -1,10 +1,11 @@
 <?php
-require_once('C:\xampp\htdocs\automotionweb\configs\conexion.php'); // Ruta actualizada
+require_once('C:\xampp\htdocs\AutomotionWeb\configs\conexion.php'); // Ruta actualizada
 
 class Model {
     private $db = null;
     function create_connection() {
         global $config;
+        
 
         $host = $config['database']['host'];
         $userName = $config['database']['userName'];
