@@ -1,7 +1,7 @@
 <?php
 require_once('C:\xampp\htdocs\AutomotionWeb\configs\conexion.php'); // Ruta actualizada
 
-class Model {
+class Model  {
     private $db = null;
     function create_connection() {
         global $config;

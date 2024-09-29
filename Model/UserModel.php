@@ -2,7 +2,7 @@
 
 class Usuario {
     private $db;
-    private $table = "usuarios"; // Asegúrate de usar el nombre correcto de la tabla en minúsculas si es así en la base de datos.
+    public $table = "usuarios"; // Asegúrate de usar el nombre correcto de la tabla en minúsculas si es así en la base de datos.
 
     public $id;
     public $nombre;
@@ -25,7 +25,7 @@ class Usuario {
         $this->nombre = htmlspecialchars(strip_tags($this->nombre));
         $this->apellido = htmlspecialchars(strip_tags($this->apellido));
         $this->email = htmlspecialchars(strip_tags($this->email));
-        $this->contraseña = htmlspecialchars(strip_tags($this->contraseña));
+        $this->contrasena = htmlspecialchars(strip_tags($this->contrasena));
 
         // Encriptar la contraseña antes de almacenarla
         $hashed_password = password_hash($this->contraseña, PASSWORD_BCRYPT);
@@ -117,4 +117,8 @@ class Usuario {
 
         return false;
     }
+    public function getTable() {
+        return $this->table;
+    }
+
 }

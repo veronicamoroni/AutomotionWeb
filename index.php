@@ -14,8 +14,9 @@ $smarty->setCacheDir('C:\xampp\htdocs\AutomotionWeb\cache');
 $smarty->setConfigDir('C:\xampp\htdocs\AutomotionWeb\configs');
 
 // Muestra la plantilla
-$smarty->display('Registrarse.tpl');
+$smarty->display('menu.tpl');
 
+    
 // Crear conexión a la base de datos
 $database = new Model();
 $db = $database->getDb();
@@ -26,13 +27,12 @@ $usuarioController = new UsuarioController($db);
 // Gestionar las rutas simples
 $action = isset($_GET['action']) ? $_GET['action'] : '';
 
+
 switch ($action) {
-    case 'registrarse':
-        $usuarioController->registrarse();
-        break;
-    case 'iniciarSesion':
+    case 'iniciarsesion':
         $usuarioController->iniciarSesion();
-            break;
+        break;
+    
     case 'obtenerUsuarios':
         $usuarioController->obtenerUsuarios();
         break;
@@ -46,5 +46,8 @@ switch ($action) {
     default:
        // echo "Acción no reconocida.";
 }
+
+
+ 
 
 ?>
