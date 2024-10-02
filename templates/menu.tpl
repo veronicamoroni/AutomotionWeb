@@ -68,14 +68,15 @@
         <ul class="nav nav-tabs justify-content-center">
             <!-- Dropdown Clientes -->
             <li class="nav-item dropdown">
+            
                 <a class="nav-link dropdown-toggle" href="#" id="clientesDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     Clientes
                 </a>
                 <div class="dropdown-menu bg-primary" aria-labelledby="clientesDropdown">
-                    <a class="dropdown-item" href="#altaClientes">Alta de Clientes</a>
-                    <a class="dropdown-item" href="#modificarClientes">Modificar Clientes</a>
-                    <a class="dropdown-item" href="#eliminarClientes">Eliminar Clientes</a>
-                    <a class="dropdown-item" href="#listarClientes">Listar Clientes</a>
+                    <a class="dropdown-item" href="/menu/crearCliente">Alta de Clientes</a>
+                    <a class="dropdown-item" href="/menu/modificarCliente">Modificar Clientes</a>
+                    <a class="dropdown-item" href="/menu/eliminarCliente">Eliminar Clientes</a>
+                    <a class="dropdown-item" href="/menu/listarClientes">Listar Clientes</a>
                 </div>
             </li>
             <!-- Dropdown Vehículos -->
