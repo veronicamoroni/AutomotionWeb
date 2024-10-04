@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 5.4.0, created on 2024-09-29 18:34:44
-  from 'file:Registrarse.tpl' */
+/* Smarty version 5.4.0, created on 2024-10-03 02:11:17
+  from 'file:eliminarCliente.tpl' */
 
 /* @var \Smarty\Template $_smarty_tpl */
 if ($_smarty_tpl->getCompiled()->isFresh($_smarty_tpl, array (
   'version' => '5.4.0',
-  'unifunc' => 'content_66f981a4061149_22664523',
+  'unifunc' => 'content_66fde125ea7433_89569140',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
-    '2c378015fc84bf2f0df8a047f2b0a10e76d62135' => 
+    '006b10ea397ab2c5615795a3bc8ae22fe5ecca9f' => 
     array (
-      0 => 'Registrarse.tpl',
-      1 => 1727623589,
+      0 => 'eliminarCliente.tpl',
+      1 => 1727872260,
       2 => 'file',
     ),
   ),
@@ -20,25 +20,24 @@ if ($_smarty_tpl->getCompiled()->isFresh($_smarty_tpl, array (
   array (
   ),
 ))) {
-function content_66f981a4061149_22664523 (\Smarty\Template $_smarty_tpl) {
+function content_66fde125ea7433_89569140 (\Smarty\Template $_smarty_tpl) {
 $_smarty_current_dir = 'C:\\xampp\\htdocs\\AutomotionWeb\\templates';
 ?><!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>Registro de Usuario</title>
+    <title>Eliminar Usuario</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <style>
-        /* Estilos personalizados para la barra de navegación */
         .navbar-custom {
-            background-color: #004085; /* Color de fondo azul */
+            background-color: #004085; 
         }
         .navbar-custom .navbar-brand img {
-            width: 100px; /* Tamaño del logo */
+            width: 100px;
         }
         body {
             background-image: url('imagen.jpeg');
@@ -53,39 +52,35 @@ $_smarty_current_dir = 'C:\\xampp\\htdocs\\AutomotionWeb\\templates';
             font-size: 3.5rem;
         }
         .custom-font {
-            font-family: 'CustomFont', sans-serif; /* Aplica la fuente personalizada */
+            font-family: 'CustomFont', sans-serif;
             font-weight: bolder;
-            font-size: 3.5rem; /* Tamaño del texto */
-          background: linear-gradient(90deg, yellow, white);
-
+            font-size: 3.5rem;
+            background: linear-gradient(90deg, yellow, white);
             background-clip: text;
             -webkit-background-clip: text;
             color: transparent;
         }
         .login-btn {
             position: absolute;
-            top: 20px; /* Espaciado desde la parte superior */
-            right: 20px; /* Espaciado desde el lado derecho */
-            font-size: 0.8rem; /* Tamaño de fuente más pequeño */
+            top: 20px;
+            right: 20px;
+            font-size: 0.8rem;
         }
         .navbar-title {
             flex: 1;
-            text-align: center; /* Centrar el texto del título */
+            text-align: center;
         }
         .centered-container {
-            height: calc(100vh - 60px); /* Ajuste para la altura */
+            height: calc(100vh - 60px);
         }
     </style>
 </head>
 <body>
     <nav class="navbar navbar-expand-lg navbar-custom">
         <a class="navbar-brand" href="#">
-            <img src="logo.png" alt="Logo"> <!-- Cambia la ruta a tu logo -->
+            <img src="logo.png" alt="Logo">
         </a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="navbar-title"> <!-- Contenedor para centrar el título -->
+        <div class="navbar-title">
             <h1 class="custom-font m-0">Automotion</h1>
         </div>
         <button class="btn btn-light login-btn" onclick="window.location.href='login.tpl'">Iniciar Sesión</button>
@@ -95,27 +90,15 @@ $_smarty_current_dir = 'C:\\xampp\\htdocs\\AutomotionWeb\\templates';
         <div class="row w-100">
             <section class="col-md-8">
                 <div class="text-center mb-4">
-                    <span class="material-symbols-outlined">person_add</span>
+                    <span class="material-symbols-outlined">Eliminar</span>
                 </div>
                 <div class="card p-4 shadow">
-                    <form action="index.php?action=registrarse" method="post">
+                    <form action="index.php?action=eliminarCliente" method="post">
                         <div class="form-group">
-                            <label for="nombre">Nombre:</label>
-                            <input type="text" class="form-control" id="nombre" name="nombre" required>
+                            <label for="id">DNI del cliente a Eliminar:</label>
+                            <input type="text" class="form-control" id="dni" name="dni" required>
                         </div>
-                        <div class="form-group">
-                            <label for="apellido">Apellido:</label>
-                            <input type="text" class="form-control" id="apellido" name="apellido" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="email">Correo Electrónico:</label>
-                            <input type="email" class="form-control" id="email" name="email" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="contrasena">Contraseña:</label>
-                            <input type="contrasena" class="form-control" id="contrasena" name="contrasena" required>
-                        </div>
-                        <button type="submit" class="btn btn-primary btn-block">Registrarse</button>
+                        <button type="submit" class="btn btn-danger btn-block">Eliminar Usuario</button>
                     </form>
                 </div>
             </section>

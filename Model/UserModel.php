@@ -2,7 +2,7 @@
 
 class Usuario {
     private $db;
-    public $table = "usuarios"; // Asegúrate de usar el nombre correcto de la tabla en minúsculas si es así en la base de datos.
+    public $table = "usuarios"; 
 
     public $id;
     public $nombre;
@@ -25,7 +25,7 @@ class Usuario {
         $this->nombre = htmlspecialchars(strip_tags($this->nombre));
         $this->apellido = htmlspecialchars(strip_tags($this->apellido));
         $this->email = htmlspecialchars(strip_tags($this->email));
-        $this->contrasena = htmlspecialchars(strip_tags($this->contrasena));
+        $this->contraseña = htmlspecialchars(strip_tags($this->contraseña));
 
         // Encriptar la contraseña antes de almacenarla
         $hashed_password = password_hash($this->contraseña, PASSWORD_BCRYPT);
@@ -80,14 +80,11 @@ class Usuario {
                   WHERE id = :id";
 
         $stmt = $this->db->prepare($query);
-
-        // Limpiar los datos
         $this->nombre = htmlspecialchars(strip_tags($this->nombre));
         $this->apellido = htmlspecialchars(strip_tags($this->apellido));
         $this->email = htmlspecialchars(strip_tags($this->email));
         $this->id = htmlspecialchars(strip_tags($this->id));
 
-        // Enlazar los parámetros
         $stmt->bindParam(':nombre', $this->nombre);
         $stmt->bindParam(':apellido', $this->apellido);
         $stmt->bindParam(':email', $this->email);
@@ -104,13 +101,9 @@ class Usuario {
     // Eliminar un usuario
     public function eliminarUsuario() {
         $query = "DELETE FROM " . $this->table . " WHERE id = :id";
-
         $stmt = $this->db->prepare($query);
-
         $this->id = htmlspecialchars(strip_tags($this->id));
-
         $stmt->bindParam(':id', $this->id);
-
         if ($stmt->execute()) {
             return true;
         }

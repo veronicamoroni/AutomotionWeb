@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 5.4.0, created on 2024-10-03 01:46:49
-  from 'file:menu.tpl' */
+/* Smarty version 5.4.0, created on 2024-10-03 01:29:11
+  from 'file:templates/menu.tpl' */
 
 /* @var \Smarty\Template $_smarty_tpl */
 if ($_smarty_tpl->getCompiled()->isFresh($_smarty_tpl, array (
   'version' => '5.4.0',
-  'unifunc' => 'content_66fddb698c2f85_47150515',
+  'unifunc' => 'content_66fdd74770cd21_45368601',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
-    'c9b5d8bdefd8b29f4ff52804e34c95ba3b2e6095' => 
+    '30c2da8b33c45004fcc00d034640c1f569fec217' => 
     array (
-      0 => 'menu.tpl',
-      1 => 1727883179,
+      0 => 'templates/menu.tpl',
+      1 => 1727911742,
       2 => 'file',
     ),
   ),
@@ -20,8 +20,8 @@ if ($_smarty_tpl->getCompiled()->isFresh($_smarty_tpl, array (
   array (
   ),
 ))) {
-function content_66fddb698c2f85_47150515 (\Smarty\Template $_smarty_tpl) {
-$_smarty_current_dir = 'C:\\xampp\\htdocs\\AutomotionWeb\\templates';
+function content_66fdd74770cd21_45368601 (\Smarty\Template $_smarty_tpl) {
+$_smarty_current_dir = 'C:\\Users\\Usuario\\Desktop\\AutomotionWeb\\templates';
 ?><!DOCTYPE html>
 <html lang="es">
 <head>
@@ -96,6 +96,10 @@ $_smarty_current_dir = 'C:\\xampp\\htdocs\\AutomotionWeb\\templates';
                 <a class="nav-link dropdown-toggle" href="#" id="clientesDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     Clientes
                 </a>
+                 <aside>
+        <   p>alta</p>
+        <button onclick="window.location.href='/crearCliente'">alta</button>
+    </aside>
                 <div class="dropdown-menu bg-primary" aria-labelledby="clientesDropdown">
                     <a class="dropdown-item" href="/menu/crearCliente">Alta de Clientes</a>
                     <a class="dropdown-item" href="/menu/modificarCliente">Modificar Clientes</a>
