@@ -34,5 +34,46 @@ class VehiculoController {
             }
         }
     }
+
+   // Método para modificar un vehículo
+   public function modificarVehiculo() {
+    if ($_SERVER["REQUEST_METHOD"] == "POST") {
+        if (isset($_POST['patente']) && !empty($_POST['patente'])) {
+            $this->vehiculo->patente = $_POST['patente'];
+            $this->vehiculo->marca = isset($_POST['marca']) ? $_POST['marca'] : '';
+            $this->vehiculo->modelo = isset($_POST['modelo']) ? $_POST['modelo'] : '';
+            $this->vehiculo->dni_cliente = isset($_POST['dni_cliente']) ? $_POST['dni_cliente'] : '';
+
+            // Verificar si el vehículo existe antes de modificar
+            if ($this->vehiculo->existeVehiculo()) {
+                if ($this->vehiculo->modificarVehiculo()) {
+                    echo "Vehículo actualizado con éxito.";
+                } else {
+                    echo "Error al actualizar el vehículo.";
+                }
+            } else {
+                echo "El vehículo no existe en la base de datos.";
+            }
+        } else {
+            echo "Falta la patente del vehículo.";
+        }
+    }
+}
+    // Método para eliminar un vehículo
+public function eliminarVehiculo($patente) {
+    $this->vehiculo->patente = $patente; // Asignar la patente del vehículo a eliminar
+
+    if ($this->vehiculo->eliminarVehiculo()) { // Llamar al método de eliminación en el modelo
+        echo "Vehículo eliminado con éxito.";
+    } else {
+        echo "Error al eliminar el vehículo.";
+    }
+}
+  // Método para obtener todos los vehículos
+  public function listarVehiculos() {
+    $stmt = $this->vehiculo->listarVehiculos(); // Asegúrate de que este método esté implementado en tu modelo de vehículo
+    return $stmt->fetchAll(PDO::FETCH_ASSOC); // Devuelve todos los vehículos como un array asociativo
+}
+
 }
 ?>

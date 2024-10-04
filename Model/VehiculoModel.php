@@ -29,6 +29,30 @@ class Vehiculo {
         }
     }
 
+    // Método para modificar un vehículo
+    public function modificarVehiculo() {
+        // Query SQL para actualizar los datos del vehículo
+        $query = "UPDATE vehiculos 
+                  SET marca = :marca, modelo = :modelo, dni_cliente = :dni_cliente 
+                  WHERE patente = :patente";
+
+        // Preparar la consulta
+        $stmt = $this->db->prepare($query);
+
+        // Enlazar los parámetros
+        $stmt->bindParam(':patente', $this->vehiculo->patente);
+        $stmt->bindParam(':marca', $this->vehiculo->marca);
+        $stmt->bindParam(':modelo', $this->vehiculo->modelo);
+        $stmt->bindParam(':dni_cliente', $this->vehiculo->dni_cliente);
+
+        // Ejecutar la consulta y devolver el resultado
+        if ($stmt->execute()) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
     // Listar todos los vehículos
     public function listarVehiculos() {
         $query = "SELECT * FROM vehiculos";
@@ -46,18 +70,7 @@ class Vehiculo {
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
 
-    // Modificar vehículo
-    public function modificarVehiculo() {
-        $query = "UPDATE vehiculos SET marca = :marca, modelo = :modelo, dni_cliente = :dni_cliente WHERE patente = :patente";
-        $stmt = $this->db->prepare($query);
-
-        $stmt->bindParam(':patente', $this->patente);
-        $stmt->bindParam(':marca', $this->marca);
-        $stmt->bindParam(':modelo', $this->modelo);
-        $stmt->bindParam(':dni_cliente', $this->dni_cliente);
-
-        return $stmt->execute();
-    }
+    
 
     // Eliminar vehículo
     public function eliminarVehiculo() {
@@ -66,6 +79,14 @@ class Vehiculo {
         $stmt->bindParam(':patente', $this->patente);
 
         return $stmt->execute();
+    }
+    public function existeVehiculo() {
+        $query = "SELECT * FROM vehiculos WHERE patente = :patente LIMIT 1";
+        $stmt = $this->db->prepare($query);
+        $stmt->bindParam(':patente', $this->patente);
+        $stmt->execute();
+        
+        return $stmt->rowCount() > 0; // Retorna verdadero si el vehículo existe
     }
 }
 ?>
