@@ -47,10 +47,12 @@ class ClienteController {
     }
    
     // Método para obtener un cliente por su ID
-    public function obtenerClientePorId($id) {
-        $this->cliente->dni = $id; // Assuming 'dni' is used as an identifier
-        $this->cliente->obtenerClientePorDni();
-
+    public function obtenerClientePorDni($dni) {
+        $dni = isset($_GET['dni']) ? $_GET['dni'] : die("Falta el DNI");
+    
+        $this->cliente->dni = $dni; // Establecer el DNI en el objeto Cliente
+        $this->cliente->obtenerClientePorDni(); // Obtener datos del cliente
+    
         $cliente = [
             'dni' => $this->cliente->dni,
             'nombre' => $this->cliente->nombre,
@@ -87,17 +89,13 @@ class ClienteController {
     public function eliminarCliente($dni) {
         $this->cliente->dni = $dni;
 
-        if ($this->cliente->eliminarCliente()) {
+        if ($this->cliente->eliminarCliente($dni)) {
             echo "Cliente eliminado con éxito.";
         } else {
             echo "Error al eliminar el cliente.";
         }
     }
-    // Método para obtener todos los vehículos
-public function listarVehiculos() {
-    $stmt = $this->vehiculo->listarVehiculos(); // Asegúrate de que este método esté implementado en tu modelo de vehículo
-    return $stmt->fetchAll(PDO::FETCH_ASSOC); // Devuelve todos los vehículos como un array asociativo
-}
-
+    
+ 
 }
 ?>

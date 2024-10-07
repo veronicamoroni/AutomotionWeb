@@ -7,10 +7,10 @@ require_once('C:\xampp\htdocs\AutomotionWeb\controllers\VehiculoController.php')
 try {
     // Simula que es una solicitud POST
     $_SERVER["REQUEST_METHOD"] = "POST";  
-    $_POST['patente'] = 'ABC123';          // Patente del vehículo a modificar
-    $_POST['marca'] = 'Toyota';             // Nueva marca
-    $_POST['modelo'] = 'Corolla';           // Nuevo modelo
-    $_POST['dni_cliente'] = '12345678';     // DNI del cliente asociado al vehículo
+    $_POST['patente'] = 'BBB222';          // Patente del vehículo a modificar
+    $_POST['marca'] = 'FIAT';             // Nueva marca
+    $_POST['modelo'] = 'FIAT';           // Nuevo modelo
+    $_POST['dni_cliente'] = '2780219';     // DNI del cliente asociado al vehículo
 
     // Crear una instancia de la conexión a la base de datos
     $database = new Model();
@@ -19,16 +19,12 @@ try {
     // Crear instancia del controlador de Vehículos
     $vehiculoController = new VehiculoController($db);
 
-    // Crear una instancia del Vehiculo y establecer sus propiedades
-    $vehiculo = new Vehiculo(); // Asumiendo que tienes una clase Vehiculo
-    $vehiculo->setPatente($_POST['patente']);  // Asignar la patente
-    $vehiculo->setMarca($_POST['marca']);      // Asignar la nueva marca
-    $vehiculo->setModelo($_POST['modelo']);    // Asignar el nuevo modelo
-    $vehiculo->setDniCliente($_POST['dni_cliente']); // Asignar el DNI del cliente
-
-    // Establecer el vehículo en el controlador
-    $vehiculoController->setVehiculo($vehiculo);
-
+    // Asignar los valores a las propiedades del vehículo
+    $vehiculoController->vehiculo->patente = $_POST['patente'];
+    $vehiculoController->vehiculo->marca = $_POST['marca'];
+    $vehiculoController->vehiculo->modelo = $_POST['modelo'];
+    $vehiculoController->vehiculo->dni_cliente = $_POST['dni_cliente'];
+    
     // Llamar al método para modificar el vehículo
     if ($vehiculoController->modificarVehiculo()) {
         echo "Vehículo modificado con éxito.";

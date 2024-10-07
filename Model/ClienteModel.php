@@ -68,7 +68,7 @@
     
     */
     // Obtener todos los clientes
-public function listarClientes() {
+public function obtenerClientes() {
     $query = "SELECT * FROM " . $this->table; // Consulta para obtener todos los clientes
 
     $stmt = $this->db->prepare($query);
@@ -127,5 +127,6 @@ public function listarClientes() {
     
             return $stmt->execute();
         }
+        
     }
-    
+           

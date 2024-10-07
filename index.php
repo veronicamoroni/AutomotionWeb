@@ -16,14 +16,15 @@ $smarty->setConfigDir('C:\xampp\htdocs\AutomotionWeb\configs');
 
 
 
-// Mostrar la plantilla del menú primero
+/*Mostrar la plantilla del menú primero
 $request= $_SERVER['REQUEST_URI'];
 switch ($request) {
-
+    case 'registrarse':
+     $smarty->display('templates/Registrarse.tpl');
     case '/menu':
         $smarty->display('templates/menu.tpl');
         break;
-    case '/menu/crearCliente':
+    case 'crearCliente':
         $smarty->display('templates/crearCliente.tpl');
         break;
     case '/menu/modificarCliente':
@@ -34,8 +35,14 @@ switch ($request) {
             break;            
     case '/menu/listarClientes':
         $smarty->display('templates/listarClientes.tpl');
-        break;       
+        break;       */
     // Crear conexión a la base de datos
+    $smarty->display('Registrarse.tpl');
+    $smarty->display('crearCliente.tpl');
+    $smarty->display('modificarCliente.tpl');
+    $smarty->display('eliminarCliente.tpl');
+    $smarty->display('listarClientes.tpl');
+
 $database = new Model();
 $db = $database->getDb();
 
@@ -43,22 +50,29 @@ $db = $database->getDb();
 $usuarioController = new UsuarioController($db);
 $clienteController = new ClienteController($db);
 
-    $action = isset($_GET['action']) ? $_GET['action'] : '';
+$action = isset($_GET['action']) ? $_GET['action'] : '';
 
-        switch ($action) {
-            case 'crearCliente':
-                $clienteController->crearCliente();
-                break;
+switch ($action) {
+    case 'registrarse':
+        $usuarioController->registrarse();
+        break;
+    case 'crearCliente':
+        $clienteController->crearCliente();
+        break;
+    case 'modificarCliente':
+            $clienteController->modificarCliente();
             case 'eliminarCliente':
-                        $clienteController->eliminarCliente($dni);
-                        break;
-
-     // Otras acciones
+                $dni = isset($_POST['dni']) ? $_POST['dni'] : die("Falta el DNI");
+                $clienteController->eliminarCliente($dni);
+                break;
+            
+    case 'obtenerClientePorDni':
+            $clienteController->obtenerClientePorDni();
+            
     default:
-    $smarty->display('templates/menu.tpl');
-    break;
-        }
-                
+       // echo "Acción no reconocida.";
+}
+   
            
-        }
+        
 

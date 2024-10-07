@@ -6,10 +6,10 @@ require_once('C:\xampp\htdocs\AutomotionWeb\controllers\VehiculoController.php')
 
 // Simula que es una solicitud POST
 $_SERVER["REQUEST_METHOD"] = "POST";  
-$_POST['patente'] = 'ABC123';          // Patente del vehículo
+$_POST['patente'] = 'BBB222';          // Patente del vehículo
 $_POST['marca'] = 'Toyota';            // Marca del vehículo
 $_POST['modelo'] = 'Corolla';          // Modelo del vehículo
-$_POST['dni_cliente'] = '22400422';    // DNI del cliente dueño del vehículo
+$_POST['dni_cliente'] = '2780219';    // DNI del cliente dueño del vehículo
 
 try {
     // Crear una instancia de la conexión a la base de datos
