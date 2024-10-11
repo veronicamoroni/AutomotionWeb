@@ -16,7 +16,7 @@ $smarty->setConfigDir('C:\xampp\htdocs\AutomotionWeb\configs');
 
 
 
-/*Mostrar la plantilla del menú primero
+//Mostrar la plantilla del menú primero
 $request= $_SERVER['REQUEST_URI'];
 switch ($request) {
     case 'registrarse':
@@ -36,12 +36,16 @@ switch ($request) {
     case '/menu/listarClientes':
         $smarty->display('templates/listarClientes.tpl');
         break;       */
-    // Crear conexión a la base de datos
+    /*// Crear conexión a la base de datos
     $smarty->display('Registrarse.tpl');
+    $smarty->display('modificarUsuario.tpl');
+    $smarty->display('eliminarUsuario.tpl');
+    /*
     $smarty->display('crearCliente.tpl');
     $smarty->display('modificarCliente.tpl');
     $smarty->display('eliminarCliente.tpl');
     $smarty->display('listarClientes.tpl');
+    */
 
 $database = new Model();
 $db = $database->getDb();
@@ -56,6 +60,18 @@ switch ($action) {
     case 'registrarse':
         $usuarioController->registrarse();
         break;
+        /*
+          // Acción para modificar solo la contraseña del usuario
+    case 'modificarUsuario':
+        $usuarioController->modificarUsuario();
+      // Mostrar la plantilla para modificar la contraseña
+              break;
+    case 'eliminarUsuario':
+        $id = isset($_POST['id']) ? $_POST['id'] : die("Falta el ID");
+        $usuarioController->eliminarUsuario($id);
+        break;
+                      
+      
     case 'crearCliente':
         $clienteController->crearCliente();
         break;
@@ -67,7 +83,7 @@ switch ($action) {
                 break;
             
     case 'obtenerClientePorDni':
-            $clienteController->obtenerClientePorDni();
+         $clienteController->obtenerClientePorDni();  */ 
             
     default:
        // echo "Acción no reconocida.";

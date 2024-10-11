@@ -39,31 +39,26 @@ class ClienteController {
     }
     
 
-    // Método para obtener todos los clientes
-    public function listarClientes() {
-        $stmt = $this->cliente->listarClientes();
-        return $stmt->fetchAll(PDO::FETCH_ASSOC); // Cambia el `echo json_encode($clientes);`
-        
-    }
+  
    
-    // Método para obtener un cliente por su ID
-    public function obtenerClientePorDni($dni) {
-        $dni = isset($_GET['dni']) ? $_GET['dni'] : die("Falta el DNI");
+    public function obtenerClientePorDni() {
+        $query = "SELECT * FROM " . $this->table . " WHERE dni = :dni LIMIT 1"; // Cambia aquí
     
-        $this->cliente->dni = $dni; // Establecer el DNI en el objeto Cliente
-        $this->cliente->obtenerClientePorDni(); // Obtener datos del cliente
+        $stmt = $this->db->prepare($query);
+        $stmt->bindParam(':dni', $dni);
+        $stmt->execute();
     
-        $cliente = [
-            'dni' => $this->cliente->dni,
-            'nombre' => $this->cliente->nombre,
-            'apellido' => $this->cliente->apellido,
-            'telefono' => $this->cliente->telefono,
-            'email' => $this->cliente->email
-        ];
-
-        echo json_encode($cliente);
+        $row = $stmt->fetch(PDO::FETCH_ASSOC);
+    
+        if ($row) {
+            // Asigna los valores a las propiedades del cliente
+            $this->nombre = $row['nombre'];
+            $this->apellido = $row['apellido'];
+            $this->telefono = $row['telefono'];
+            $this->email = $row['email'];
+        }
     }
-
+    
     // Método para actualizar un cliente
     public function modificarCliente() {
         if ($_SERVER["REQUEST_METHOD"] == "POST") {

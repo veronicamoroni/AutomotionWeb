@@ -94,6 +94,8 @@
                         <button type="submit" class="btn btn-primary btn-block">Registrarse</button>
                     </form>
                 </div>
+                <button class="btn btn-light login-btn" onclick="window.location.href='menu.tpl'">Iniciar Sesión</button>
+</nav>
             </section>
         </div>
     </div>

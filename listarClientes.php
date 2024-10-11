@@ -12,7 +12,7 @@ $db = $Model->getDb(); // Usar getDb() para obtener la conexión
 $clienteController = new ClienteController($db);
 
 // Llamar al método para listar los clientes
-$clientes = $clienteController->listarClientes();
+$clientes = $clienteController->obtenerClientePorDni();
 
 // Verificar si hay clientes y mostrar los resultados
 if (!empty($clientes)) {

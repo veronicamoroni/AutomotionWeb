@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 5.4.0, created on 2024-10-07 03:37:30
+/* Smarty version 5.4.0, created on 2024-10-11 18:33:27
   from 'file:listarClientes.tpl' */
 
 /* @var \Smarty\Template $_smarty_tpl */
 if ($_smarty_tpl->getCompiled()->isFresh($_smarty_tpl, array (
   'version' => '5.4.0',
-  'unifunc' => 'content_67033b5a7d0479_96801972',
+  'unifunc' => 'content_67095357d76932_04542720',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '78003b82d23de4884fb81241a55df243f922c7bd' => 
     array (
       0 => 'listarClientes.tpl',
-      1 => 1728262744,
+      1 => 1728267195,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->getCompiled()->isFresh($_smarty_tpl, array (
   array (
   ),
 ))) {
-function content_67033b5a7d0479_96801972 (\Smarty\Template $_smarty_tpl) {
+function content_67095357d76932_04542720 (\Smarty\Template $_smarty_tpl) {
 $_smarty_current_dir = 'C:\\xampp\\htdocs\\AutomotionWeb\\templates';
 ?><!DOCTYPE html>
 <html lang="es">
@@ -98,7 +98,7 @@ $_smarty_current_dir = 'C:\\xampp\\htdocs\\AutomotionWeb\\templates';
         <div class="card">
             <div class="card-body">
                 <h2 class="text-center">Lista de Clientes</h2>
-                <form action="index.php?action=listarClientes" method="post">
+                <form action="index.php?action=obtenerClientePorDni" method="post">
                     <table class="table table-bordered">
                         
                         <thead>

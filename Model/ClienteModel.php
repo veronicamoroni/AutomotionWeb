@@ -49,7 +49,7 @@
             }
             
         // Obtener todos los clientes
-       /* public function listarClientes() {
+       public function listarClientes() {
             $query = "SELECT * FROM " . $this->table . " WHERE dni = :dni LIMIT 0,1";
     
             $stmt = $this->db->prepare($query);
@@ -66,7 +66,7 @@
             }
         }
     
-    */
+    
     // Obtener todos los clientes
 public function obtenerClientes() {
     $query = "SELECT * FROM " . $this->table; // Consulta para obtener todos los clientes

@@ -71,7 +71,7 @@ class UsuarioController {
     // Método para eliminar un usuario
     public function eliminarUsuario($id) {
         $this->usuario->id = $id;
-
+    
         if ($this->usuario->eliminarUsuario()) {
             echo "Usuario eliminado con éxito.";
         } else {
@@ -79,30 +79,28 @@ class UsuarioController {
         }
     }
 
-    // Método para actualizar un usuario
-    public function actualizarUsuario() {
-        if ($_SERVER["REQUEST_METHOD"] == "POST") {
-            // Asegurarse de que el ID del usuario esté presente
-            if (isset($_POST['id'])) {
-                $this->usuario->id = $_POST['id'];
-                $this->usuario->nombre = $_POST['nombre'];
-                $this->usuario->apellido = $_POST['apellido']; // Asegúrate de que el apellido esté también
-                $this->usuario->email = $_POST['email'];
-                
-                // Actualizar la contraseña si se ha proporcionado una nueva
-                if (!empty($_POST['contraseña'])) {
-                    $this->usuario->contraseña = password_hash($_POST['contraseña'], PASSWORD_BCRYPT);
-                }
+   
+    // Método para actualizar solo la contraseña de un usuario
+public function modificarUsuario() {
+    if ($_SERVER["REQUEST_METHOD"] == "POST") {
+        // Asegurarse de que el ID del usuario y la nueva contraseña estén presentes
+        if (isset($_POST['id']) && !empty($_POST['nueva_contrasena'])) {
+            $this->usuario->id = $_POST['id'];
+            $nuevaContrasena = $_POST['nueva_contrasena'];
 
-                // Llamar al método actualizar del modelo
-                if ($this->usuario->actualizarUsuario()) {
-                    echo "Usuario actualizado con éxito.";
-                } else {
-                    echo "Error al actualizar el usuario.";
-                }
+            // Hashear la nueva contraseña
+            $this->usuario->contrasena = password_hash($nuevaContrasena, PASSWORD_BCRYPT);
+
+            // Llamar al método del modelo para actualizar la contraseña
+            if ($this->usuario->actualizarContrasena()) {
+                echo "Contraseña actualizada con éxito.";
             } else {
-                echo "Falta el ID del usuario.";
+                echo "Error al actualizar la contraseña.";
             }
+        } else {
+            echo "Falta el ID del usuario o la nueva contraseña.";
         }
     }
+}
+
 }

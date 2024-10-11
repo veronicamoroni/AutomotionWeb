@@ -74,7 +74,7 @@
         <div class="card">
             <div class="card-body">
                 <h2 class="text-center">Lista de Clientes</h2>
-                <form action="index.php?action=listarClientes" method="post">
+                <form action="index.php?action=obtenerClientePorDni" method="post">
                     <table class="table table-bordered">
                         
                         <thead>
