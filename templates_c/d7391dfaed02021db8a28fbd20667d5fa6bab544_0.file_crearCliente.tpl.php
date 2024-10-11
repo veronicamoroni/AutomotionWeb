@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 5.4.0, created on 2024-10-07 01:49:46
+/* Smarty version 5.4.0, created on 2024-10-11 21:53:56
   from 'file:templates/crearCliente.tpl' */
 
 /* @var \Smarty\Template $_smarty_tpl */
 if ($_smarty_tpl->getCompiled()->isFresh($_smarty_tpl, array (
   'version' => '5.4.0',
-  'unifunc' => 'content_6703221aed45e4_04817023',
+  'unifunc' => 'content_670982547e8229_56352642',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     'd7391dfaed02021db8a28fbd20667d5fa6bab544' => 
     array (
       0 => 'templates/crearCliente.tpl',
-      1 => 1728258582,
+      1 => 1728676399,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->getCompiled()->isFresh($_smarty_tpl, array (
   array (
   ),
 ))) {
-function content_6703221aed45e4_04817023 (\Smarty\Template $_smarty_tpl) {
+function content_670982547e8229_56352642 (\Smarty\Template $_smarty_tpl) {
 $_smarty_current_dir = 'C:\\xampp\\htdocs\\AutomotionWeb\\templates';
 ?>
 <!DOCTYPE html>
@@ -85,7 +85,7 @@ $_smarty_current_dir = 'C:\\xampp\\htdocs\\AutomotionWeb\\templates';
                 <span class="material-symbols-outlined">Alta de Cliente</span>
             </div>
            
-            <form action="index.php?action=crearCliente" method="post">
+            <form action="/index.php?action=crearCliente" method="post">
                 <div class="form-group">
                     <label for="dni">DNI:</label>
                     <input type="text" class="form-control" id="dni" name="dni" required>

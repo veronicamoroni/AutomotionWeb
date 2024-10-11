@@ -47,24 +47,7 @@
                     }
                 }
             }
-            
-        // Obtener todos los clientes
-       public function listarClientes() {
-            $query = "SELECT * FROM " . $this->table . " WHERE dni = :dni LIMIT 0,1";
-    
-            $stmt = $this->db->prepare($query);
-            $stmt->bindParam(':dni', $this->dni);
-            $stmt->execute();
-    
-            $row = $stmt->fetch(PDO::FETCH_ASSOC);
-    
-            if ($row) {
-                $this->nombre = $row['nombre'];
-                $this->apellido = $row['apellido'];
-                $this->telefono = $row['telefono'];
-                $this->email = $row['email'];
-            }
-        }
+      
     
     
     // Obtener todos los clientes

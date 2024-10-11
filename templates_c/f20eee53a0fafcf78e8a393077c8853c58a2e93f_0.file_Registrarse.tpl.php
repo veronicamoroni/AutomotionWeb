@@ -1,17 +1,17 @@
 <?php
-/* Smarty version 5.4.0, created on 2024-10-11 21:17:48
-  from 'file:Registrarse.tpl' */
+/* Smarty version 5.4.0, created on 2024-10-11 20:45:40
+  from 'file:templates/Registrarse.tpl' */
 
 /* @var \Smarty\Template $_smarty_tpl */
 if ($_smarty_tpl->getCompiled()->isFresh($_smarty_tpl, array (
   'version' => '5.4.0',
-  'unifunc' => 'content_670979dc3a4d39_55050626',
+  'unifunc' => 'content_670972544e5591_62059805',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
-    '2c378015fc84bf2f0df8a047f2b0a10e76d62135' => 
+    'f20eee53a0fafcf78e8a393077c8853c58a2e93f' => 
     array (
-      0 => 'Registrarse.tpl',
+      0 => 'templates/Registrarse.tpl',
       1 => 1728671682,
       2 => 'file',
     ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->getCompiled()->isFresh($_smarty_tpl, array (
   array (
   ),
 ))) {
-function content_670979dc3a4d39_55050626 (\Smarty\Template $_smarty_tpl) {
+function content_670972544e5591_62059805 (\Smarty\Template $_smarty_tpl) {
 $_smarty_current_dir = 'C:\\xampp\\htdocs\\AutomotionWeb\\templates';
 ?><!DOCTYPE html>
 <html lang="es">

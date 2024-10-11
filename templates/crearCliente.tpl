@@ -61,7 +61,7 @@
                 <span class="material-symbols-outlined">Alta de Cliente</span>
             </div>
            
-            <form action="index.php?action=crearCliente" method="post">
+            <form action="/index.php?action=crearCliente" method="post">
                 <div class="form-group">
                     <label for="dni">DNI:</label>
                     <input type="text" class="form-control" id="dni" name="dni" required>

@@ -73,27 +73,20 @@ class Usuario {
         }
     }
     // Método para actualizar solo la contraseña de un usuario
-public function modificarUsuario() {
-    if ($_SERVER["REQUEST_METHOD"] == "POST") {
-        // Asegurarse de que el ID del usuario y la nueva contraseña estén presentes
-        if (isset($_POST['id']) && !empty($_POST['nueva_contrasena'])) {
-            $this->usuario->id = $_POST['id'];
-            $nuevaContrasena = $_POST['nueva_contrasena'];
-
-            // Hashear la nueva contraseña
-            $this->usuario->contrasena = password_hash($nuevaContrasena, PASSWORD_BCRYPT);
-
-            // Llamar al método del modelo para actualizar la contraseña
-            if ($this->usuario->actualizarContrasena()) {
-                echo "Contraseña actualizada con éxito.";
-            } else {
-                echo "Error al actualizar la contraseña.";
-            }
-        } else {
-            echo "Falta el ID del usuario o la nueva contraseña.";
+    public function actualizarContrasena() {
+        $query = "UPDATE " . $this->table . " SET contrasena = :contrasena WHERE id = :id";
+    
+        $stmt = $this->db->prepare($query);
+        $stmt->bindParam(':contrasena', $this->contrasena);
+        $stmt->bindParam(':id', $this->id);
+    
+        if ($stmt->execute()) {
+            return true;
         }
+    
+        return false;
     }
-}
+    
 
 /*    
     // Actualizar un usuario
