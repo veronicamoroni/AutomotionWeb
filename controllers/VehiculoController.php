@@ -1,5 +1,6 @@
 <?php
-require_once('C:\xampp\htdocs\AutomotionWeb\Model\VehiculoModel.php');
+
+include_once(__DIR__ . '/../Model/VehiculoModel.php');
 
 class VehiculoController {
     private $db;
@@ -11,31 +12,42 @@ class VehiculoController {
         $this->vehiculo = new Vehiculo($this->db);  // Instancia del modelo Vehiculo
     }
 
-    // Método para crear un vehículo
-    public function crearVehiculo() {
-        if ($_SERVER["REQUEST_METHOD"] == "POST") {
-            // Obtener datos del formulario
-            $this->vehiculo->patente = isset($_POST['patente']) ? $_POST['patente'] : '';
-            $this->vehiculo->marca = isset($_POST['marca']) ? $_POST['marca'] : '';
-            $this->vehiculo->modelo = isset($_POST['modelo']) ? $_POST['modelo'] : '';
-            $this->vehiculo->dni_cliente = isset($_POST['dni_cliente']) ? $_POST['dni_cliente'] : '';
+   // Método para crear un vehículo
+public function crearVehiculo() {
+    if ($_SERVER["REQUEST_METHOD"] == "POST") {
+        // Obtener datos del formulario
+        $this->vehiculo->patente = isset($_POST['patente']) ? $_POST['patente'] : '';
+        $this->vehiculo->marca = isset($_POST['marca']) ? $_POST['marca'] : '';
+        $this->vehiculo->modelo = isset($_POST['modelo']) ? $_POST['modelo'] : '';
+        $this->vehiculo->dni_cliente = isset($_POST['dni_cliente']) ? $_POST['dni_cliente'] : '';
 
-            // Validar que los campos obligatorios no estén vacíos
-            if (!empty($this->vehiculo->patente) && !empty($this->vehiculo->marca) && !empty($this->vehiculo->modelo)) {
+        // Validar que los campos obligatorios no estén vacíos
+        if (!empty($this->vehiculo->patente) && !empty($this->vehiculo->marca) && !empty($this->vehiculo->modelo)) {
+            try {
                 // Llamar al método para crear el vehículo
                 $resultado = $this->vehiculo->crearVehiculo();
 
                 // Verificar el resultado
                 if ($resultado === true) {
-                    echo "Vehículo creado con éxito.";
+                    echo "¡Vehículo creado con éxito!";
                 } else {
-                    echo $resultado;  // Mostrar mensaje de error si el vehículo ya existe o hubo otro problema
+                    echo "Hubo un problema al crear el vehículo. Por favor, inténtalo nuevamente.";
                 }
-            } else {
-                echo "Por favor, rellena todos los campos obligatorios.";
+            } catch (PDOException $e) {
+                // Verificar si el error es de llave duplicada
+                if ($e->getCode() == '23505') {
+                    echo "La patente ingresada ya está registrada. Por favor, verifica los datos e intenta nuevamente.";
+                } else {
+                    echo "Lo sentimos, ocurrió un error inesperado al crear el vehículo. Por favor, intenta más tarde.";
+                }
             }
+        } else {
+            echo "Por favor, completa todos los campos obligatorios antes de continuar.";
         }
     }
+}
+
+    
 
     // Método para modificar el vehículo
     public function modificarVehiculo() {
