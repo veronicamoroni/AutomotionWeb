@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 5.4.0, created on 2024-10-02 16:40:32
+/* Smarty version 5.4.0, created on 2024-10-12 00:04:28
   from 'file:templates/eliminarCliente.tpl' */
 
 /* @var \Smarty\Template $_smarty_tpl */
 if ($_smarty_tpl->getCompiled()->isFresh($_smarty_tpl, array (
   'version' => '5.4.0',
-  'unifunc' => 'content_66fd5b60a9aca4_76102940',
+  'unifunc' => 'content_6709a0eccdea58_38764484',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '89a0e4cc4736ad6884e8a9727546cbfc2f672bc2' => 
     array (
       0 => 'templates/eliminarCliente.tpl',
-      1 => 1727872260,
+      1 => 1728684250,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->getCompiled()->isFresh($_smarty_tpl, array (
   array (
   ),
 ))) {
-function content_66fd5b60a9aca4_76102940 (\Smarty\Template $_smarty_tpl) {
+function content_6709a0eccdea58_38764484 (\Smarty\Template $_smarty_tpl) {
 $_smarty_current_dir = 'C:\\xampp\\htdocs\\AutomotionWeb\\templates';
 ?><!DOCTYPE html>
 <html lang="es">
@@ -93,7 +93,7 @@ $_smarty_current_dir = 'C:\\xampp\\htdocs\\AutomotionWeb\\templates';
                     <span class="material-symbols-outlined">Eliminar</span>
                 </div>
                 <div class="card p-4 shadow">
-                    <form action="index.php?action=eliminarCliente" method="post">
+                    <form action="/index.php?action=eliminarCliente" method="post">
                         <div class="form-group">
                             <label for="id">DNI del cliente a Eliminar:</label>
                             <input type="text" class="form-control" id="dni" name="dni" required>

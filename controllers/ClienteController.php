@@ -1,8 +1,6 @@
 <?php
 require_once('C:\xampp\htdocs\AutomotionWeb\Model\ClienteModel.php');
 
-
-
 class ClienteController {
     private $db;
     private $cliente;
@@ -13,6 +11,8 @@ class ClienteController {
     }
 
     public function crearCliente() {
+        $mensaje = ''; // Inicializar el mensaje para mostrar en la página
+    
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
             // Obtener datos del formulario
             $this->cliente->dni = isset($_POST['dni']) ? $_POST['dni'] : '';
@@ -28,37 +28,28 @@ class ClienteController {
     
                 // Verificar el resultado
                 if ($resultado === true) {
-                    echo "Cliente creado con éxito.";
+                    // Mostrar mensaje de éxito
+                    $mensaje = "Cliente creado con éxito.";
+    
+                    // Aquí puedes resetear el formulario usando JavaScript desde el frontend
+                    echo "<script>document.getElementById('formCrearCliente').reset();</script>";
+    
                 } else {
-                    echo $resultado;  // Mostrar mensaje de error si el cliente ya existe o hubo otro problema
+                    // Mostrar mensaje de error si el cliente ya existe o hubo otro problema
+                    $mensaje = $resultado;
                 }
             } else {
-                echo "Por favor, rellena todos los campos obligatorios.";
+                // Mostrar mensaje si faltan campos obligatorios
+                $mensaje = "Por favor, rellena todos los campos obligatorios.";
             }
         }
+    
+        // Mostrar el mensaje en la vista (asegúrate de tener una parte del HTML que muestre esto)
+        echo "<div id='mensaje'>$mensaje</div>";
     }
     
-
-  
    
-    public function obtenerClientePorDni() {
-        $query = "SELECT * FROM " . $this->table . " WHERE dni = :dni LIMIT 1"; // Cambia aquí
-    
-        $stmt = $this->db->prepare($query);
-        $stmt->bindParam(':dni', $dni);
-        $stmt->execute();
-    
-        $row = $stmt->fetch(PDO::FETCH_ASSOC);
-    
-        if ($row) {
-            // Asigna los valores a las propiedades del cliente
-            $this->nombre = $row['nombre'];
-            $this->apellido = $row['apellido'];
-            $this->telefono = $row['telefono'];
-            $this->email = $row['email'];
-        }
-    }
-    
+
     // Método para actualizar un cliente
     public function modificarCliente() {
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -84,13 +75,21 @@ class ClienteController {
     public function eliminarCliente($dni) {
         $this->cliente->dni = $dni;
 
-        if ($this->cliente->eliminarCliente($dni)) {
+        if ($this->cliente->eliminarCliente()) {
             echo "Cliente eliminado con éxito.";
         } else {
             echo "Error al eliminar el cliente.";
         }
     }
     
- 
+    // Método para obtener todos los clientes
+    public function obtenerClientes() {
+        $stmt = $this->cliente->obtenerClientes(); // Cambiado de $this->usuario a $this->cliente
+        $clientes = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+    echo json_encode($clientes);
 }
+
+    }
+   
 ?>

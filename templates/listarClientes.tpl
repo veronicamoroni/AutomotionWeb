@@ -23,87 +23,74 @@
         .navbar-title {
             color: white;
             font-size: 24px;
-            margin-left: 20px;
         }
 
-        .card {
-            border: 1px solid #ced4da;
-            border-radius: 0.5rem;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        .container {
+            margin-top: 20px;
         }
 
-        .card h2 {
-            color: #343a40;
+        .table th, .table td {
+            text-align: left;
         }
-
-        .form-group label {
-            font-weight: bold;
-        }
-
-        .btn-primary {
-            background-color: #007bff;
-            border: none;
-        }
-
-        .btn-primary:hover {
-            background-color: #0056b3;
-        }
-
-        .text-center {
-            margin-bottom: 20px;
-        }
-
-        .material-symbols-outlined {
-            font-size: 50px;
-            color: #007bff;
+        
+        #mensaje {
+            margin: 20px 0;
+            font-size: 18px;
+            color: green;
         }
     </style>
 </head>
 <body>
-
-    <nav class="navbar navbar-expand-lg">
-        <div class="container">
-            <a class="navbar-brand" href="#">
-                <img src="logo.png" alt="Logo"> <!-- Asegúrate de tener tu logo -->
-            </a>
+    <nav class="navbar navbar-expand-lg navbar-dark">
+        <a class="navbar-brand" href="#">
+            <img src="logo.png" alt="Logo de Automotion">
             <span class="navbar-title">Automotion</span>
-        </div>
+        </a>
     </nav>
 
-    <div class="container mt-5">
-        <div class="card">
-            <div class="card-body">
-                <h2 class="text-center">Lista de Clientes</h2>
-                <form action="index.php?action=obtenerClientePorDni" method="post">
-                    <table class="table table-bordered">
-                        
-                        <thead>
-                            <tr>
-                                <th>DNI</th>
-                                <th>Nombre</th>
-                                <th>Apellido</th>
-                                <th>Teléfono</th>
-                                <th>Email</th>
-                                <th>Acciones</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            
-                          
-                                    <button type="submit" name="modificar" class="btn btn-primary">Modificar</button>
-                                    <button type="submit" name="eliminar" value="" class="btn btn-danger">Eliminar</button>
-                                </td>
-                            </tr>
-                            <!-- Puedes agregar más filas dinámicamente aquí -->
-                        </tbody>
-                    </table>
-                </form>
-            </div>
-        </div>
-    </div>
+    <div class="container">
+        <h2>Lista de Clientes</h2>
 
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+        <div id="mensaje"><?php if (isset($mensaje)) echo $mensaje; ?></div> <!-- Mensaje de éxito/error -->
+
+        <table class="table table-bordered">
+            <thead class="thead-dark">
+                <tr>
+                    <th>DNI</th>
+                    <th>Nombre</th>
+                    <th>Apellido</th>
+                    <th>Teléfono</th>
+                    <th>Email</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+    <?php
+    if ($clientes->rowCount() > 0) {
+        while ($row = $clientes->fetch(PDO::FETCH_ASSOC)) {
+            echo "<tr>
+                <td>{$row['dni']}</td>
+                <td>{$row['nombre']}</td>
+                <td>{$row['apellido']}</td>
+                <td>{$row['telefono']}</td>
+                <td>{$row['email']}</td>
+                <td>
+                    <form method='POST' action='eliminar_cliente.php'>
+                        <input type='hidden' name='dni' value='{$row['dni']}'>
+                        <button type='submit' class='btn btn-danger btn-sm'>Eliminar</button>
+                    </form>
+                </td>
+            </tr>";
+        }
+    } else {
+        echo "<tr><td colspan='6'>No hay clientes registrados.</td></tr>";
+    }
+    ?>
+</tbody>
+                ?>
+            </tbody>
+        </table>
+    </div>
 </body>
 </html>
+

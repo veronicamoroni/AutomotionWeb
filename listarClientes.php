@@ -3,11 +3,22 @@
 require_once('C:\xampp\htdocs\AutomotionWeb\configs\conexion.php'); // Archivo de conexión
 require_once('C:\xampp\htdocs\AutomotionWeb\Model\Model.php'); // Modelo Cliente
 require_once('controllers/ClienteController.php'); // Controlador ClienteController
-
+try {
 // Inicializar la conexión a la base de datos
 $Model = new Model();
 $db = $Model->getDb(); // Usar getDb() para obtener la conexión
 
+    
+    // Crear instancia del controlador de Clientes
+    $clienteController = new ClienteController($db);
+
+    // Llamar al método para obtener todos los clientes
+    $clienteController->obtenerClientes(); // Asegúrate de que esta línea solo aparezca una vez
+
+} catch (Exception $e) {
+    echo "Error: " . $e->getMessage();
+}
+/*
 // Inicializar el controlador Cliente
 $clienteController = new ClienteController($db);
 
@@ -26,5 +37,5 @@ if (!empty($clientes)) {
     }
 } else {
     echo "No hay clientes en la base de datos.\n";
-}
+}*/
 ?>

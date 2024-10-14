@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 5.4.0, created on 2024-10-02 16:39:32
+/* Smarty version 5.4.0, created on 2024-10-13 02:17:33
   from 'file:templates/listarClientes.tpl' */
 
 /* @var \Smarty\Template $_smarty_tpl */
 if ($_smarty_tpl->getCompiled()->isFresh($_smarty_tpl, array (
   'version' => '5.4.0',
-  'unifunc' => 'content_66fd5b24ac3924_13320317',
+  'unifunc' => 'content_670b119df37652_37900561',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     'c7e6757aa8d1197cab3a9e23a2237e117658517d' => 
     array (
       0 => 'templates/listarClientes.tpl',
-      1 => 1727641343,
+      1 => 1728778548,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->getCompiled()->isFresh($_smarty_tpl, array (
   array (
   ),
 ))) {
-function content_66fd5b24ac3924_13320317 (\Smarty\Template $_smarty_tpl) {
+function content_670b119df37652_37900561 (\Smarty\Template $_smarty_tpl) {
 $_smarty_current_dir = 'C:\\xampp\\htdocs\\AutomotionWeb\\templates';
 ?><!DOCTYPE html>
 <html lang="es">
@@ -47,95 +47,85 @@ $_smarty_current_dir = 'C:\\xampp\\htdocs\\AutomotionWeb\\templates';
         .navbar-title {
             color: white;
             font-size: 24px;
-            margin-left: 20px;
         }
 
-        .card {
-            border: 1px solid #ced4da;
-            border-radius: 0.5rem;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        .container {
+            margin-top: 20px;
         }
 
-        .card h2 {
-            color: #343a40;
+        .table th, .table td {
+            text-align: left;
         }
-
-        .form-group label {
-            font-weight: bold;
-        }
-
-        .btn-primary {
-            background-color: #007bff;
-            border: none;
-        }
-
-        .btn-primary:hover {
-            background-color: #0056b3;
-        }
-
-        .text-center {
-            margin-bottom: 20px;
-        }
-
-        .material-symbols-outlined {
-            font-size: 50px;
-            color: #007bff;
+        
+        #mensaje {
+            margin: 20px 0;
+            font-size: 18px;
+            color: green;
         }
     </style>
 </head>
 <body>
-
-    <nav class="navbar navbar-expand-lg">
-        <div class="container">
-            <a class="navbar-brand" href="#">
-                <img src="logo.png" alt="Logo"> <!-- Asegúrate de tener tu logo -->
-            </a>
+    <nav class="navbar navbar-expand-lg navbar-dark">
+        <a class="navbar-brand" href="#">
+            <img src="logo.png" alt="Logo de Automotion">
             <span class="navbar-title">Automotion</span>
-        </div>
+        </a>
     </nav>
 
-    <div class="container mt-5">
-        <div class="card">
-            <div class="card-body">
-                <h2 class="text-center">Lista de Clientes</h2>
-                <form action="index.php?action=listarClientes" method="post">
-                    <table class="table table-bordered">
-                        
-                        <thead>
-                            <tr>
-                                <th>DNI</th>
-                                <th>Nombre</th>
-                                <th>Apellido</th>
-                                <th>Teléfono</th>
-                                <th>Email</th>
-                                <th>Acciones</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            
-                          
-                                    <button type="submit" name="modificar" class="btn btn-primary">Modificar</button>
-                                    <button type="submit" name="eliminar" value="" class="btn btn-danger">Eliminar</button>
-                                </td>
-                            </tr>
-                            <!-- Puedes agregar más filas dinámicamente aquí -->
-                        </tbody>
-                    </table>
-                </form>
-            </div>
-        </div>
-    </div>
+    <div class="container">
+        <h2>Lista de Clientes</h2>
 
-    <?php echo '<script'; ?>
- src="https://code.jquery.com/jquery-3.5.1.slim.min.js"><?php echo '</script'; ?>
->
-    <?php echo '<script'; ?>
- src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"><?php echo '</script'; ?>
->
-    <?php echo '<script'; ?>
- src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"><?php echo '</script'; ?>
->
+        <div id="mensaje"><?php echo '<?php'; ?>
+ if (isset($mensaje)) echo $mensaje; <?php echo '?>'; ?>
+</div> <!-- Mensaje de éxito/error -->
+
+        <table class="table table-bordered">
+            <thead class="thead-dark">
+                <tr>
+                    <th>DNI</th>
+                    <th>Nombre</th>
+                    <th>Apellido</th>
+                    <th>Teléfono</th>
+                    <th>Email</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php echo '<?php'; ?>
+
+                $clientes = $this->cliente->obtenerClientes();
+                if ($clientes->rowCount() > 0) {
+                    while ($row = $clientes->fetch(PDO::FETCH_ASSOC)) {
+                        echo "<tr>
+                            <td><?php echo $_smarty_tpl->getValue('row')['dni'];?>
+</td>
+                            <td><?php echo $_smarty_tpl->getValue('row')['nombre'];?>
+</td>
+                            <td><?php echo $_smarty_tpl->getValue('row')['apellido'];?>
+</td>
+                            <td><?php echo $_smarty_tpl->getValue('row')['telefono'];?>
+</td>
+                            <td><?php echo $_smarty_tpl->getValue('row')['email'];?>
+</td>
+                            <td>
+                                <form method='POST' action='eliminar_cliente.php'>
+                                    <input type='hidden' name='dni' value='<?php echo $_smarty_tpl->getValue('row')['dni'];?>
+'>
+                                    <button type='submit' class='btn btn-danger btn-sm'>Eliminar</button>
+                                </form>
+                            </td>
+                        </tr>";
+                    }
+                } else {
+                    echo "<tr><td colspan='6'>No hay clientes registrados.</td></tr>";
+                }
+                <?php echo '?>'; ?>
+
+            </tbody>
+        </table>
+    </div>
 </body>
 </html>
+
 <?php }
 }

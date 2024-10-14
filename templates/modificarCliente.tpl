@@ -71,7 +71,7 @@
                 <span class="material-symbols-outlined">Editar Cliente</span>
             </div>
           
-            <form action="index.php?action=modificarCliente" method="post">
+            <form action="/index.php?action=modificarCliente" method="post">
                 <div class="form-group">
                     <label for="dni">DNI:</label>
                     <input type="text" class="form-control" id="dni" name="dni" required>

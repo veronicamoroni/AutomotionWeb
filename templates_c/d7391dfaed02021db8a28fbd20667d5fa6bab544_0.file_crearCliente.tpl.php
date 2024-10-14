@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 5.4.0, created on 2024-10-11 21:53:56
+/* Smarty version 5.4.0, created on 2024-10-11 23:51:13
   from 'file:templates/crearCliente.tpl' */
 
 /* @var \Smarty\Template $_smarty_tpl */
 if ($_smarty_tpl->getCompiled()->isFresh($_smarty_tpl, array (
   'version' => '5.4.0',
-  'unifunc' => 'content_670982547e8229_56352642',
+  'unifunc' => 'content_67099dd1474f98_69335072',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     'd7391dfaed02021db8a28fbd20667d5fa6bab544' => 
     array (
       0 => 'templates/crearCliente.tpl',
-      1 => 1728676399,
+      1 => 1728683461,
       2 => 'file',
     ),
   ),
@@ -20,10 +20,9 @@ if ($_smarty_tpl->getCompiled()->isFresh($_smarty_tpl, array (
   array (
   ),
 ))) {
-function content_670982547e8229_56352642 (\Smarty\Template $_smarty_tpl) {
+function content_67099dd1474f98_69335072 (\Smarty\Template $_smarty_tpl) {
 $_smarty_current_dir = 'C:\\xampp\\htdocs\\AutomotionWeb\\templates';
-?>
-<!DOCTYPE html>
+?><!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
@@ -70,6 +69,11 @@ $_smarty_current_dir = 'C:\\xampp\\htdocs\\AutomotionWeb\\templates';
             font-size: 50px;
             color: #007bff;
         }
+        .message {
+            margin-top: 20px;
+            font-size: 18px;
+            color: green;
+        }
     </style>
 </head>
 <body>
@@ -84,8 +88,9 @@ $_smarty_current_dir = 'C:\\xampp\\htdocs\\AutomotionWeb\\templates';
             <div class="text-center mb-4">
                 <span class="material-symbols-outlined">Alta de Cliente</span>
             </div>
-           
-            <form action="/index.php?action=crearCliente" method="post">
+
+            <!-- Formulario de registro de cliente -->
+            <form id="formCrearCliente" action="/index.php?action=crearCliente" method="post">
                 <div class="form-group">
                     <label for="dni">DNI:</label>
                     <input type="text" class="form-control" id="dni" name="dni" required>
@@ -108,8 +113,39 @@ $_smarty_current_dir = 'C:\\xampp\\htdocs\\AutomotionWeb\\templates';
                 </div>
                 <button type="submit" class="btn btn-primary btn-block">Registrar Cliente</button>
             </form>
+
+            <!-- Área para mostrar mensajes de éxito o error -->
+            <div id="mensaje" class="message"></div>
         </div>
     </div>
+
+    <!-- JavaScript para manejar el reinicio del formulario y mostrar el mensaje -->
+    <?php echo '<script'; ?>
+>
+        document.getElementById('formCrearCliente').onsubmit = function(event) {
+            event.preventDefault(); // Evita el envío automático del formulario
+
+            const form = document.getElementById('formCrearCliente');
+            const formData = new FormData(form);
+
+            fetch('/index.php?action=crearCliente', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.text())
+            .then(data => {
+                // Mostrar el mensaje en el div 'mensaje'
+                document.getElementById('mensaje').innerHTML = data;
+
+                // Reiniciar el formulario
+                form.reset();
+            })
+            .catch(error => {
+                document.getElementById('mensaje').innerHTML = 'Error al registrar el cliente.';
+            });
+        };
+    <?php echo '</script'; ?>
+>
 </body>
 </html><?php }
 }

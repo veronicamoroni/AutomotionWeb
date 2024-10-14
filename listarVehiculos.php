@@ -3,7 +3,7 @@
 require_once('C:\xampp\htdocs\AutomotionWeb\configs\conexion.php'); // Archivo de conexión
 require_once('C:\xampp\htdocs\AutomotionWeb\Model\Model.php'); // Modelo Vehículo
 require_once('controllers/VehiculoController.php'); // Controlador VehiculoController
-
+try {
 // Inicializar la conexión a la base de datos
 $Model = new Model();
 $db = $Model->getDb(); // Usar getDb() para obtener la conexión
@@ -11,7 +11,16 @@ $db = $Model->getDb(); // Usar getDb() para obtener la conexión
 // Inicializar el controlador Vehículo
 $vehiculoController = new VehiculoController($db);
 
-// Llamar al método para listar los vehículos
+
+
+  
+    // Llamar al método para obtener todos los vehículos
+    $vehiculoController->obtenerVehiculos(); // Asegúrate de que esta línea solo aparezca una vez
+
+} catch (Exception $e) {
+    echo "Error: " . $e->getMessage();
+}
+/*// Llamar al método para listar los vehículos
 $vehiculos = $vehiculoController->listarVehiculos();
 
 // Verificar si hay vehículos y mostrar los resultados
@@ -24,6 +33,6 @@ if (!empty($vehiculos)) {
         echo "-------------------------\n";
     }
 } else {
-    echo "No hay vehículos en la base de datos.\n";
-}
+    echo "No hay vehículos en la base de datos.\n";*/
+
 ?>

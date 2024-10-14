@@ -3,7 +3,8 @@ require_once('C:\xampp\htdocs\AutomotionWeb\Model\VehiculoModel.php');
 
 class VehiculoController {
     private $db;
-    private $vehiculo;
+    public $vehiculo;
+    private $table = "vehiculos"; // Definición de la tabla
 
     public function __construct($db) {
         $this->db = $db;
@@ -36,11 +37,30 @@ class VehiculoController {
         }
     }
 
-    // Método para obtener todos los vehículos
-    public function listarVehiculos() {
-        $stmt = $this->vehiculo->listarVehiculos();
-        return $stmt->fetchAll(PDO::FETCH_ASSOC); // Devuelve todos los vehículos como un array asociativo
+    // Método para modificar el vehículo
+    public function modificarVehiculo() {
+        return $this->vehiculo->modificarVehiculo();
     }
+
+    // Método para eliminar un vehículo
+    public function eliminarVehiculo($patente) {
+        $this->vehiculo->patente = $patente;
+
+        if ($this->vehiculo->eliminarVehiculo()) {
+            echo "Vehículo eliminado con éxito.";
+        } else {
+            echo "Error al eliminar el vehículo.";
+        }
+    }
+
+    // Método para obtener todos los vehículos
+public function obtenerVehiculos() {
+    $stmt = $this->vehiculo->obtenerVehiculos(); // Cambiado de $this->cliente a $this->vehiculo
+    $vehiculos = $stmt->fetchAll(PDO::FETCH_ASSOC); // Obtener todos los vehículos en formato asociativo
+
+    echo json_encode($vehiculos); // Convertir el resultado a JSON y devolverlo
+}
+
 
     // Método para obtener un vehículo por su patente
     public function obtenerVehiculoPorPatente($patente) {
@@ -55,23 +75,6 @@ class VehiculoController {
         ];
 
         echo json_encode($vehiculo);
-    }
-
-    // Método para actualizar un vehículo
-   // Método para modificar el vehículo
-   public function modificarVehiculo() {
-    return $this->vehiculo->modificarVehiculo();
-}
-
-    // Método para eliminar un vehículo
-    public function eliminarVehiculo($patente) {
-        $this->vehiculo->patente = $patente;
-
-        if ($this->vehiculo->eliminarVehiculo()) {
-            echo "Vehículo eliminado con éxito.";
-        } else {
-            echo "Error al eliminar el vehículo.";
-        }
     }
 }
 ?>

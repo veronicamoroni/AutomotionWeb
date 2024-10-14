@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -46,6 +45,11 @@
             font-size: 50px;
             color: #007bff;
         }
+        .message {
+            margin-top: 20px;
+            font-size: 18px;
+            color: green;
+        }
     </style>
 </head>
 <body>
@@ -60,8 +64,9 @@
             <div class="text-center mb-4">
                 <span class="material-symbols-outlined">Alta de Cliente</span>
             </div>
-           
-            <form action="/index.php?action=crearCliente" method="post">
+
+            <!-- Formulario de registro de cliente -->
+            <form id="formCrearCliente" action="/index.php?action=crearCliente" method="post">
                 <div class="form-group">
                     <label for="dni">DNI:</label>
                     <input type="text" class="form-control" id="dni" name="dni" required>
@@ -84,7 +89,36 @@
                 </div>
                 <button type="submit" class="btn btn-primary btn-block">Registrar Cliente</button>
             </form>
+
+            <!-- Área para mostrar mensajes de éxito o error -->
+            <div id="mensaje" class="message"></div>
         </div>
     </div>
+
+    <!-- JavaScript para manejar el reinicio del formulario y mostrar el mensaje -->
+    <script>
+        document.getElementById('formCrearCliente').onsubmit = function(event) {
+            event.preventDefault(); // Evita el envío automático del formulario
+
+            const form = document.getElementById('formCrearCliente');
+            const formData = new FormData(form);
+
+            fetch('/index.php?action=crearCliente', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.text())
+            .then(data => {
+                // Mostrar el mensaje en el div 'mensaje'
+                document.getElementById('mensaje').innerHTML = data;
+
+                // Reiniciar el formulario
+                form.reset();
+            })
+            .catch(error => {
+                document.getElementById('mensaje').innerHTML = 'Error al registrar el cliente.';
+            });
+        };
+    </script>
 </body>
 </html>

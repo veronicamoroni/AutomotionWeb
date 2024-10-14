@@ -69,7 +69,7 @@
                     <span class="material-symbols-outlined">Eliminar</span>
                 </div>
                 <div class="card p-4 shadow">
-                    <form action="index.php?action=eliminarCliente" method="post">
+                    <form action="/index.php?action=eliminarCliente" method="post">
                         <div class="form-group">
                             <label for="id">DNI del cliente a Eliminar:</label>
                             <input type="text" class="form-control" id="dni" name="dni" required>

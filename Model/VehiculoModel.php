@@ -53,14 +53,15 @@ public function modificarVehiculo() {
     }
 }
 
-
-    // Listar todos los vehículos
-    public function listarVehiculos() {
-        $query = "SELECT * FROM vehiculos";
+    // Eliminar vehículo
+    public function eliminarVehiculo() {
+        $query = "DELETE FROM vehiculos WHERE patente = :patente";
         $stmt = $this->db->prepare($query);
-        $stmt->execute();
-        return $stmt;
+        $stmt->bindParam(':patente', $this->patente);
+
+        return $stmt->execute();
     }
+   
 
     // Obtener vehículo por patente
     public function obtenerVehiculoPorPatente() {
@@ -71,23 +72,16 @@ public function modificarVehiculo() {
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
 
+      
+   
+    public function obtenerVehiculos() {
+        $query = "SELECT * FROM " . $this->table; // Asegúrate de que $this->table sea la tabla de vehículos
     
-
-    // Eliminar vehículo
-    public function eliminarVehiculo() {
-        $query = "DELETE FROM vehiculos WHERE patente = :patente";
         $stmt = $this->db->prepare($query);
-        $stmt->bindParam(':patente', $this->patente);
-
-        return $stmt->execute();
-    }
-    public function existeVehiculo() {
-        $query = "SELECT * FROM vehiculos WHERE patente = :patente LIMIT 1";
-        $stmt = $this->db->prepare($query);
-        $stmt->bindParam(':patente', $this->patente);
         $stmt->execute();
-        
-        return $stmt->rowCount() > 0; // Retorna verdadero si el vehículo existe
+    
+        return $stmt;
     }
+    
 }
 ?>

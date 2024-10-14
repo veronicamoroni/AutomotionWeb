@@ -39,10 +39,13 @@ switch ($request) {
     case '/menu/eliminarCliente':
         $smarty->display('templates/eliminarCliente.tpl');
         break;            
-    case '/menu/listarClientes':
-        $smarty->display('templates/listarClientes.tpl');
-        break;       
-}
+        case '/menu/listarClientes':
+            // Obtener y mostrar la lista de clientes
+            $clientes = $clienteController->listarClientes(); // Asegúrate de que estás llamando al método correcto
+            $smarty->assign('clientes', $clientes); // Asignar la lista de clientes a Smarty
+            $smarty->display('listarClientes.tpl'); // Mostrar la plantilla de listar clientes
+            break;
+
 
 $action = isset($_GET['action']) ? $_GET['action'] : '';
 
@@ -53,6 +56,9 @@ switch ($action) {
     case 'crearCliente':
         $clienteController->crearCliente();
         break;
+    case 'modificarCliente':
+        $clienteController->modificarCliente();
+        break;
     case 'eliminarUsuario':
         $id = isset($_POST['id']) ? $_POST['id'] : die("Falta el ID");
         $usuarioController->eliminarUsuario($id);
@@ -62,4 +68,5 @@ switch ($action) {
         $clienteController->eliminarCliente($dni);
         break;
     // Agrega más casos según sea necesario
+}
 }
