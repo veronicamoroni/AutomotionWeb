@@ -4,61 +4,11 @@
     <meta charset="UTF-8">
     <title>Registro de Cliente</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <style>
-        body {
-            background-color: #f8f9fa;
-            font-family: Arial, sans-serif;
-        }
-        .navbar {
-            background-color: #343a40;
-        }
-        .navbar-brand img {
-            height: 70px;
-        }
-        .navbar-title {
-            color: white;
-            font-size: 24px;
-            margin-left: 20px;
-        }
-        .card {
-            border: 1px solid #ced4da;
-            border-radius: 0.5rem;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        }
-        .card h2 {
-            color: #343a40;
-        }
-        .form-group label {
-            font-weight: bold;
-        }
-        .btn-primary {
-            background-color: #007bff;
-            border: none;
-        }
-        .btn-primary:hover {
-            background-color: #0056b3;
-        }
-        .text-center {
-            margin-bottom: 20px;
-        }
-        .material-symbols-outlined {
-            font-size: 50px;
-            color: #007bff;
-        }
-        .message {
-            margin-top: 20px;
-            font-size: 18px;
-            color: green;
-        }
-    </style>
+   <link rel="stylesheet" href="/templates/styles.css">
+
 </head>
 <body>
-    <nav class="navbar navbar-expand-lg navbar-dark">
-        <a class="navbar-brand" href="#">
-            <img src="logo.png" alt="Logo">
-        </a>
-        <div class="navbar-title">Automotion</div>
-    </nav>
+    {include file="navbar.tpl"}
     <div class="container d-flex justify-content-center align-items-center" style="height: 100vh;">
         <div class="card p-4">
             <div class="text-center mb-4">
@@ -92,6 +42,9 @@
 
             <!-- Área para mostrar mensajes de éxito o error -->
             <div id="mensaje" class="message"></div>
+            <div class="text-center mt-3">
+                <a href="/index.php?action=menu" class="btn btn-secondary btn-block">Volver al Menú</a>
+            </div>
         </div>
     </div>
 
@@ -120,5 +73,8 @@
             });
         };
     </script>
+   <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 </html>

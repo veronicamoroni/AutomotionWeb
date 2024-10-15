@@ -8,65 +8,17 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <style>
-        .navbar-custom {
-            background-color: #004085; 
-        }
-        .navbar-custom .navbar-brand img {
-            width: 100px;
-        }
-        body {
-            background-image: url('imagen.jpeg');
-            background-size: cover;
-            background-position: center;
-            background-repeat: no-repeat;
-            height: 100vh;
-            background-attachment: fixed;
-            font-family: 'Poppins', sans-serif;
-        }
-        .material-symbols-outlined {
-            font-size: 3.5rem;
-        }
-        .custom-font {
-            font-family: 'CustomFont', sans-serif;
-            font-weight: bolder;
-            font-size: 3.5rem;
-            background: linear-gradient(90deg, yellow, white);
-            background-clip: text;
-            -webkit-background-clip: text;
-            color: transparent;
-        }
-        .login-btn {
-            position: absolute;
-            top: 20px;
-            right: 20px;
-            font-size: 0.8rem;
-        }
-        .navbar-title {
-            flex: 1;
-            text-align: center;
-        }
-        .centered-container {
-            height: calc(100vh - 60px);
-        }
-    </style>
+   <link rel="stylesheet" href="/templates/styles.css">
+
 </head>
 <body>
-    <nav class="navbar navbar-expand-lg navbar-custom">
-        <a class="navbar-brand" href="#">
-            <img src="logo.png" alt="Logo">
-        </a>
-        <div class="navbar-title">
-            <h1 class="custom-font m-0">Automotion</h1>
-        </div>
-        <button class="btn btn-light login-btn" onclick="window.location.href='login.tpl'">Iniciar Sesión</button>
-    </nav>
+    {include file="navbar.tpl"}
 
     <div class="container centered-container d-flex justify-content-center align-items-center">
         <div class="row w-100">
             <section class="col-md-8">
                 <div class="text-center mb-4">
-                    <span class="material-symbols-outlined">Eliminar</span>
+                  
                 </div>
                 <div class="card p-4 shadow">
                     <form action="/index.php?action=eliminarCliente" method="post">
