@@ -48,12 +48,6 @@ public function crearVehiculo() {
 }
 
     
-
-    // Método para modificar el vehículo
-    public function modificarVehiculo() {
-        return $this->vehiculo->modificarVehiculo();
-    }
-
     // Método para eliminar un vehículo
     public function eliminarVehiculo($patente) {
         $this->vehiculo->patente = $patente;
@@ -88,5 +82,25 @@ public function obtenerVehiculos() {
 
         echo json_encode($vehiculo);
     }
+    public function modificarVehiculo() {
+        if ($_SERVER["REQUEST_METHOD"] == "POST") {
+            // Obtain the posted data
+            $this->vehiculo->patente = isset($_POST['patente']) ? $_POST['patente'] : '';
+            $this->vehiculo->marca = isset($_POST['marca']) ? $_POST['marca'] : '';
+            $this->vehiculo->modelo = isset($_POST['modelo']) ? $_POST['modelo'] : '';
+            $this->vehiculo->dni_cliente = isset($_POST['dni_cliente']) ? $_POST['dni_cliente'] : '';
+    
+            // Call the model method to update the vehicle
+            if ($this->vehiculo->modificarVehiculo()) {
+                echo "¡Vehículo modificado con éxito!";
+            } else {
+                echo "Error al modificar el vehículo.";
+            }
+        } else {
+            echo "Método de solicitud no permitido.";
+        }
+    }
+    
+
 }
 ?>

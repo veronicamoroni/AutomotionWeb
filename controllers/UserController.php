@@ -1,5 +1,5 @@
 <?php
-include_once('C:\xampp\htdocs\AutomotionWeb\Model\UserModel.php');
+include_once(__DIR__ . '/../Model/UserModel.php');
 
 
 class UsuarioController {
