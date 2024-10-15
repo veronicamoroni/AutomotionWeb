@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 5.4.0, created on 2024-10-11 21:13:59
+/* Smarty version 5.4.0, created on 2024-10-15 05:19:19
   from 'file:templates/menu.tpl' */
 
 /* @var \Smarty\Template $_smarty_tpl */
 if ($_smarty_tpl->getCompiled()->isFresh($_smarty_tpl, array (
   'version' => '5.4.0',
-  'unifunc' => 'content_670978f7d44583_23279186',
+  'unifunc' => 'content_670ddf3746ff73_56204946',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '30c2da8b33c45004fcc00d034640c1f569fec217' => 
     array (
       0 => 'templates/menu.tpl',
-      1 => 1728673976,
+      1 => 1728962355,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->getCompiled()->isFresh($_smarty_tpl, array (
   array (
   ),
 ))) {
-function content_670978f7d44583_23279186 (\Smarty\Template $_smarty_tpl) {
+function content_670ddf3746ff73_56204946 (\Smarty\Template $_smarty_tpl) {
 $_smarty_current_dir = 'C:\\xampp\\htdocs\\AutomotionWeb\\templates';
 ?><!DOCTYPE html>
 <html lang="es">
@@ -45,7 +45,7 @@ $_smarty_current_dir = 'C:\\xampp\\htdocs\\AutomotionWeb\\templates';
         /* Cambiar el color de fondo del header */
         header {
             background-color: #004085; /* Fondo azul */
-            padding: 0.1rem 0; /* Reducir padding vertical */
+            padding: ,10rem 0; /* Reducir padding vertical */
         }
         
         /* Estilo para el título con degradado */
@@ -68,7 +68,7 @@ $_smarty_current_dir = 'C:\\xampp\\htdocs\\AutomotionWeb\\templates';
             background-size: cover;
             background-position: center;
             background-repeat: no-repeat;
-            height: 100vh;
+            height: 80vh;
             background-attachment: fixed;
         }
         
@@ -101,6 +101,7 @@ $_smarty_current_dir = 'C:\\xampp\\htdocs\\AutomotionWeb\\templates';
                     <a class="dropdown-item" href="/menu/modificarCliente">Modificar Clientes</a>
                     <a class="dropdown-item" href="/menu/eliminarCliente">Eliminar Clientes</a>
                     <a class="dropdown-item" href="/menu/listarClientes">Listar Clientes</a>
+                    
                 </div>
             </li>
             <!-- Dropdown Vehículos -->
@@ -109,9 +110,9 @@ $_smarty_current_dir = 'C:\\xampp\\htdocs\\AutomotionWeb\\templates';
                     Vehículos
                 </a>
                 <div class="dropdown-menu bg-primary" aria-labelledby="vehiculosDropdown">
-                    <a class="dropdown-item" href="#altaVehiculos">Alta de Vehículos</a>
-                    <a class="dropdown-item" href="#modificarVehiculos">Modificar Vehículos</a>
-                    <a class="dropdown-item" href="#eliminarVehiculos">Eliminar Vehículos</a>
+                    <a class="dropdown-item" href="/menu/crearVehiculo">Alta de Vehículos</a>
+                    <a class="dropdown-item" href="/menu/modificarVehiculo">Modificar Vehículos</a>
+                    <a class="dropdown-item" href="/menu/eliminarVehiculo">Eliminar Vehículos</a>
                     <a class="dropdown-item" href="#listarVehiculos">Listar Vehículos</a>
                 </div>
             </li>

@@ -1,26 +1,27 @@
 <?php
-/* Smarty version 5.4.0, created on 2024-10-12 00:10:56
+/* Smarty version 5.4.0, created on 2024-10-15 04:42:05
   from 'file:templates/modificarCliente.tpl' */
 
 /* @var \Smarty\Template $_smarty_tpl */
 if ($_smarty_tpl->getCompiled()->isFresh($_smarty_tpl, array (
   'version' => '5.4.0',
-  'unifunc' => 'content_6709a270c6c721_73632770',
+  'unifunc' => 'content_670dd67d46ff26_12534842',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '7997e0d39172e50eb07aee944d712f5b36927b65' => 
     array (
       0 => 'templates/modificarCliente.tpl',
-      1 => 1728684647,
+      1 => 1728960118,
       2 => 'file',
     ),
   ),
   'includes' => 
   array (
+    'file:navbar.tpl' => 1,
   ),
 ))) {
-function content_6709a270c6c721_73632770 (\Smarty\Template $_smarty_tpl) {
+function content_670dd67d46ff26_12534842 (\Smarty\Template $_smarty_tpl) {
 $_smarty_current_dir = 'C:\\xampp\\htdocs\\AutomotionWeb\\templates';
 ?><!DOCTYPE html>
 <html lang="es">
@@ -28,66 +29,13 @@ $_smarty_current_dir = 'C:\\xampp\\htdocs\\AutomotionWeb\\templates';
     <meta charset="UTF-8">
     <title>Actualizar Cliente</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <style>
-        body {
-            background-color: #f8f9fa;
-            font-family: Arial, sans-serif;
-        }
+    <link rel="stylesheet" href="/templates/styles.css">
 
-        .navbar {
-            background-color: #343a40;
-        }
-
-        .navbar-brand img {
-            height: 50px;
-        }
-
-        .navbar-title {
-            color: white;
-            font-size: 24px;
-            margin-left: 20px;
-        }
-
-        .card {
-            border: 1px solid #ced4da;
-            border-radius: 0.5rem;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        }
-
-        .card h2 {
-            color: #343a40;
-        }
-
-        .form-group label {
-            font-weight: bold;
-        }
-
-        .btn-primary {
-            background-color: #007bff;
-            border: none;
-        }
-
-        .btn-primary:hover {
-            background-color: #0056b3;
-        }
-
-        .text-center {
-            margin-bottom: 20px;
-        }
-
-        .material-symbols-outlined {
-            font-size: 50px;
-            color: #007bff;
-        }
-    </style>
 </head>
 <body>
-    <nav class="navbar navbar-expand-lg navbar-dark">
-        <a class="navbar-brand" href="#">
-            <img src="logo.png" alt="Logo">
-        </a>
-        <div class="navbar-title">Automotion</div>
-    </nav>
+    <?php $_smarty_tpl->renderSubTemplate("file:navbar.tpl", $_smarty_tpl->cache_id, $_smarty_tpl->compile_id, 0, $_smarty_tpl->cache_lifetime, array(), (int) 0, $_smarty_current_dir);
+?>
+  
 
     <div class="container d-flex justify-content-center align-items-center" style="height: 100vh;">
         <div class="card p-4">

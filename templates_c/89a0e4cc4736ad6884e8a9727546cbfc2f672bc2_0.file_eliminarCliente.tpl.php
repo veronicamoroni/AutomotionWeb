@@ -1,26 +1,27 @@
 <?php
-/* Smarty version 5.4.0, created on 2024-10-12 00:04:28
+/* Smarty version 5.4.0, created on 2024-10-15 05:01:46
   from 'file:templates/eliminarCliente.tpl' */
 
 /* @var \Smarty\Template $_smarty_tpl */
 if ($_smarty_tpl->getCompiled()->isFresh($_smarty_tpl, array (
   'version' => '5.4.0',
-  'unifunc' => 'content_6709a0eccdea58_38764484',
+  'unifunc' => 'content_670ddb1a2aee60_20546282',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '89a0e4cc4736ad6884e8a9727546cbfc2f672bc2' => 
     array (
       0 => 'templates/eliminarCliente.tpl',
-      1 => 1728684250,
+      1 => 1728961298,
       2 => 'file',
     ),
   ),
   'includes' => 
   array (
+    'file:navbar.tpl' => 1,
   ),
 ))) {
-function content_6709a0eccdea58_38764484 (\Smarty\Template $_smarty_tpl) {
+function content_670ddb1a2aee60_20546282 (\Smarty\Template $_smarty_tpl) {
 $_smarty_current_dir = 'C:\\xampp\\htdocs\\AutomotionWeb\\templates';
 ?><!DOCTYPE html>
 <html lang="es">
@@ -32,65 +33,18 @@ $_smarty_current_dir = 'C:\\xampp\\htdocs\\AutomotionWeb\\templates';
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <style>
-        .navbar-custom {
-            background-color: #004085; 
-        }
-        .navbar-custom .navbar-brand img {
-            width: 100px;
-        }
-        body {
-            background-image: url('imagen.jpeg');
-            background-size: cover;
-            background-position: center;
-            background-repeat: no-repeat;
-            height: 100vh;
-            background-attachment: fixed;
-            font-family: 'Poppins', sans-serif;
-        }
-        .material-symbols-outlined {
-            font-size: 3.5rem;
-        }
-        .custom-font {
-            font-family: 'CustomFont', sans-serif;
-            font-weight: bolder;
-            font-size: 3.5rem;
-            background: linear-gradient(90deg, yellow, white);
-            background-clip: text;
-            -webkit-background-clip: text;
-            color: transparent;
-        }
-        .login-btn {
-            position: absolute;
-            top: 20px;
-            right: 20px;
-            font-size: 0.8rem;
-        }
-        .navbar-title {
-            flex: 1;
-            text-align: center;
-        }
-        .centered-container {
-            height: calc(100vh - 60px);
-        }
-    </style>
+   <link rel="stylesheet" href="/templates/styles.css">
+
 </head>
 <body>
-    <nav class="navbar navbar-expand-lg navbar-custom">
-        <a class="navbar-brand" href="#">
-            <img src="logo.png" alt="Logo">
-        </a>
-        <div class="navbar-title">
-            <h1 class="custom-font m-0">Automotion</h1>
-        </div>
-        <button class="btn btn-light login-btn" onclick="window.location.href='login.tpl'">Iniciar Sesión</button>
-    </nav>
+    <?php $_smarty_tpl->renderSubTemplate("file:navbar.tpl", $_smarty_tpl->cache_id, $_smarty_tpl->compile_id, 0, $_smarty_tpl->cache_lifetime, array(), (int) 0, $_smarty_current_dir);
+?>
 
     <div class="container centered-container d-flex justify-content-center align-items-center">
         <div class="row w-100">
             <section class="col-md-8">
                 <div class="text-center mb-4">
-                    <span class="material-symbols-outlined">Eliminar</span>
+                  
                 </div>
                 <div class="card p-4 shadow">
                     <form action="/index.php?action=eliminarCliente" method="post">
