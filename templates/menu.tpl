@@ -21,7 +21,7 @@
         /* Cambiar el color de fondo del header */
         header {
             background-color: #004085; /* Fondo azul */
-            padding: 0.1rem 0; /* Reducir padding vertical */
+            padding: ,10rem 0; /* Reducir padding vertical */
         }
         
         /* Estilo para el título con degradado */
@@ -44,7 +44,7 @@
             background-size: cover;
             background-position: center;
             background-repeat: no-repeat;
-            height: 100vh;
+            height: 80vh;
             background-attachment: fixed;
         }
         
@@ -77,6 +77,7 @@
                     <a class="dropdown-item" href="/menu/modificarCliente">Modificar Clientes</a>
                     <a class="dropdown-item" href="/menu/eliminarCliente">Eliminar Clientes</a>
                     <a class="dropdown-item" href="/menu/listarClientes">Listar Clientes</a>
+                    
                 </div>
             </li>
             <!-- Dropdown Vehículos -->
@@ -85,9 +86,9 @@
                     Vehículos
                 </a>
                 <div class="dropdown-menu bg-primary" aria-labelledby="vehiculosDropdown">
-                    <a class="dropdown-item" href="#altaVehiculos">Alta de Vehículos</a>
-                    <a class="dropdown-item" href="#modificarVehiculos">Modificar Vehículos</a>
-                    <a class="dropdown-item" href="#eliminarVehiculos">Eliminar Vehículos</a>
+                    <a class="dropdown-item" href="/menu/crearVehiculo">Alta de Vehículos</a>
+                    <a class="dropdown-item" href="/menu/modificarVehiculo">Modificar Vehículos</a>
+                    <a class="dropdown-item" href="/menu/eliminarVehiculo">Eliminar Vehículos</a>
                     <a class="dropdown-item" href="#listarVehiculos">Listar Vehículos</a>
                 </div>
             </li>
