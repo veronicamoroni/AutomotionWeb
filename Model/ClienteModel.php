@@ -69,12 +69,21 @@ class Cliente {
     // Eliminar un cliente
     public function eliminarCliente() {
         try {
-            // Comprobamos si existen vehículos asociados
-            $checkStmt = $this->db->prepare("SELECT COUNT(*) FROM vehiculos WHERE dni_cliente = :dni");
+            // Comprobamos si el DNI existe en la tabla clientes
+            $checkStmt = $this->db->prepare("SELECT COUNT(*) FROM " . $this->table . " WHERE dni = :dni");
             $checkStmt->bindParam(':dni', $this->dni);
             $checkStmt->execute();
     
-            if ($checkStmt->fetchColumn() > 0) {
+            if ($checkStmt->fetchColumn() == 0) {
+                throw new Exception("El cliente con DNI " . $this->dni . " no existe.");
+            }
+    
+            // Comprobamos si existen vehículos asociados
+            $vehiculosStmt = $this->db->prepare("SELECT COUNT(*) FROM vehiculos WHERE dni_cliente = :dni");
+            $vehiculosStmt->bindParam(':dni', $this->dni);
+            $vehiculosStmt->execute();
+    
+            if ($vehiculosStmt->fetchColumn() > 0) {
                 throw new Exception("El cliente no se puede eliminar porque tiene vehículos asociados.");
             }
     
@@ -90,6 +99,7 @@ class Cliente {
             return false;
         }
     }
+    
     
    // Obtener todos los clientes
 public function obtenerClientes() {
