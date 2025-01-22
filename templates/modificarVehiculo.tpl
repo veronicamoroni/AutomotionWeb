@@ -5,7 +5,6 @@
     <title>Modificar Vehículo</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="/templates/styles.css">
-
 </head>
 <body>
     {include file="navbar.tpl"}
@@ -18,8 +17,12 @@
             <!-- Formulario de modificación de vehículo -->
             <form id="formModificarVehiculo" action="/index.php?action=modificarVehiculo" method="post">
                 <div class="form-group">
-                    <label for="patente">Patente:</label>
+                    <label for="patente">Patente Actual:</label>
                     <input type="text" class="form-control" id="patente" name="patente" required>
+                </div>
+                <div class="form-group">
+                    <label for="nueva_patente">Nueva Patente:</label>
+                    <input type="text" class="form-control" id="nueva_patente" name="nueva_patente" placeholder="Opcional">
                 </div>
                 <div class="form-group">
                     <label for="marca">Marca:</label>

@@ -31,19 +31,23 @@ class Vehiculo {
     }
 // Método para modificar un vehículo
 public function modificarVehiculo() {
-    // Query SQL para actualizar los datos del vehículo
+    // Query SQL para actualizar los datos del vehículo, incluyendo la patente
     $query = "UPDATE vehiculos 
-              SET marca = :marca, modelo = :modelo, dni_cliente = :dni_cliente 
+              SET patente = :nueva_patente, 
+                  marca = :marca, 
+                  modelo = :modelo, 
+                  dni_cliente = :dni_cliente 
               WHERE patente = :patente";
 
     // Preparar la consulta
     $stmt = $this->db->prepare($query);
 
     // Enlazar los parámetros
-    $stmt->bindParam(':patente', $this->patente); // Cambiado de $this->vehiculo->patente a $this->patente
-    $stmt->bindParam(':marca', $this->marca);     // Cambiado de $this->vehiculo->marca a $this->marca
-    $stmt->bindParam(':modelo', $this->modelo);   // Cambiado de $this->vehiculo->modelo a $this->modelo
-    $stmt->bindParam(':dni_cliente', $this->dni_cliente); // Cambiado de $this->vehiculo->dni_cliente a $this->dni_cliente
+    $stmt->bindParam(':patente', $this->patente); // Patente original
+    $stmt->bindParam(':nueva_patente', $this->nueva_patente); // Nueva patente
+    $stmt->bindParam(':marca', $this->marca);
+    $stmt->bindParam(':modelo', $this->modelo);
+    $stmt->bindParam(':dni_cliente', $this->dni_cliente);
 
     // Ejecutar la consulta y devolver el resultado
     if ($stmt->execute()) {
@@ -52,6 +56,7 @@ public function modificarVehiculo() {
         return false;
     }
 }
+
 
     // Eliminar vehículo
     public function eliminarVehiculo() {

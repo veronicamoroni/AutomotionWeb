@@ -84,13 +84,20 @@ public function obtenerVehiculos() {
     }
     public function modificarVehiculo() {
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
-            // Obtain the posted data
-            $this->vehiculo->patente = isset($_POST['patente']) ? $_POST['patente'] : '';
+            // Obtener los datos del formulario
+            $this->vehiculo->patente = isset($_POST['patente']) ? $_POST['patente'] : ''; // Patente original
+            $this->vehiculo->nueva_patente = isset($_POST['nueva_patente']) ? $_POST['nueva_patente'] : ''; // Nueva patente
             $this->vehiculo->marca = isset($_POST['marca']) ? $_POST['marca'] : '';
             $this->vehiculo->modelo = isset($_POST['modelo']) ? $_POST['modelo'] : '';
             $this->vehiculo->dni_cliente = isset($_POST['dni_cliente']) ? $_POST['dni_cliente'] : '';
     
-            // Call the model method to update the vehicle
+            // Validar que nueva_patente no esté vacío
+            if (empty($this->vehiculo->nueva_patente)) {
+                echo "Error: La nueva patente no puede estar vacía.";
+                return;
+            }
+    
+            // Llamar al método del modelo para modificar el vehículo
             if ($this->vehiculo->modificarVehiculo()) {
                 echo "¡Vehículo modificado con éxito!";
             } else {
@@ -101,6 +108,4 @@ public function obtenerVehiculos() {
         }
     }
     
-
 }
-?>
