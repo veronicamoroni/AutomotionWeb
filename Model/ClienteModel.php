@@ -68,16 +68,29 @@ class Cliente {
     
     // Eliminar un cliente
     public function eliminarCliente() {
-        $query = "DELETE FROM " . $this->table . " WHERE dni = :dni";
-
-        $stmt = $this->db->prepare($query);
-        $this->dni = htmlspecialchars(strip_tags($this->dni));
-
-        $stmt->bindParam(':dni', $this->dni);
-
-        return $stmt->execute();
+        try {
+            // Comprobamos si existen vehículos asociados
+            $checkStmt = $this->db->prepare("SELECT COUNT(*) FROM vehiculos WHERE dni_cliente = :dni");
+            $checkStmt->bindParam(':dni', $this->dni);
+            $checkStmt->execute();
+    
+            if ($checkStmt->fetchColumn() > 0) {
+                throw new Exception("El cliente no se puede eliminar porque tiene vehículos asociados.");
+            }
+    
+            // Eliminar cliente
+            $stmt = $this->db->prepare("DELETE FROM " . $this->table . " WHERE dni = :dni");
+            $stmt->bindParam(':dni', $this->dni);
+            $stmt->execute();
+    
+            return true;
+        } catch (Exception $e) {
+            // Mostrar mensaje de error
+            echo '<div class="alert alert-danger">' . $e->getMessage() . '</div>';
+            return false;
+        }
     }
-    // Método para obtener todos los clientes
+    
    // Obtener todos los clientes
 public function obtenerClientes() {
     $query = "SELECT * FROM " . $this->table;
