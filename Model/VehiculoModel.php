@@ -12,17 +12,30 @@ class Vehiculo {
         $this->db = $db;
     }
 
-    // Crear vehículo
-    public function crearVehiculo() {
+    
+    public function crearVehiculo() { 
+        // Verificar si la patente ya existe en la base de datos
+        $query = "SELECT COUNT(*) FROM vehiculos WHERE patente = :patente";
+        $stmt = $this->db->prepare($query);
+        $stmt->bindParam(':patente', $this->patente);
+        $stmt->execute();
+        $result = $stmt->fetchColumn();
+    
+        // Si la patente ya existe, devolver un error
+        if ($result > 0) {
+            return "Error: La patente ya está registrada.";
+        }
+    
+        // Si la patente no existe, proceder con la inserción
         $query = "INSERT INTO vehiculos (patente, marca, modelo, dni_cliente) VALUES (:patente, :marca, :modelo, :dni_cliente)";
         $stmt = $this->db->prepare($query);
-
+    
         // Enlace de parámetros
         $stmt->bindParam(':patente', $this->patente);
         $stmt->bindParam(':marca', $this->marca);
         $stmt->bindParam(':modelo', $this->modelo);
         $stmt->bindParam(':dni_cliente', $this->dni_cliente);
-
+    
         if ($stmt->execute()) {
             return true;
         } else {
