@@ -27,6 +27,9 @@
                             <input type="text" class="form-control" id="dni" name="dni" required>
                         </div>
                         <button type="submit" class="btn btn-danger btn-block">Eliminar Usuario</button>
+                        <div class="text-center mt-3">
+                <a href="/menu" class="btn btn-secondary btn-block">Volver al Menú</a>
+            </div>
                     </form>
                 </div>
             </section>

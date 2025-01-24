@@ -41,6 +41,9 @@
 
             <!-- Área para mostrar mensajes de éxito o error -->
             <div id="mensaje" class="message"></div>
+            <div class="text-center mt-3">
+                <a href="/menu" class="btn btn-secondary btn-block">Volver al Menú</a>
+            </div>
         </div>
     </div>
 
