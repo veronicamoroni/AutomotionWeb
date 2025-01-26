@@ -1,5 +1,5 @@
 <?php
-require_once('C:\xampp\htdocs\AutomotionWeb\Model\ClienteModel.php');
+require_once(__DIR__ . '/../Model/ClienteModel.php');
 
 class ClienteController {
     private $db;

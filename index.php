@@ -1,12 +1,11 @@
 <?php
 
 // Asegúrate de que las rutas a los archivos son correctas
-require_once 'C:\xampp\htdocs\AutomotionWeb\libs\Smarty.class.php';
-require_once 'C:\xampp\htdocs\AutomotionWeb\Model\Model.php';
+require_once ('libs\Smarty.class.php');
+require_once './Model/Model.php';
 require_once './controllers/UserController.php';
-require_once 'C:\xampp\htdocs\AutomotionWeb\controllers\ClienteController.php'; 
+require_once './controllers/ClienteController.php'; 
 require_once './controllers/VehiculoController.php'; 
-
 // Crear conexión a la base de datos
 $database = new Model();
 $db = $database->getDb();
@@ -18,11 +17,10 @@ $vehiculoController = new VehiculoController($db);
 
 // Inicializa Smarty
 $smarty = new Smarty\Smarty;
-$smarty->setTemplateDir('C:\xampp\htdocs\AutomotionWeb\templates');
-$smarty->setCompileDir('C:\xampp\htdocs\AutomotionWeb\templates_c');
-$smarty->setCacheDir('C:\xampp\htdocs\AutomotionWeb\cache');
-$smarty->setConfigDir('C:\xampp\htdocs\AutomotionWeb\configs');
-
+$smarty->setTemplateDir(__DIR__ . '/templates');
+$smarty->setCompileDir(__DIR__ . '/templates_c');
+$smarty->setCacheDir(__DIR__ . '/cache');
+$smarty->setConfigDir(__DIR__ . '/configs');
 // Obtener la URL solicitada
 $request = $_SERVER['REQUEST_URI'];
 
