@@ -83,9 +83,8 @@ public function obtenerVehiculos() {
     $stmt = $this->vehiculo->obtenerVehiculos(); // Cambiado de $this->cliente a $this->vehiculo
     $vehiculos = $stmt->fetchAll(PDO::FETCH_ASSOC); // Obtener todos los vehículos en formato asociativo
 
-    echo json_encode($vehiculos); // Convertir el resultado a JSON y devolverlo
+    return $vehiculos;
 }
-
 
     // Método para obtener un vehículo por su patente
     public function obtenerVehiculoPorPatente($patente) {

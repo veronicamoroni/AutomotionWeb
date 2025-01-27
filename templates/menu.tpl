@@ -89,7 +89,7 @@
                     <a class="dropdown-item" href="/menu/crearVehiculo">Alta de Vehículos</a>
                     <a class="dropdown-item" href="/menu/modificarVehiculo">Modificar Vehículos</a>
                     <a class="dropdown-item" href="/menu/eliminarVehiculo">Eliminar Vehículos</a>
-                    <a class="dropdown-item" href="#listarVehiculos">Listar Vehículos</a>
+                    <a class="dropdown-item" href="/menu/listarVehiculos">Listar Vehículos</a>
                 </div>
             </li>
             <!-- Dropdown Turnos -->

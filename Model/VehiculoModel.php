@@ -75,17 +75,29 @@ public function modificarVehiculo() {
     }
    
 
-    // Obtener vehículo por patente
-    public function obtenerVehiculoPorPatente() {
-        $query = "SELECT * FROM vehiculos WHERE patente = :patente LIMIT 1";
-        $stmt = $this->db->prepare($query);
-        $stmt->bindParam(':patente', $this->patente);
-        $stmt->execute();
-        return $stmt->fetch(PDO::FETCH_ASSOC);
-    }
+    
 
-      
-   
+    public function obtenerVehiculoPorPatente() {
+        $query = "SELECT * FROM " . $this->table . " WHERE patente = :patente LIMIT 0,1";
+    
+        $stmt = $this->db->prepare($query);
+    
+        // Enlazar el parámetro patente
+        $stmt->bindParam(':patente', $this->patente);
+    
+        $stmt->execute();
+    
+        // Obtener la fila del vehículo
+        $row = $stmt->fetch(PDO::FETCH_ASSOC);
+    
+        if ($row) {
+            // Asignar los valores obtenidos a las propiedades del vehículo
+            $this->marca = $row['marca'];
+            $this->modelo = $row['modelo'];
+            $this->dni_cliente = $row['dni_cliente'];
+        }
+    }
+    
     public function obtenerVehiculos() {
         $query = "SELECT * FROM " . $this->table; // Asegúrate de que $this->table sea la tabla de vehículos
     
