@@ -101,8 +101,8 @@ class Cliente {
     }
     
     
-   // Obtener todos los clientes
-public function obtenerClientes() {
+  // Obtener todos los clientes
+  public function obtenerClientes() {
     $query = "SELECT * FROM " . $this->table;
 
     $stmt = $this->db->prepare($query);

@@ -43,7 +43,7 @@ switch ($request) {
         break;            
     case '/menu/listarClientes':
         // Obtener y mostrar la lista de clientes
-        $clientes = $clienteController->listarClientes();
+        $clientes = $clienteController->obtenerClientes();
         $smarty->assign('clientes', $clientes);
         $smarty->display('listarClientes.tpl');
         break;

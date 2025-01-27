@@ -3,56 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Automotion - Lista de Clientes</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-    <style>
-        body {
-            background-color: #f8f9fa;
-            font-family: Arial, sans-serif;
-        }
-
-        .navbar {
-            background-color: #343a40;
-        }
-
-        .navbar-brand img {
-            height: 50px;
-        }
-
-        .navbar-title {
-            color: white;
-            font-size: 24px;
-        }
-
-        .container {
-            margin-top: 20px;
-        }
-
-        .table th, .table td {
-            text-align: left;
-        }
-        
-        #mensaje {
-            margin: 20px 0;
-            font-size: 18px;
-            color: green;
-        }
-    </style>
+    <title>Lista de Clientes</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
-    <nav class="navbar navbar-expand-lg navbar-dark">
-        <a class="navbar-brand" href="#">
-            <img src="logo.png" alt="Logo de Automotion">
-            <span class="navbar-title">Automotion</span>
-        </a>
-    </nav>
+    <div class="container mt-5">
+        <h1 class="text-center mb-4">Lista de Clientes</h1>
 
-    <div class="container">
-        <h2>Lista de Clientes</h2>
-
-        <div id="mensaje"><?php if (isset($mensaje)) echo $mensaje; ?></div> <!-- Mensaje de éxito/error -->
-
+        <!-- Tabla para listar clientes -->
         <table class="table table-bordered">
             <thead class="thead-dark">
                 <tr>
@@ -65,32 +23,37 @@
                 </tr>
             </thead>
             <tbody>
-    <?php
-    if ($clientes->rowCount() > 0) {
-        while ($row = $clientes->fetch(PDO::FETCH_ASSOC)) {
-            echo "<tr>
-                <td>{$row['dni']}</td>
-                <td>{$row['nombre']}</td>
-                <td>{$row['apellido']}</td>
-                <td>{$row['telefono']}</td>
-                <td>{$row['email']}</td>
-                <td>
-                    <form method='POST' action='eliminar_cliente.php'>
-                        <input type='hidden' name='dni' value='{$row['dni']}'>
-                        <button type='submit' class='btn btn-danger btn-sm'>Eliminar</button>
-                    </form>
-                </td>
-            </tr>";
-        }
-    } else {
-        echo "<tr><td colspan='6'>No hay clientes registrados.</td></tr>";
-    }
-    ?>
-</tbody>
-                ?>
+                {if $clientes|@count > 0}
+                    {foreach from=$clientes item=cliente}
+                        <tr>
+                            <td>{$cliente.dni}</td>
+                            <td>{$cliente.nombre}</td>
+                            <td>{$cliente.apellido}</td>
+                            <td>{$cliente.telefono}</td>
+                            <td>{$cliente.email}</td>
+                            <td>
+                                <!-- Botón para eliminar cliente -->
+                                <form method="POST" action="eliminar_cliente.php" class="d-inline">
+                                    <input type="hidden" name="dni" value="{$cliente.dni}">
+                                    <button type="submit" class="btn btn-danger btn-sm">Eliminar</button>
+                                </form>
+                            </td>
+                        </tr>
+                    {/foreach}
+                {else}
+                    <tr>
+                        <td colspan="6" class="text-center">No hay clientes registrados.</td>
+                    </tr>
+                {/if}
             </tbody>
         </table>
+
+        <div class="text-center mt-3">
+                <a href="/menu" class="btn btn-secondary btn-block">Volver al Menú</a>
+            </div>
     </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
 

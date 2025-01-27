@@ -31,7 +31,6 @@ class ClienteController {
                     // Mostrar mensaje de éxito
                     $mensaje = "Cliente creado con éxito.";
     
-                    // Aquí puedes resetear el formulario usando JavaScript desde el frontend
                     echo "<script>document.getElementById('formCrearCliente').reset();</script>";
     
                 } else {
@@ -44,12 +43,9 @@ class ClienteController {
             }
         }
     
-        // Mostrar el mensaje en la vista (asegúrate de tener una parte del HTML que muestre esto)
         echo "<div id='mensaje'>$mensaje</div>";
     }
     
-   
-
     // Método para actualizar un cliente
     public function modificarCliente() {
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -82,12 +78,36 @@ class ClienteController {
         }
     }
     
-    // Método para obtener todos los clientes
     public function obtenerClientes() {
-        $stmt = $this->cliente->obtenerClientes(); // Cambiado de $this->usuario a $this->cliente
+        // Llamar al método del modelo para obtener los datos de los clientes
+        $stmt = $this->cliente->obtenerClientes();
         $clientes = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        return $clientes;
+    }
+    // Método para obtener un cliente por DNI
+    public function obtenerClientePorDni($dni) {
+    // Asignar el DNI al objeto cliente
+    $this->cliente->dni = $dni;
 
-    echo json_encode($clientes);
+    // Llamar al método del modelo para obtener el cliente
+    $this->cliente->obtenerClientePorDni();
+
+    // Verificar si se encontró el cliente
+    if (!empty($this->cliente->nombre)) {
+        // Crear un arreglo con los datos del cliente
+        $cliente = [
+            "dni" => $this->cliente->dni,
+            "nombre" => $this->cliente->nombre,
+            "apellido" => $this->cliente->apellido,
+            "telefono" => $this->cliente->telefono,
+            "email" => $this->cliente->email
+        ];
+        // Retornar el cliente en formato JSON
+        echo json_encode($cliente);
+    } else {
+        // Retornar un mensaje indicando que no se encontró el cliente
+        echo json_encode(["message" => "Cliente no encontrado."]);
+    }
 }
 
     }
