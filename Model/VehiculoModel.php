@@ -42,13 +42,25 @@ class Vehiculo {
             return "Error: No se pudo crear el vehículo.";
         }
     }
-// Método para modificar un vehículo
+
 // Método para modificar un vehículo
 public function modificarVehiculo() {
-    // Query SQL para actualizar los datos del vehículo, incluyendo la patente
+    // Verificar si el vehículo con la patente original existe
+    $queryVerificar = "SELECT COUNT(*) FROM vehiculos WHERE patente = :patente";
+    $stmtVerificar = $this->db->prepare($queryVerificar);
+    $stmtVerificar->bindParam(':patente', $this->patente);
+    $stmtVerificar->execute();
+    $result = $stmtVerificar->fetchColumn();
+
+    // Si no se encuentra el vehículo con la patente original, retornar false
+    if ($result == 0) {
+        return false; // Vehículo no encontrado
+    }
+
+    // Si el vehículo existe, proceder con la actualización
     $query = "UPDATE vehiculos 
-              SET patente = :nueva_patente, marca = :marca, modelo = :modelo, dni_cliente = :dni_cliente 
-              WHERE patente = :patente";
+            SET patente = :nueva_patente, marca = :marca, modelo = :modelo, dni_cliente = :dni_cliente 
+            WHERE patente = :patente";
 
     // Preparar la consulta
     $stmt = $this->db->prepare($query);

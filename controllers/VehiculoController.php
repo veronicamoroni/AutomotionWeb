@@ -100,6 +100,7 @@ public function obtenerVehiculos() {
 
         echo json_encode($vehiculo);
     }
+    
     public function modificarVehiculo() {
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
             // Obtener los datos enviados por el formulario
@@ -111,9 +112,11 @@ public function obtenerVehiculos() {
     
             // Llamar al método del modelo para modificar el vehículo
             if ($this->vehiculo->modificarVehiculo()) {
+                // Si la actualización es exitosa
                 echo "¡Vehículo modificado con éxito!";
             } else {
-                echo "Error al modificar el vehículo.";
+                // Si el vehículo no se encuentra o no se pudo modificar
+                echo "No Existe el vehículo con la patente proporcionada.";
             }
         } else {
             echo "Método de solicitud no permitido.";
