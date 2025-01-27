@@ -70,11 +70,14 @@ class VehiculoController {
     // Método para eliminar un vehículo
     public function eliminarVehiculo($patente) {
         $this->vehiculo->patente = $patente;
-
+    
+        // Llamar al método del modelo para eliminar el vehículo
         if ($this->vehiculo->eliminarVehiculo()) {
+            // Si el vehículo fue eliminado exitosamente
             echo "Vehículo eliminado con éxito.";
         } else {
-            echo "Error al eliminar el vehículo.";
+            // Si el vehículo no existe
+            echo "El vehículo con la patente proporcionada No Existe.";
         }
     }
 

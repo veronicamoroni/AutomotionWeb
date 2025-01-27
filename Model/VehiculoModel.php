@@ -79,15 +79,26 @@ public function modificarVehiculo() {
 
     // Eliminar vehículo
     public function eliminarVehiculo() {
+        // Verificar si el vehículo con la patente existe
+        $queryVerificar = "SELECT COUNT(*) FROM vehiculos WHERE patente = :patente";
+        $stmtVerificar = $this->db->prepare($queryVerificar);
+        $stmtVerificar->bindParam(':patente', $this->patente);
+        $stmtVerificar->execute();
+        $result = $stmtVerificar->fetchColumn();
+    
+        // Si no se encuentra el vehículo con la patente, retornar false
+        if ($result == 0) {
+            return false; // Vehículo no encontrado
+        }
+    
+        // Si el vehículo existe, proceder con la eliminación
         $query = "DELETE FROM vehiculos WHERE patente = :patente";
         $stmt = $this->db->prepare($query);
         $stmt->bindParam(':patente', $this->patente);
-
+    
         return $stmt->execute();
     }
-   
-
-    
+      
 
     public function obtenerVehiculoPorPatente() {
         $query = "SELECT * FROM " . $this->table . " WHERE patente = :patente LIMIT 0,1";
