@@ -46,26 +46,36 @@ class ClienteController {
         echo "<div id='mensaje'>$mensaje</div>";
     }
     
-    // Método para actualizar un cliente
-    public function modificarCliente() {
-        if ($_SERVER["REQUEST_METHOD"] == "POST") {
-            if (isset($_POST['dni']) && !empty($_POST['dni'])) {
-                $this->cliente->dni = $_POST['dni'];
-                $this->cliente->nombre = isset($_POST['nombre']) ? $_POST['nombre'] : '';
-                $this->cliente->apellido = isset($_POST['apellido']) ? $_POST['apellido'] : '';
-                $this->cliente->telefono = isset($_POST['telefono']) ? $_POST['telefono'] : '';
-                $this->cliente->email = isset($_POST['email']) ? $_POST['email'] : '';
-
-                if ($this->cliente->modificarCliente()) {
-                    echo "Cliente actualizado con éxito.";
-                } else {
-                    echo "Error al actualizar el cliente.";
-                }
+ // Método para actualizar un cliente
+public function modificarCliente() {
+    if ($_SERVER["REQUEST_METHOD"] == "POST") {
+        // Obtener los datos enviados por el formulario
+        $this->cliente->dni = isset($_POST['dni']) ? $_POST['dni'] : '';
+        $this->cliente->nombre = isset($_POST['nombre']) ? $_POST['nombre'] : '';
+        $this->cliente->apellido = isset($_POST['apellido']) ? $_POST['apellido'] : '';
+        $this->cliente->telefono = isset($_POST['telefono']) ? $_POST['telefono'] : '';
+        $this->cliente->email = isset($_POST['email']) ? $_POST['email'] : '';
+        
+        // Verificar que el DNI no esté vacío
+        if (!empty($this->cliente->dni)) {
+            // Llamar al método del modelo para modificar el cliente
+            if ($this->cliente->modificarCliente()) {
+                // Si la actualización es exitosa
+                echo "¡Cliente actualizado con éxito!";
             } else {
-                echo "Falta el DNI del cliente.";
+                // Si el cliente no se encuentra o no se pudo modificar
+                echo "No existe el cliente con el DNI proporcionado.";
             }
+        } else {
+            // Si no se proporciona un DNI
+            echo "Falta el DNI del cliente.";
         }
+    } else {
+        // Si el método de solicitud no es POST
+        echo "Método de solicitud no permitido.";
     }
+}
+
 
     // Método para eliminar un cliente
     public function eliminarCliente($dni) {

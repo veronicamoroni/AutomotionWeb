@@ -45,27 +45,41 @@ class Cliente {
             }
         }
     }
-         // Actualizar un cliente
+     
     public function modificarCliente() {
-        $query = "UPDATE " . $this->table . " 
-                  SET telefono = :telefono, email = :email 
-                  WHERE dni = :dni";
+        // Verificar si el cliente con el DNI proporcionado existe
+        $queryVerificar = "SELECT COUNT(*) FROM clientes WHERE dni = :dni";
+        $stmtVerificar = $this->db->prepare($queryVerificar);
+        $stmtVerificar->bindParam(':dni', $this->dni);
+        $stmtVerificar->execute();
+        $result = $stmtVerificar->fetchColumn();
     
-        $stmt = $this->db->prepare($query);
+        // Si no se encuentra el cliente con el DNI proporcionado, retornar false
+        if ($result == 0) {
+            return false;
+        }
+    
+        // Preparar la consulta para modificar el cliente
+        $queryModificar = "UPDATE clientes 
+                           SET telefono = :telefono, email = :email 
+                           WHERE dni = :dni";
+        $stmtModificar = $this->db->prepare($queryModificar);
     
         // Limpiar los datos
         $this->telefono = htmlspecialchars(strip_tags($this->telefono));
         $this->email = htmlspecialchars(strip_tags($this->email));
-        $this->dni = htmlspecialchars(strip_tags($this->dni)); // Asegúrate de que el DNI también está definido
+        $this->dni = htmlspecialchars(strip_tags($this->dni));
     
         // Enlazar los parámetros
-        $stmt->bindParam(':telefono', $this->telefono);
-        $stmt->bindParam(':email', $this->email);
-        $stmt->bindParam(':dni', $this->dni); 
-        
-        return $stmt->execute();
+        $stmtModificar->bindParam(':telefono', $this->telefono);
+        $stmtModificar->bindParam(':email', $this->email);
+        $stmtModificar->bindParam(':dni', $this->dni);
+    
+        // Ejecutar la consulta y devolver el resultado
+        return $stmtModificar->execute();
     }
     
+   
     // Eliminar un cliente
     public function eliminarCliente() {
         try {
@@ -100,7 +114,7 @@ class Cliente {
         }
     }
     
-    
+   
   // Obtener todos los clientes
   public function obtenerClientes() {
     $query = "SELECT * FROM " . $this->table;
