@@ -98,7 +98,7 @@
                     Turnos
                 </a>
                 <div class="dropdown-menu bg-primary" aria-labelledby="turnosDropdown">
-                    <a class="dropdown-item" href="/menu/crearTurnos">Alta de Turnos</a>
+                    <a class="dropdown-item" href="/menu/crearTurno">Alta de Turnos</a>
                     <a class="dropdown-item" href="/menu/modificarTurno">Modificar Turnos</a>
                     <a class="dropdown-item" href="/menu/eliminarTurno">Eliminar Turnos</a>
                     <a class="dropdown-item" href="/menu/listarTurnos">Listar Turnos</a>

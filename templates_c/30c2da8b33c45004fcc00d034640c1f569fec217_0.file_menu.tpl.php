@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 5.4.0, created on 2025-01-27 23:48:54
+/* Smarty version 5.4.0, created on 2025-01-28 19:58:15
   from 'file:templates/menu.tpl' */
 
 /* @var \Smarty\Template $_smarty_tpl */
 if ($_smarty_tpl->getCompiled()->isFresh($_smarty_tpl, array (
   'version' => '5.4.0',
-  'unifunc' => 'content_67980d56d55986_28600595',
+  'unifunc' => 'content_679928c788b255_12318597',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '30c2da8b33c45004fcc00d034640c1f569fec217' => 
     array (
       0 => 'templates/menu.tpl',
-      1 => 1738013450,
+      1 => 1738090687,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->getCompiled()->isFresh($_smarty_tpl, array (
   array (
   ),
 ))) {
-function content_67980d56d55986_28600595 (\Smarty\Template $_smarty_tpl) {
+function content_679928c788b255_12318597 (\Smarty\Template $_smarty_tpl) {
 $_smarty_current_dir = 'C:\\xampp\\htdocs\\AutomotionWeb\\templates';
 ?><!DOCTYPE html>
 <html lang="es">
@@ -122,7 +122,7 @@ $_smarty_current_dir = 'C:\\xampp\\htdocs\\AutomotionWeb\\templates';
                     Turnos
                 </a>
                 <div class="dropdown-menu bg-primary" aria-labelledby="turnosDropdown">
-                    <a class="dropdown-item" href="/menu/crearTurnos">Alta de Turnos</a>
+                    <a class="dropdown-item" href="/menu/crearTurno">Alta de Turnos</a>
                     <a class="dropdown-item" href="/menu/modificarTurno">Modificar Turnos</a>
                     <a class="dropdown-item" href="/menu/eliminarTurno">Eliminar Turnos</a>
                     <a class="dropdown-item" href="/menu/listarTurnos">Listar Turnos</a>

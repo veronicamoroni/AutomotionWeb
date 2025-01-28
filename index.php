@@ -6,6 +6,7 @@ require_once './Model/Model.php';
 require_once './controllers/UserController.php';
 require_once './controllers/ClienteController.php'; 
 require_once './controllers/VehiculoController.php'; 
+require_once './controllers/TurnoController.php';
 // Crear conexión a la base de datos
 $database = new Model();
 $db = $database->getDb();
@@ -14,6 +15,7 @@ $db = $database->getDb();
 $usuarioController = new UsuarioController($db);
 $clienteController = new ClienteController($db);
 $vehiculoController = new VehiculoController($db);
+$turnoController = new TurnoController($db);
 
 // Inicializa Smarty
 $smarty = new Smarty\Smarty;
@@ -60,7 +62,9 @@ switch ($request) {
             $smarty->assign('vehiculos', $vehiculos);
             $smarty->display('listarVehiculos.tpl');
             break;    
-    
+    case '/menu/crearTurno':
+        $smarty->display('templates/crearTurno.tpl');
+                break;
 }
 
 $action = isset($_GET['action']) ? $_GET['action'] : '';
@@ -97,6 +101,8 @@ switch ($action) {
         $patente = isset($_POST['patente']) ? $_POST['patente'] : die("Falta la patente");
         $vehiculoController->eliminarVehiculo($patente);
         break;
-   
+    case 'crearTurno':
+            $turnoController->crearTurno();
+            break;  
 }
 
