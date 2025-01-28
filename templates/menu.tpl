@@ -98,10 +98,10 @@
                     Turnos
                 </a>
                 <div class="dropdown-menu bg-primary" aria-labelledby="turnosDropdown">
-                    <a class="dropdown-item" href="#altaTurnos">Alta de Turnos</a>
-                    <a class="dropdown-item" href="#modificarTurnos">Modificar Turnos</a>
-                    <a class="dropdown-item" href="#eliminarTurnos">Eliminar Turnos</a>
-                    <a class="dropdown-item" href="#listarTurnos">Listar Turnos</a>
+                    <a class="dropdown-item" href="/menu/crearTurnos">Alta de Turnos</a>
+                    <a class="dropdown-item" href="/menu/modificarTurno">Modificar Turnos</a>
+                    <a class="dropdown-item" href="/menu/eliminarTurno">Eliminar Turnos</a>
+                    <a class="dropdown-item" href="/menu/listarTurnos">Listar Turnos</a>
                 </div>
             </li>
             <!-- Facturación (no dropdown) -->

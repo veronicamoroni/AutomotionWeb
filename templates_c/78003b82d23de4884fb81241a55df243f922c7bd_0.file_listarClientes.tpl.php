@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 5.4.0, created on 2024-10-11 18:33:27
+/* Smarty version 5.4.0, created on 2025-01-27 01:44:31
   from 'file:listarClientes.tpl' */
 
 /* @var \Smarty\Template $_smarty_tpl */
 if ($_smarty_tpl->getCompiled()->isFresh($_smarty_tpl, array (
   'version' => '5.4.0',
-  'unifunc' => 'content_67095357d76932_04542720',
+  'unifunc' => 'content_6796d6ef864035_74938621',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '78003b82d23de4884fb81241a55df243f922c7bd' => 
     array (
       0 => 'listarClientes.tpl',
-      1 => 1728267195,
+      1 => 1737938287,
       2 => 'file',
     ),
   ),
@@ -20,122 +20,81 @@ if ($_smarty_tpl->getCompiled()->isFresh($_smarty_tpl, array (
   array (
   ),
 ))) {
-function content_67095357d76932_04542720 (\Smarty\Template $_smarty_tpl) {
+function content_6796d6ef864035_74938621 (\Smarty\Template $_smarty_tpl) {
 $_smarty_current_dir = 'C:\\xampp\\htdocs\\AutomotionWeb\\templates';
 ?><!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Automotion - Lista de Clientes</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-    <style>
-        body {
-            background-color: #f8f9fa;
-            font-family: Arial, sans-serif;
-        }
-
-        .navbar {
-            background-color: #343a40;
-        }
-
-        .navbar-brand img {
-            height: 50px;
-        }
-
-        .navbar-title {
-            color: white;
-            font-size: 24px;
-            margin-left: 20px;
-        }
-
-        .card {
-            border: 1px solid #ced4da;
-            border-radius: 0.5rem;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        }
-
-        .card h2 {
-            color: #343a40;
-        }
-
-        .form-group label {
-            font-weight: bold;
-        }
-
-        .btn-primary {
-            background-color: #007bff;
-            border: none;
-        }
-
-        .btn-primary:hover {
-            background-color: #0056b3;
-        }
-
-        .text-center {
-            margin-bottom: 20px;
-        }
-
-        .material-symbols-outlined {
-            font-size: 50px;
-            color: #007bff;
-        }
-    </style>
+    <title>Lista de Clientes</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
-
-    <nav class="navbar navbar-expand-lg">
-        <div class="container">
-            <a class="navbar-brand" href="#">
-                <img src="logo.png" alt="Logo"> <!-- Asegúrate de tener tu logo -->
-            </a>
-            <span class="navbar-title">Automotion</span>
-        </div>
-    </nav>
-
     <div class="container mt-5">
-        <div class="card">
-            <div class="card-body">
-                <h2 class="text-center">Lista de Clientes</h2>
-                <form action="index.php?action=obtenerClientePorDni" method="post">
-                    <table class="table table-bordered">
-                        
-                        <thead>
-                            <tr>
-                                <th>DNI</th>
-                                <th>Nombre</th>
-                                <th>Apellido</th>
-                                <th>Teléfono</th>
-                                <th>Email</th>
-                                <th>Acciones</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            
-                          
-                                    <button type="submit" name="modificar" class="btn btn-primary">Modificar</button>
-                                    <button type="submit" name="eliminar" value="" class="btn btn-danger">Eliminar</button>
-                                </td>
-                            </tr>
-                            <!-- Puedes agregar más filas dinámicamente aquí -->
-                        </tbody>
-                    </table>
-                </form>
+        <h1 class="text-center mb-4">Lista de Clientes</h1>
+
+        <!-- Tabla para listar clientes -->
+        <table class="table table-bordered">
+            <thead class="thead-dark">
+                <tr>
+                    <th>DNI</th>
+                    <th>Nombre</th>
+                    <th>Apellido</th>
+                    <th>Teléfono</th>
+                    <th>Email</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php if ($_smarty_tpl->getSmarty()->getModifierCallback('count')($_smarty_tpl->getValue('clientes')) > 0) {?>
+                    <?php
+$_from = $_smarty_tpl->getSmarty()->getRuntime('Foreach')->init($_smarty_tpl, $_smarty_tpl->getValue('clientes'), 'cliente');
+$foreach0DoElse = true;
+foreach ($_from ?? [] as $_smarty_tpl->getVariable('cliente')->value) {
+$foreach0DoElse = false;
+?>
+                        <tr>
+                            <td><?php echo $_smarty_tpl->getValue('cliente')['dni'];?>
+</td>
+                            <td><?php echo $_smarty_tpl->getValue('cliente')['nombre'];?>
+</td>
+                            <td><?php echo $_smarty_tpl->getValue('cliente')['apellido'];?>
+</td>
+                            <td><?php echo $_smarty_tpl->getValue('cliente')['telefono'];?>
+</td>
+                            <td><?php echo $_smarty_tpl->getValue('cliente')['email'];?>
+</td>
+                            <td>
+                                <!-- Botón para eliminar cliente -->
+                                <form method="POST" action="eliminar_cliente.php" class="d-inline">
+                                    <input type="hidden" name="dni" value="<?php echo $_smarty_tpl->getValue('cliente')['dni'];?>
+">
+                                    <button type="submit" class="btn btn-danger btn-sm">Eliminar</button>
+                                </form>
+                            </td>
+                        </tr>
+                    <?php
+}
+$_smarty_tpl->getSmarty()->getRuntime('Foreach')->restore($_smarty_tpl, 1);?>
+                <?php } else { ?>
+                    <tr>
+                        <td colspan="6" class="text-center">No hay clientes registrados.</td>
+                    </tr>
+                <?php }?>
+            </tbody>
+        </table>
+
+        <div class="text-center mt-3">
+                <a href="/menu" class="btn btn-secondary btn-block">Volver al Menú</a>
             </div>
-        </div>
     </div>
 
     <?php echo '<script'; ?>
- src="https://code.jquery.com/jquery-3.5.1.slim.min.js"><?php echo '</script'; ?>
->
-    <?php echo '<script'; ?>
- src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"><?php echo '</script'; ?>
->
-    <?php echo '<script'; ?>
- src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"><?php echo '</script'; ?>
+ src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"><?php echo '</script'; ?>
 >
 </body>
 </html>
+
 <?php }
 }

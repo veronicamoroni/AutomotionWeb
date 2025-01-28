@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 5.4.0, created on 2024-10-15 05:01:46
+/* Smarty version 5.4.0, created on 2025-01-24 21:45:36
   from 'file:templates/eliminarCliente.tpl' */
 
 /* @var \Smarty\Template $_smarty_tpl */
 if ($_smarty_tpl->getCompiled()->isFresh($_smarty_tpl, array (
   'version' => '5.4.0',
-  'unifunc' => 'content_670ddb1a2aee60_20546282',
+  'unifunc' => 'content_6793fbf0c8d0c0_26357333',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '89a0e4cc4736ad6884e8a9727546cbfc2f672bc2' => 
     array (
       0 => 'templates/eliminarCliente.tpl',
-      1 => 1728961298,
+      1 => 1737751490,
       2 => 'file',
     ),
   ),
@@ -21,7 +21,7 @@ if ($_smarty_tpl->getCompiled()->isFresh($_smarty_tpl, array (
     'file:navbar.tpl' => 1,
   ),
 ))) {
-function content_670ddb1a2aee60_20546282 (\Smarty\Template $_smarty_tpl) {
+function content_6793fbf0c8d0c0_26357333 (\Smarty\Template $_smarty_tpl) {
 $_smarty_current_dir = 'C:\\xampp\\htdocs\\AutomotionWeb\\templates';
 ?><!DOCTYPE html>
 <html lang="es">
@@ -53,6 +53,9 @@ $_smarty_current_dir = 'C:\\xampp\\htdocs\\AutomotionWeb\\templates';
                             <input type="text" class="form-control" id="dni" name="dni" required>
                         </div>
                         <button type="submit" class="btn btn-danger btn-block">Eliminar Usuario</button>
+                        <div class="text-center mt-3">
+                <a href="/menu" class="btn btn-secondary btn-block">Volver al Menú</a>
+            </div>
                     </form>
                 </div>
             </section>

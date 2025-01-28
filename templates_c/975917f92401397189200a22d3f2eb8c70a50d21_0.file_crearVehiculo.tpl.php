@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 5.4.0, created on 2025-01-27 22:04:46
-  from 'file:templates/modificarCliente.tpl' */
+/* Smarty version 5.4.0, created on 2025-01-24 21:44:07
+  from 'file:templates/crearVehiculo.tpl' */
 
 /* @var \Smarty\Template $_smarty_tpl */
 if ($_smarty_tpl->getCompiled()->isFresh($_smarty_tpl, array (
   'version' => '5.4.0',
-  'unifunc' => 'content_6797f4eee1dd35_02881285',
+  'unifunc' => 'content_6793fb97947893_32040020',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
-    '7997e0d39172e50eb07aee944d712f5b36927b65' => 
+    '975917f92401397189200a22d3f2eb8c70a50d21' => 
     array (
-      0 => 'templates/modificarCliente.tpl',
-      1 => 1737981015,
+      0 => 'templates/crearVehiculo.tpl',
+      1 => 1737751418,
       2 => 'file',
     ),
   ),
@@ -21,15 +21,16 @@ if ($_smarty_tpl->getCompiled()->isFresh($_smarty_tpl, array (
     'file:navbar.tpl' => 1,
   ),
 ))) {
-function content_6797f4eee1dd35_02881285 (\Smarty\Template $_smarty_tpl) {
+function content_6793fb97947893_32040020 (\Smarty\Template $_smarty_tpl) {
 $_smarty_current_dir = 'C:\\xampp\\htdocs\\AutomotionWeb\\templates';
 ?><!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>Actualizar Cliente</title>
+    <title>Registro de Vehículo</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="/templates/styles.css">
+
 </head>
 <body>
     <?php $_smarty_tpl->renderSubTemplate("file:navbar.tpl", $_smarty_tpl->cache_id, $_smarty_tpl->compile_id, 0, $_smarty_tpl->cache_lifetime, array(), (int) 0, $_smarty_current_dir);
@@ -38,24 +39,28 @@ $_smarty_current_dir = 'C:\\xampp\\htdocs\\AutomotionWeb\\templates';
     <div class="container d-flex justify-content-center align-items-center" style="height: 100vh;">
         <div class="card p-4">
             <div class="text-center mb-4">
-                <span class="material-symbols-outlined">Editar Cliente</span>
+                <span class="material-symbols-outlined">Alta de Vehículo</span>
             </div>
-          
-            <!-- Formulario de actualización de cliente -->
-            <form id="formActualizarCliente" action="/index.php?action=modificarCliente" method="post">
+
+            <!-- Formulario de registro de vehículo -->
+            <form id="formCrearVehiculo" action="/index.php?action=crearVehiculo" method="post">
                 <div class="form-group">
-                    <label for="dni">DNI:</label>
-                    <input type="text" class="form-control" id="dni" name="dni" required>
+                    <label for="patente">Patente:</label>
+                    <input type="text" class="form-control" id="patente" name="patente" required>
                 </div>
                 <div class="form-group">
-                    <label for="telefono">Teléfono:</label>
-                    <input type="text" class="form-control" id="telefono" name="telefono" required>
+                    <label for="marca">Marca:</label>
+                    <input type="text" class="form-control" id="marca" name="marca" required>
                 </div>
                 <div class="form-group">
-                    <label for="email">Correo Electrónico:</label>
-                    <input type="email" class="form-control" id="email" name="email" required>
+                    <label for="modelo">Modelo:</label>
+                    <input type="text" class="form-control" id="modelo" name="modelo" required>
                 </div>
-                <button type="submit" class="btn btn-primary btn-block">Actualizar Cliente</button>
+                <div class="form-group">
+                    <label for="dni_cliente">DNI del Cliente:</label>
+                    <input type="text" class="form-control" id="dni_cliente" name="dni_cliente" required>
+                </div>
+                <button type="submit" class="btn btn-primary btn-block">Registrar Vehículo</button>
             </form>
 
             <!-- Área para mostrar mensajes de éxito o error -->
@@ -66,16 +71,16 @@ $_smarty_current_dir = 'C:\\xampp\\htdocs\\AutomotionWeb\\templates';
         </div>
     </div>
 
-    <!-- JavaScript para manejar el envío del formulario y mostrar mensajes -->
+    <!-- JavaScript para manejar el reinicio del formulario y mostrar el mensaje -->
     <?php echo '<script'; ?>
 >
-        document.getElementById('formActualizarCliente').onsubmit = function(event) {
+        document.getElementById('formCrearVehiculo').onsubmit = function(event) {
             event.preventDefault(); // Evita el envío automático del formulario
 
-            const form = document.getElementById('formActualizarCliente');
+            const form = document.getElementById('formCrearVehiculo');
             const formData = new FormData(form);
 
-            fetch('/index.php?action=modificarCliente', {
+            fetch('/index.php?action=crearVehiculo', {
                 method: 'POST',
                 body: formData
             })
@@ -88,23 +93,12 @@ $_smarty_current_dir = 'C:\\xampp\\htdocs\\AutomotionWeb\\templates';
                 form.reset();
             })
             .catch(error => {
-                document.getElementById('mensaje').innerHTML = 'Error al actualizar el cliente.';
+                document.getElementById('mensaje').innerHTML = 'Error al registrar el vehículo.';
             });
         };
     <?php echo '</script'; ?>
 >
-
-    <?php echo '<script'; ?>
- src="https://code.jquery.com/jquery-3.5.1.min.js"><?php echo '</script'; ?>
->
-    <?php echo '<script'; ?>
- src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"><?php echo '</script'; ?>
->
-    <?php echo '<script'; ?>
- src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"><?php echo '</script'; ?>
->
 </body>
 </html>
-
 <?php }
 }
