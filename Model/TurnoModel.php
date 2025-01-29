@@ -75,6 +75,19 @@ class Turno {
 
     // Método para eliminar un turno
     public function eliminarTurno() {
+        // Verificar si el turno existe
+        $query = "SELECT COUNT(*) FROM " . $this->table . " WHERE id = :id";
+        $stmt = $this->db->prepare($query);
+        $stmt->bindParam(':id', $this->id);
+        $stmt->execute();
+        $existeTurno = $stmt->fetchColumn();
+    
+        // Si el turno no existe, retornar false
+        if ($existeTurno == 0) {
+            return false;
+        }
+    
+        // Si el turno existe, proceder con la eliminación
         $query = "DELETE FROM " . $this->table . " WHERE id = :id";
         $stmt = $this->db->prepare($query);
         $stmt->bindParam(':id', $this->id);

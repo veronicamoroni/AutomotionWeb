@@ -68,6 +68,9 @@ switch ($request) {
     case '/menu/modificarTurno':
         $smarty->display('templates/modificarTurno.tpl');
                 break;
+    case '/menu/eliminarTurno':
+        $smarty->display('templates/eliminarTurno.tpl');
+            break;
 }
 
 $action = isset($_GET['action']) ? $_GET['action'] : '';
@@ -110,5 +113,9 @@ switch ($action) {
     case 'modificarTurno':
             $turnoController->modificarTurno();
             break;
+    case 'eliminarTurno':
+        $id = isset($_POST['id']) ? $_POST['id'] : die("Falta id");
+        $turnoController->eliminarTurno();
+        break;
 }
 
