@@ -2,12 +2,12 @@
 
 class Turno {
     private $db;
-    private $id;
-    private $fecha;
-    private $hora;
-    private $descripcion;
-    private $patente;
-    private $table = "turnos";  // Nombre de la tabla en la base de datos
+    public $id;
+    public $fecha;
+    public $hora;
+    public $descripcion;
+    public $patente;
+    public $table = "turnos";  // Nombre de la tabla en la base de datos
 
     public function __construct($db) {
         $this->db = $db;
@@ -81,12 +81,44 @@ class Turno {
         return $stmt->execute();
     }
 
-    // Métodos setters y getters
-    public function setId($id) { $this->id = $id; }
-    public function setFecha($fecha) { $this->fecha = $fecha; }
-    public function setHora($hora) { $this->hora = $hora; }
-    public function setDescripcion($descripcion) { $this->descripcion = $descripcion; }
-    public function setPatente($patente) { $this->patente = $patente; }
+   
+    public function modificarTurno() {
+        // Verificar si el turno con el ID proporcionado existe
+        $queryVerificar = "SELECT COUNT(*) FROM turnos WHERE id = :id";
+        $stmtVerificar = $this->db->prepare($queryVerificar);
+        $stmtVerificar->bindParam(':id', $this->id);
+        $stmtVerificar->execute();
+        $result = $stmtVerificar->fetchColumn();
+    
+        // Si no se encuentra el turno con el ID proporcionado, retornar false
+        if ($result == 0) {
+            return false;
+        }
+    
+        // Preparar la consulta para modificar el turno
+        $queryModificar = "UPDATE turnos 
+                           SET fecha = :fecha, hora = :hora, descripcion = :descripcion, patente = :patente 
+                           WHERE id = :id";
+        $stmtModificar = $this->db->prepare($queryModificar);
+    
+        // Limpiar los datos
+        $this->fecha = htmlspecialchars(strip_tags($this->fecha));
+        $this->hora = htmlspecialchars(strip_tags($this->hora));
+        $this->descripcion = htmlspecialchars(strip_tags($this->descripcion));
+        $this->patente = htmlspecialchars(strip_tags($this->patente));
+        $this->id = htmlspecialchars(strip_tags($this->id));
+    
+        // Enlazar los parámetros
+        $stmtModificar->bindParam(':fecha', $this->fecha);
+        $stmtModificar->bindParam(':hora', $this->hora);
+        $stmtModificar->bindParam(':descripcion', $this->descripcion);
+        $stmtModificar->bindParam(':patente', $this->patente);
+        $stmtModificar->bindParam(':id', $this->id);
+    
+        // Ejecutar la consulta y devolver el resultado
+        return $stmtModificar->execute();
+    }
+    
 }
 
 ?>

@@ -57,6 +57,35 @@ class TurnoController {
             echo "Error al eliminar el turno.";
         }
     }
+    public function modificarTurno() {
+        if ($_SERVER["REQUEST_METHOD"] == "POST") {
+            // Obtener los datos enviados por el formulario
+            $this->turno->id = isset($_POST['id']) ? $_POST['id'] : '';
+            $this->turno->fecha = isset($_POST['fecha']) ? $_POST['fecha'] : '';
+            $this->turno->hora = isset($_POST['hora']) ? $_POST['hora'] : '';
+            $this->turno->descripcion = isset($_POST['descripcion']) ? $_POST['descripcion'] : '';
+            $this->turno->patente = isset($_POST['patente']) ? $_POST['patente'] : '';
+    
+            // Verificar que el ID no esté vacío
+            if (!empty($this->turno->id)) {
+                // Llamar al método del modelo para modificar el turno
+                if ($this->turno->modificarTurno()) {
+                    // Si la actualización es exitosa
+                    echo "¡Turno actualizado con éxito!";
+                } else {
+                    // Si el turno no se encuentra o no se pudo modificar
+                    echo "No existe un turno con el ID proporcionado.";
+                }
+            } else {
+                // Si no se proporciona un ID
+                echo "Falta el ID del turno.";
+            }
+        } else {
+            // Si el método de solicitud no es POST
+            echo "Método de solicitud no permitido.";
+        }
+    }
+    
 }
 
 ?>
