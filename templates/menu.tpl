@@ -56,6 +56,7 @@
     </style>
    
 
+
 </head>
 <body>
     <header class="text-white py-2"> 
@@ -68,7 +69,6 @@
         <ul class="nav nav-tabs justify-content-center">
             <!-- Dropdown Clientes -->
             <li class="nav-item dropdown">
-            
                 <a class="nav-link dropdown-toggle" href="#" id="clientesDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     Clientes
                 </a>
@@ -102,6 +102,18 @@
                     <a class="dropdown-item" href="/menu/modificarTurno">Modificar Turnos</a>
                     <a class="dropdown-item" href="/menu/eliminarTurno">Eliminar Turnos</a>
                     <a class="dropdown-item" href="/menu/listarTurnos">Listar Turnos</a>
+                </div>
+            </li>
+            <!-- Dropdown Servicios -->
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="serviciosDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Servicios
+                </a>
+                <div class="dropdown-menu bg-primary" aria-labelledby="serviciosDropdown">
+                    <a class="dropdown-item" href="/menu/crearServicio">Alta de Servicios</a>
+                    <a class="dropdown-item" href="/menu/modificarServicio">Modificar Servicios</a>
+                    <a class="dropdown-item" href="/menu/eliminarServicio">Eliminar Servicios</a>
+                    <a class="dropdown-item" href="/menu/listarServicios">Listar Servicios</a>
                 </div>
             </li>
             <!-- Facturación (no dropdown) -->

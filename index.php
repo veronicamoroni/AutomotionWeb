@@ -7,15 +7,18 @@ require_once './controllers/UserController.php';
 require_once './controllers/ClienteController.php'; 
 require_once './controllers/VehiculoController.php'; 
 require_once './controllers/TurnoController.php';
+require_once './controllers\ServicioController.php'; // Incluir el controlador de Servicios
+
 // Crear conexión a la base de datos
 $database = new Model();
 $db = $database->getDb();
 
-// Instanciar el controlador de usuarios y clientes
+// Instanciar los controladores
 $usuarioController = new UsuarioController($db);
 $clienteController = new ClienteController($db);
 $vehiculoController = new VehiculoController($db);
 $turnoController = new TurnoController($db);
+$servicioController = new ServicioController($db); // Instancia el controlador de Servicios
 
 // Inicializa Smarty
 $smarty = new Smarty\Smarty;
@@ -23,6 +26,7 @@ $smarty->setTemplateDir(__DIR__ . '/templates');
 $smarty->setCompileDir(__DIR__ . '/templates_c');
 $smarty->setCacheDir(__DIR__ . '/cache');
 $smarty->setConfigDir(__DIR__ . '/configs');
+
 // Obtener la URL solicitada
 $request = $_SERVER['REQUEST_URI'];
 
@@ -58,19 +62,36 @@ switch ($request) {
     case '/menu/eliminarVehiculo':
         $smarty->display('templates/eliminarVehiculo.tpl');
     case '/menu/listarVehiculos':
-            $vehiculos= $vehiculoController->obtenerVehiculos();
+            $vehiculos = $vehiculoController->obtenerVehiculos();
             $smarty->assign('vehiculos', $vehiculos);
             $smarty->display('listarVehiculos.tpl');
             break;    
     case '/menu/crearTurno':
         $smarty->display('templates/crearTurno.tpl');
-                break;
+        break;
     case '/menu/modificarTurno':
         $smarty->display('templates/modificarTurno.tpl');
-                break;
+        break;
     case '/menu/eliminarTurno':
         $smarty->display('templates/eliminarTurno.tpl');
-            break;
+        break;
+
+    // Rutas para gestionar Servicios
+    case '/menu/crearServicio':
+        $smarty->display('templates/crearServicio.tpl'); // Mostrar formulario de creación de servicio
+        break;
+    case '/menu/modificarServicio':
+        $smarty->display('templates/modificarServicio.tpl'); // Mostrar formulario para modificar servicio
+        break;
+    case '/menu/eliminarServicio':
+        $smarty->display('templates/eliminarServicio.tpl'); // Mostrar formulario para eliminar servicio
+        break;
+    case '/menu/listarServicios':
+        // Obtener y mostrar la lista de servicios
+        $servicios = $servicioController->obtenerServicios();
+        $smarty->assign('servicios', $servicios);
+        $smarty->display('listarServicios.tpl'); // Mostrar la lista de servicios
+        break;
 }
 
 $action = isset($_GET['action']) ? $_GET['action'] : '';
@@ -82,21 +103,13 @@ switch ($action) {
     case 'crearCliente':
         $clienteController->crearCliente();
         break;
-        header("Location: /index.php?action=menu"); // Debe estar aquí
-        exit(); // Asegúrate de usar exit()
-        break;
     case 'modificarCliente':
         $clienteController->modificarCliente();
-        break;
-    case 'eliminarUsuario':
-        $id = isset($_POST['id']) ? $_POST['id'] : die("Falta el ID");
-        $usuarioController->eliminarUsuario($id);
         break;
     case 'eliminarCliente':
         $dni = isset($_POST['dni']) ? $_POST['dni'] : die("Falta el DNI");
         $clienteController->eliminarCliente($dni);
         break;
-       
     case 'crearVehiculo':
         $vehiculoController->crearVehiculo();
         break;    
@@ -108,14 +121,26 @@ switch ($action) {
         $vehiculoController->eliminarVehiculo($patente);
         break;
     case 'crearTurno':
-            $turnoController->crearTurno();
-            break;  
+        $turnoController->crearTurno();
+        break;  
     case 'modificarTurno':
-            $turnoController->modificarTurno();
-            break;
+        $turnoController->modificarTurno();
+        break;
     case 'eliminarTurno':
         $id = isset($_POST['id']) ? $_POST['id'] : die("Falta id");
         $turnoController->eliminarTurno();
         break;
-}
 
+    // Acciones para Servicios
+    case 'crearServicio':
+        $servicioController->crearServicio(); // Llamar al método para crear un servicio
+        break;
+    case 'modificarServicio':
+        $servicioController->modificarServicio(); // Llamar al método para modificar un servicio
+        break;
+    case 'eliminarServicio':
+        $id = isset($_POST['id']) ? $_POST['id'] : die("Falta id");
+        $servicioController->eliminarServicio($id); // Llamar al método para eliminar un servicio
+        break;
+}
+?>
