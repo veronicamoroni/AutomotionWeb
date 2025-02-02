@@ -24,11 +24,10 @@ class ServicioController {
         }
     
         // Crear un nuevo servicio
-        $servicio = new Servicio($this->db);
-        $servicio->descripcion = $descripcion;
-        $servicio->costo = $costo;
+        $this->servicio->descripcion = $descripcion;
+        $this->servicio->costo = $costo;
     
-        if ($servicio->crearServicio()) {
+        if ($this->servicio->crearServicio()) {
             // Mostrar mensaje de éxito
             echo "Servicio creado exitosamente.";
         } else {
@@ -40,66 +39,51 @@ class ServicioController {
 
     // Modificar un servicio existente
     public function modificarServicio() {
-        // Obtener los datos enviados desde el formulario
-        $id = isset($_POST['id']) ? $_POST['id'] : die("Falta el ID.");
-        $descripcion = isset($_POST['descripcion']) ? $_POST['descripcion'] : die("Falta la descripción.");
-        $costo = isset($_POST['costo']) ? $_POST['costo'] : die("Falta el costo.");
-
-        // Asignar los valores a la instancia del servicio
-        $this->servicio->id = $id;
-        $this->servicio->descripcion = $descripcion;
-        $this->servicio->costo = $costo;
-
-        // Llamar al método de la clase Servicio para modificar el servicio
+        // Obtener los datos del formulario
+        $this->servicio->id = $_POST['id'];
+        $this->servicio->descripcion = $_POST['descripcion'];
+        $this->servicio->costo = $_POST['costo'];
+    
+        // Llamar al método modificarServicio() del modelo
         if ($this->servicio->modificarServicio()) {
-            // Redirigir después de modificar el servicio
-            header("Location: /menu/listarServicios");
-            exit();
+            echo "Servicio modificado con éxito.";
         } else {
-            echo "Error al modificar el servicio.";
+            echo "El servicio No existe.";
         }
     }
+    
 
     // Eliminar un servicio
     public function eliminarServicio() {
-        // Obtener el ID del servicio a eliminar
-        $id = isset($_POST['id']) ? $_POST['id'] : die("Falta el ID.");
-
-        // Asignar el ID a la instancia del servicio
-        $this->servicio->id = $id;
-
-        // Llamar al método de la clase Servicio para eliminar el servicio
-        if ($this->servicio->eliminarServicio()) {
-            // Redirigir después de eliminar el servicio
-            header("Location: /menu/listarServicios");
-            exit();
+        // Verificar si el ID del servicio se pasa por POST
+        if (isset($_POST['id'])) {
+            $id = $_POST['id']; // Obtener el ID del servicio
+            $this->servicio->id = $id; // Asignar el ID al objeto del modelo Servicio
+    
+            // Llamar al método de eliminación del modelo
+            if ($this->servicio->eliminarServicio()) {
+                echo "Servicio eliminado con éxito.";
+            } else {
+                echo "Error al eliminar el servicio.";
+            }
         } else {
-            echo "Error al eliminar el servicio.";
+            // En caso de que no se pase el ID, mostrar mensaje de error
+            echo "Falta el ID del servicio.";
         }
-    }
+    }  
+    
 
-    // Listar todos los servicios
     public function listarServicios() {
         // Obtener todos los servicios
         $stmt = $this->servicio->obtenerServicios();
         $servicios = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
         // Asignar los servicios a la vista
-        require_once './views/listarServiciosView.php';
+        // Usamos la instancia global de Smarty para pasar los datos a la plantilla
+        global $smarty;
+        $smarty->assign('servicios', $servicios);
+        $smarty->display('listarServicios.tpl');  // Esta es la plantilla para mostrar los servicios
     }
 
-    // Obtener un servicio por su ID
-    public function obtenerServicioPorId() {
-        $id = isset($_GET['id']) ? $_GET['id'] : die("Falta el ID.");
-
-        // Asignar el ID a la instancia del servicio
-        $this->servicio->id = $id;
-
-        // Obtener el servicio
-        $this->servicio->obtenerServicioPorId();
-
-        // Asignar los datos a la vista
-        require_once './views/editarServicioView.php';
-    }
 }
 ?>

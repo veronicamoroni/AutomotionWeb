@@ -37,7 +37,7 @@ class Servicio {
     // Modificar un servicio
     public function modificarServicio() {
         // Verificar si el servicio con el ID proporcionado existe
-        $queryVerificar = "SELECT COUNT(*) FROM " . $this->table . " WHERE id = :id";
+        $queryVerificar = "SELECT COUNT(*) FROM servicios WHERE id = :id";
         $stmtVerificar = $this->db->prepare($queryVerificar);
         $stmtVerificar->bindParam(':id', $this->id);
         $stmtVerificar->execute();
@@ -45,46 +45,49 @@ class Servicio {
     
         // Si no se encuentra el servicio con el ID proporcionado, retornar false
         if ($result == 0) {
-            return false;
+            return false; // Servicio no encontrado
         }
     
-        // Preparar la consulta para modificar el servicio
-        $queryModificar = "UPDATE " . $this->table . " 
-                           SET descripcion = :descripcion, costo = :costo 
-                           WHERE id = :id";
-        $stmtModificar = $this->db->prepare($queryModificar);
+        // Si el servicio existe, proceder con la actualización
+        $query = "UPDATE servicios 
+                SET descripcion = :descripcion, costo = :costo
+                WHERE id = :id";
     
-        // Limpiar los datos
+        // Preparar la consulta
+        $stmt = $this->db->prepare($query);
+    
+        // Limpiar los datos (por si acaso no se han limpiado en el setter del modelo)
         $this->descripcion = htmlspecialchars(strip_tags($this->descripcion));
         $this->costo = htmlspecialchars(strip_tags($this->costo));
         $this->id = htmlspecialchars(strip_tags($this->id));
     
         // Enlazar los parámetros
-        $stmtModificar->bindParam(':descripcion', $this->descripcion);
-        $stmtModificar->bindParam(':costo', $this->costo);
-        $stmtModificar->bindParam(':id', $this->id);
+        $stmt->bindParam(':id', $this->id);
+        $stmt->bindParam(':descripcion', $this->descripcion);
+        $stmt->bindParam(':costo', $this->costo);
     
         // Ejecutar la consulta y devolver el resultado
-        return $stmtModificar->execute();
+        return $stmt->execute();
     }
+    
     
     // Eliminar un servicio
     public function eliminarServicio() {
         try {
-            // Comprobamos si el servicio con el ID proporcionado existe
+            // Comprobamos si el servicio con el ID existe en la tabla servicios
             $checkStmt = $this->db->prepare("SELECT COUNT(*) FROM " . $this->table . " WHERE id = :id");
             $checkStmt->bindParam(':id', $this->id);
             $checkStmt->execute();
-    
+        
             if ($checkStmt->fetchColumn() == 0) {
                 throw new Exception("El servicio con ID " . $this->id . " no existe.");
             }
-    
-            // Eliminar el servicio
+        
+            // Eliminar servicio
             $stmt = $this->db->prepare("DELETE FROM " . $this->table . " WHERE id = :id");
             $stmt->bindParam(':id', $this->id);
             $stmt->execute();
-    
+        
             return true;
         } catch (Exception $e) {
             // Mostrar mensaje de error
@@ -92,6 +95,7 @@ class Servicio {
             return false;
         }
     }
+    
     
     // Obtener todos los servicios
     public function obtenerServicios() {

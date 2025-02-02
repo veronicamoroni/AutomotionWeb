@@ -81,16 +81,15 @@ switch ($request) {
         $smarty->display('templates/crearServicio.tpl'); // Mostrar formulario de creación de servicio
         break;
     case '/menu/modificarServicio':
-        $smarty->display('templates/modificarServicio.tpl'); // Mostrar formulario para modificar servicio
+        $smarty->display('templates/modificarServicio.tpl'); 
         break;
     case '/menu/eliminarServicio':
-        $smarty->display('templates/eliminarServicio.tpl'); // Mostrar formulario para eliminar servicio
+        // Mostrar el formulario de eliminación
+        $smarty->display('eliminarServicio.tpl'); 
         break;
     case '/menu/listarServicios':
         // Obtener y mostrar la lista de servicios
-        $servicios = $servicioController->obtenerServicios();
-        $smarty->assign('servicios', $servicios);
-        $smarty->display('listarServicios.tpl'); // Mostrar la lista de servicios
+        $servicioController->listarServicios(); // Llamar al método que lista los servicios
         break;
 }
 
@@ -136,11 +135,11 @@ switch ($action) {
         $servicioController->crearServicio(); // Llamar al método para crear un servicio
         break;
     case 'modificarServicio':
-        $servicioController->modificarServicio(); // Llamar al método para modificar un servicio
+        $servicioController->modificarServicio(); 
         break;
     case 'eliminarServicio':
         $id = isset($_POST['id']) ? $_POST['id'] : die("Falta id");
-        $servicioController->eliminarServicio($id); // Llamar al método para eliminar un servicio
+        $servicioController->eliminarServicio(); // Llamar al método para eliminar un servicio
         break;
 }
 ?>
