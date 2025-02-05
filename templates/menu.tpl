@@ -122,7 +122,7 @@
                     <a class="dropdown-item" href="/menu/crearServicioRealizado">Alta de Servicios Realizados</a>
                     <a class="dropdown-item" href="/menu/modificarRealizado">Modificar Servicios Realizados</a>
                     <a class="dropdown-item" href="/menu/eliminarRealizado">Eliminar Servicios Realizados</a>
-                    <a class="dropdown-item" href="/menu/listarRealizados">Listar Servicios Realizados</a>
+                    <a class="dropdown-item" href="/menu/listarServicioRealizado">Listar Servicios Realizados</a>
                 </div>
             </li>
     </header>

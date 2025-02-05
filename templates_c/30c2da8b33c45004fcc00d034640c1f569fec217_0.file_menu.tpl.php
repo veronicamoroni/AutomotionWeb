@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 5.4.0, created on 2025-02-05 19:51:33
+/* Smarty version 5.4.0, created on 2025-02-05 22:24:14
   from 'file:templates/menu.tpl' */
 
 /* @var \Smarty\Template $_smarty_tpl */
 if ($_smarty_tpl->getCompiled()->isFresh($_smarty_tpl, array (
   'version' => '5.4.0',
-  'unifunc' => 'content_67a3b3354a48e6_20220735',
+  'unifunc' => 'content_67a3d6fec36a24_69103900',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '30c2da8b33c45004fcc00d034640c1f569fec217' => 
     array (
       0 => 'templates/menu.tpl',
-      1 => 1738781468,
+      1 => 1738790650,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->getCompiled()->isFresh($_smarty_tpl, array (
   array (
   ),
 ))) {
-function content_67a3b3354a48e6_20220735 (\Smarty\Template $_smarty_tpl) {
+function content_67a3d6fec36a24_69103900 (\Smarty\Template $_smarty_tpl) {
 $_smarty_current_dir = 'C:\\xampp\\htdocs\\AutomotionWeb\\templates';
 ?><!DOCTYPE html>
 <html lang="es">
@@ -146,7 +146,7 @@ $_smarty_current_dir = 'C:\\xampp\\htdocs\\AutomotionWeb\\templates';
                     <a class="dropdown-item" href="/menu/crearServicioRealizado">Alta de Servicios Realizados</a>
                     <a class="dropdown-item" href="/menu/modificarRealizado">Modificar Servicios Realizados</a>
                     <a class="dropdown-item" href="/menu/eliminarRealizado">Eliminar Servicios Realizados</a>
-                    <a class="dropdown-item" href="/menu/listarRealizados">Listar Servicios Realizados</a>
+                    <a class="dropdown-item" href="/menu/listarServicioRealizado">Listar Servicios Realizados</a>
                 </div>
             </li>
     </header>

@@ -62,5 +62,13 @@ class ServicioRealizadoController {
             echo "Falta el ID del registro de servicio realizado.";
         }
     }
+    // Listar todos los servicios realizados
+    public function obtenerServiciosRealizados() {
+        // Obtener todos los registros
+        $stmt = $this->realizado->obtenerServiciosRealizados();
+        $servicios = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        return $servicios;
+        
+    }
 }
 ?>

@@ -20,7 +20,7 @@ $clienteController = new ClienteController($db);
 $vehiculoController = new VehiculoController($db);
 $turnoController = new TurnoController($db);
 $servicioController = new ServicioController($db); // Instancia el controlador de Servicios
-$realizadoController = new ServicioRealizadoController($db);
+$serviciorealizadoController = new ServicioRealizadoController($db);
 // Inicializa Smarty
 $smarty = new Smarty\Smarty;
 $smarty->setTemplateDir(__DIR__ . '/templates');
@@ -96,6 +96,15 @@ switch ($request) {
             // Mostrar el formulario de eliminación
             $smarty->display('crearServicioRealizado.tpl'); 
             break;
+           
+            case '/menu/listarServicioRealizado':
+                
+                    $servicios = $serviciorealizadoController->obtenerServiciosRealizados();
+                    $smarty->assign('servicios_realizados', $servicios);
+                    $smarty->display('listarServiciosRealizados.tpl'); 
+                    break;
+                     
+               
 }
 
 $action = isset($_GET['action']) ? $_GET['action'] : '';
@@ -146,8 +155,13 @@ switch ($action) {
         $id = isset($_POST['id']) ? $_POST['id'] : die("Falta id");
         $servicioController->eliminarServicio(); // Llamar al método para eliminar un servicio
         break;
+        case '/menu/listarServicios':
+            // Obtener y mostrar la lista de servicios
+            $servicioController->listarServicios(); // Llamar al método que lista los servicios
+            break;
     case 'crearServicioRealizado':
             $realizadoController->crearServicioRealizado(); // Llamar al método para crear un servicio
             break;
+           
 }
 ?>
