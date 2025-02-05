@@ -28,11 +28,8 @@
                             <td>{$servicio.descripcion}</td>
                             <td>{$servicio.costo}</td>
                             <td>
-                                <!-- Botón para eliminar servicio -->
-                                <form method="POST" action="eliminar_servicio.php" class="d-inline">
-                                    <input type="hidden" name="id" value="{$servicio.id}">
-                                    <button type="submit" class="btn btn-danger btn-sm">Eliminar</button>
-                                </form>
+                                <!-- Enlace para redirigir al formulario de confirmación de eliminación -->
+                                <a href="/menu/eliminarServicio" class="btn btn-danger btn-sm">Eliminar</a>
                             </td>
                         </tr>
                     {/foreach}
@@ -52,3 +49,4 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
+

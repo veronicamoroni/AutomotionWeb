@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 5.4.0, created on 2025-02-05 20:13:35
+/* Smarty version 5.4.0, created on 2025-02-05 23:35:58
   from 'file:listarServicios.tpl' */
 
 /* @var \Smarty\Template $_smarty_tpl */
 if ($_smarty_tpl->getCompiled()->isFresh($_smarty_tpl, array (
   'version' => '5.4.0',
-  'unifunc' => 'content_67a3b85f23b503_70829011',
+  'unifunc' => 'content_67a3e7ce1005a3_93528863',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '3a21284fc3a41eba27bb75d1aaee88e2ff2bab6c' => 
     array (
       0 => 'listarServicios.tpl',
-      1 => 1738780121,
+      1 => 1738794954,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->getCompiled()->isFresh($_smarty_tpl, array (
   array (
   ),
 ))) {
-function content_67a3b85f23b503_70829011 (\Smarty\Template $_smarty_tpl) {
+function content_67a3e7ce1005a3_93528863 (\Smarty\Template $_smarty_tpl) {
 $_smarty_current_dir = 'C:\\xampp\\htdocs\\AutomotionWeb\\templates';
 ?><!DOCTYPE html>
 <html lang="es">
@@ -60,12 +60,8 @@ $foreach0DoElse = false;
                             <td><?php echo $_smarty_tpl->getValue('servicio')['costo'];?>
 </td>
                             <td>
-                                <!-- Botón para eliminar servicio -->
-                                <form method="POST" action="eliminar_servicio.php" class="d-inline">
-                                    <input type="hidden" name="id" value="<?php echo $_smarty_tpl->getValue('servicio')['id'];?>
-">
-                                    <button type="submit" class="btn btn-danger btn-sm">Eliminar</button>
-                                </form>
+                                <!-- Enlace para redirigir al formulario de confirmación de eliminación -->
+                                <a href="/menu/eliminarServicio" class="btn btn-danger btn-sm">Eliminar</a>
                             </td>
                         </tr>
                     <?php
@@ -89,5 +85,6 @@ $_smarty_tpl->getSmarty()->getRuntime('Foreach')->restore($_smarty_tpl, 1);?>
 >
 </body>
 </html>
+
 <?php }
 }
