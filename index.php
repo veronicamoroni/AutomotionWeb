@@ -1,13 +1,14 @@
 <?php
 
 // Asegúrate de que las rutas a los archivos son correctas
-require_once ('libs\Smarty.class.php');
-require_once './Model/Model.php';
-require_once './controllers/UserController.php';
-require_once './controllers/ClienteController.php'; 
-require_once './controllers/VehiculoController.php'; 
-require_once './controllers/TurnoController.php';
-require_once './controllers\ServicioController.php'; // Incluir el controlador de Servicios
+require_once('libs/Smarty.class.php');
+require_once('./Model/Model.php');
+require_once('./controllers/UserController.php');
+require_once('./controllers/ClienteController.php'); 
+require_once('./controllers/VehiculoController.php'); 
+require_once('./controllers/TurnoController.php');
+require_once('./controllers/ServicioController.php'); // Incluir el controlador de Servicios
+require_once('./controllers/ServicioRealizadoController.php'); // Corregir la ruta
 
 // Crear conexión a la base de datos
 $database = new Model();
@@ -19,7 +20,7 @@ $clienteController = new ClienteController($db);
 $vehiculoController = new VehiculoController($db);
 $turnoController = new TurnoController($db);
 $servicioController = new ServicioController($db); // Instancia el controlador de Servicios
-
+$realizadoController = new ServicioRealizadoController($db);
 // Inicializa Smarty
 $smarty = new Smarty\Smarty;
 $smarty->setTemplateDir(__DIR__ . '/templates');
@@ -91,6 +92,10 @@ switch ($request) {
         // Obtener y mostrar la lista de servicios
         $servicioController->listarServicios(); // Llamar al método que lista los servicios
         break;
+        case '/menu/crearServicioRealizado':
+            // Mostrar el formulario de eliminación
+            $smarty->display('crearServicioRealizado.tpl'); 
+            break;
 }
 
 $action = isset($_GET['action']) ? $_GET['action'] : '';
@@ -141,5 +146,8 @@ switch ($action) {
         $id = isset($_POST['id']) ? $_POST['id'] : die("Falta id");
         $servicioController->eliminarServicio(); // Llamar al método para eliminar un servicio
         break;
+    case 'crearServicioRealizado':
+            $realizadoController->crearServicioRealizado(); // Llamar al método para crear un servicio
+            break;
 }
 ?>

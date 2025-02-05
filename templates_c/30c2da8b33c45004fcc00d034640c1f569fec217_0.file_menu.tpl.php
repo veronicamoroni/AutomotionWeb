@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 5.4.0, created on 2025-01-28 19:58:15
+/* Smarty version 5.4.0, created on 2025-02-05 19:51:33
   from 'file:templates/menu.tpl' */
 
 /* @var \Smarty\Template $_smarty_tpl */
 if ($_smarty_tpl->getCompiled()->isFresh($_smarty_tpl, array (
   'version' => '5.4.0',
-  'unifunc' => 'content_679928c788b255_12318597',
+  'unifunc' => 'content_67a3b3354a48e6_20220735',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '30c2da8b33c45004fcc00d034640c1f569fec217' => 
     array (
       0 => 'templates/menu.tpl',
-      1 => 1738090687,
+      1 => 1738781468,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->getCompiled()->isFresh($_smarty_tpl, array (
   array (
   ),
 ))) {
-function content_679928c788b255_12318597 (\Smarty\Template $_smarty_tpl) {
+function content_67a3b3354a48e6_20220735 (\Smarty\Template $_smarty_tpl) {
 $_smarty_current_dir = 'C:\\xampp\\htdocs\\AutomotionWeb\\templates';
 ?><!DOCTYPE html>
 <html lang="es">
@@ -29,8 +29,9 @@ $_smarty_current_dir = 'C:\\xampp\\htdocs\\AutomotionWeb\\templates';
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Menu</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+<link rel="icon" type="image/x-icon" href="favicon.ico">
 
- <style>
+    <style>
         /* Estilos personalizados para la barra de navegación */
         .navbar-custom {
             background-color: #004085; /* Color de fondo azul */
@@ -45,7 +46,7 @@ $_smarty_current_dir = 'C:\\xampp\\htdocs\\AutomotionWeb\\templates';
         /* Cambiar el color de fondo del header */
         header {
             background-color: #004085; /* Fondo azul */
-            padding: ,10rem 0; /* Reducir padding vertical */
+            padding: 10rem 0; /* Reducir padding vertical */
         }
         
         /* Estilo para el título con degradado */
@@ -64,7 +65,7 @@ $_smarty_current_dir = 'C:\\xampp\\htdocs\\AutomotionWeb\\templates';
         
         /* Fondo de la página */
         body {
-            background-image: url('imagen.jpg'); /* Cambia la ruta según la ubicación de tu imagen */
+          
             background-size: cover;
             background-position: center;
             background-repeat: no-repeat;
@@ -78,8 +79,6 @@ $_smarty_current_dir = 'C:\\xampp\\htdocs\\AutomotionWeb\\templates';
             padding: 0.5rem 0; /* Reducir el padding vertical */
         }
     </style>
-   
-
 </head>
 <body>
     <header class="text-white py-2"> 
@@ -92,7 +91,6 @@ $_smarty_current_dir = 'C:\\xampp\\htdocs\\AutomotionWeb\\templates';
         <ul class="nav nav-tabs justify-content-center">
             <!-- Dropdown Clientes -->
             <li class="nav-item dropdown">
-            
                 <a class="nav-link dropdown-toggle" href="#" id="clientesDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     Clientes
                 </a>
@@ -101,7 +99,6 @@ $_smarty_current_dir = 'C:\\xampp\\htdocs\\AutomotionWeb\\templates';
                     <a class="dropdown-item" href="/menu/modificarCliente">Modificar Clientes</a>
                     <a class="dropdown-item" href="/menu/eliminarCliente">Eliminar Clientes</a>
                     <a class="dropdown-item" href="/menu/listarClientes">Listar Clientes</a>
-                    
                 </div>
             </li>
             <!-- Dropdown Vehículos -->
@@ -128,11 +125,30 @@ $_smarty_current_dir = 'C:\\xampp\\htdocs\\AutomotionWeb\\templates';
                     <a class="dropdown-item" href="/menu/listarTurnos">Listar Turnos</a>
                 </div>
             </li>
-            <!-- Facturación (no dropdown) -->
-            <li class="nav-item">
-                <a class="nav-link" href="#tab-facturacion">Facturación</a>
+            <!-- Dropdown Servicios -->
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="serviciosDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Servicios
+                </a>
+                <div class="dropdown-menu bg-primary" aria-labelledby="serviciosDropdown">
+                    <a class="dropdown-item" href="/menu/crearServicio">Alta de Servicios</a>
+                    <a class="dropdown-item" href="/menu/modificarServicio">Modificar Servicios</a>
+                    <a class="dropdown-item" href="/menu/eliminarServicio">Eliminar Servicios</a>
+                    <a class="dropdown-item" href="/menu/listarServicios">Listar Servicios</a>
+                </div>
             </li>
-        </ul>
+             <!-- Dropdown  ServicioRealizado -->
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="realizadoDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                   Servicio Realizado
+                </a>
+                <div class="dropdown-menu bg-primary" aria-labelledby="realizadoDropdown">
+                    <a class="dropdown-item" href="/menu/crearServicioRealizado">Alta de Servicios Realizados</a>
+                    <a class="dropdown-item" href="/menu/modificarRealizado">Modificar Servicios Realizados</a>
+                    <a class="dropdown-item" href="/menu/eliminarRealizado">Eliminar Servicios Realizados</a>
+                    <a class="dropdown-item" href="/menu/listarRealizados">Listar Servicios Realizados</a>
+                </div>
+            </li>
     </header>
     
     <main class="container mt-4">
@@ -148,7 +164,7 @@ $_smarty_current_dir = 'C:\\xampp\\htdocs\\AutomotionWeb\\templates';
         <p>&copy; 2024 Derechos Reservados AUTOMOTION</p>
     </footer>
 
-    <!-- Usar la versión completa de jQuery en lugar de Slim -->
+    <!-- Scripts de JavaScript -->
     <?php echo '<script'; ?>
  src="https://code.jquery.com/jquery-3.5.1.min.js"><?php echo '</script'; ?>
 >

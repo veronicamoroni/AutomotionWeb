@@ -5,8 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Menu</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+<link rel="icon" type="image/x-icon" href="favicon.ico">
 
- <style>
+    <style>
         /* Estilos personalizados para la barra de navegación */
         .navbar-custom {
             background-color: #004085; /* Color de fondo azul */
@@ -21,7 +22,7 @@
         /* Cambiar el color de fondo del header */
         header {
             background-color: #004085; /* Fondo azul */
-            padding: ,10rem 0; /* Reducir padding vertical */
+            padding: 10rem 0; /* Reducir padding vertical */
         }
         
         /* Estilo para el título con degradado */
@@ -40,7 +41,7 @@
         
         /* Fondo de la página */
         body {
-            background-image: url('imagen.jpg'); /* Cambia la ruta según la ubicación de tu imagen */
+          
             background-size: cover;
             background-position: center;
             background-repeat: no-repeat;
@@ -54,9 +55,6 @@
             padding: 0.5rem 0; /* Reducir el padding vertical */
         }
     </style>
-   
-
-
 </head>
 <body>
     <header class="text-white py-2"> 
@@ -77,7 +75,6 @@
                     <a class="dropdown-item" href="/menu/modificarCliente">Modificar Clientes</a>
                     <a class="dropdown-item" href="/menu/eliminarCliente">Eliminar Clientes</a>
                     <a class="dropdown-item" href="/menu/listarClientes">Listar Clientes</a>
-                    
                 </div>
             </li>
             <!-- Dropdown Vehículos -->
@@ -116,11 +113,18 @@
                     <a class="dropdown-item" href="/menu/listarServicios">Listar Servicios</a>
                 </div>
             </li>
-            <!-- Facturación (no dropdown) -->
-            <li class="nav-item">
-                <a class="nav-link" href="#tab-facturacion">Facturación</a>
+             <!-- Dropdown  ServicioRealizado -->
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="realizadoDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                   Servicio Realizado
+                </a>
+                <div class="dropdown-menu bg-primary" aria-labelledby="realizadoDropdown">
+                    <a class="dropdown-item" href="/menu/crearServicioRealizado">Alta de Servicios Realizados</a>
+                    <a class="dropdown-item" href="/menu/modificarRealizado">Modificar Servicios Realizados</a>
+                    <a class="dropdown-item" href="/menu/eliminarRealizado">Eliminar Servicios Realizados</a>
+                    <a class="dropdown-item" href="/menu/listarRealizados">Listar Servicios Realizados</a>
+                </div>
             </li>
-        </ul>
     </header>
     
     <main class="container mt-4">
@@ -136,7 +140,7 @@
         <p>&copy; 2024 Derechos Reservados AUTOMOTION</p>
     </footer>
 
-    <!-- Usar la versión completa de jQuery en lugar de Slim -->
+    <!-- Scripts de JavaScript -->
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
