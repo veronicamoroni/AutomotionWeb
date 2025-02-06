@@ -41,7 +41,7 @@ class TurnoController {
     public function obtenerTurnos() {
         $stmt = $this->turno->obtenerTurnos();
         $turnos = $stmt->fetchAll(PDO::FETCH_ASSOC);
-        echo json_encode($turnos);
+        return $turnos;
     }
 
     // Método para obtener un turno por ID
