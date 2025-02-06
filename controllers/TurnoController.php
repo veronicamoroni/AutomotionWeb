@@ -13,24 +13,28 @@ class TurnoController {
 
     // Método para crear un turno
     public function crearTurno() {
+        $mensaje = ''; // Inicializar el mensaje para mostrar en la página
+    
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
-            // Obtener los datos del formulario
-            $this->turno->setFecha(isset($_POST['fecha']) ? $_POST['fecha'] : '');
-            $this->turno->setHora(isset($_POST['hora']) ? $_POST['hora'] : '');
-            $this->turno->setDescripcion(isset($_POST['descripcion']) ? $_POST['descripcion'] : '');
-            $this->turno->setPatente(isset($_POST['patente']) ? $_POST['patente'] : '');
-
+            // Obtener datos del formulario y asignarlos directamente a los atributos de la clase
+            $this->turno->fecha = isset($_POST['fecha']) ? $_POST['fecha'] : '';
+            $this->turno->hora = isset($_POST['hora']) ? $_POST['hora'] : '';
+            $this->turno->descripcion = isset($_POST['descripcion']) ? $_POST['descripcion'] : '';
+            $this->turno->patente = isset($_POST['patente']) ? $_POST['patente'] : '';
+    
             // Llamar al método del modelo para crear el turno
             $result = $this->turno->crearTurno();
-
+    
             if ($result === true) {
-                echo "¡Turno creado con éxito!";
+                $mensaje = "¡Turno creado con éxito!";
             } else {
-                echo $result; // Mostrar mensaje de error
+                $mensaje = $result; // Mostrar mensaje de error
             }
         } else {
-            echo "Método de solicitud no permitido.";
+            $mensaje = "Método de solicitud no permitido.";
         }
+    
+        echo $mensaje;
     }
 
     // Método para obtener todos los turnos
