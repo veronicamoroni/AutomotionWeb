@@ -160,7 +160,7 @@ switch ($action) {
             $servicioController->listarServicios(); // Llamar al método que lista los servicios
             break;
     case 'crearServicioRealizado':
-            $realizadoController->crearServicioRealizado(); // Llamar al método para crear un servicio
+            $serviciorealizadoController->crearServicioRealizado(); // Llamar al método para crear un servicio
             break;
            
 }
