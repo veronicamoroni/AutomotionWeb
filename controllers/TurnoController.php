@@ -37,12 +37,19 @@ class TurnoController {
         echo $mensaje;
     }
 
-    // Método para obtener todos los turnos
+    
     public function obtenerTurnos() {
+        
         $stmt = $this->turno->obtenerTurnos();
         $turnos = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    
+        // convertir la fecha al formato dd-mm-aaaa
+        foreach ($turnos as &$turno) {
+            $turno['fecha'] = date('d-m-Y', strtotime($turno['fecha']));
+        }
         return $turnos;
     }
+        
 
     // Método para obtener un turno por ID
     public function obtenerTurnoPorId($id) {
