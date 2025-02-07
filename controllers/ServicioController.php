@@ -15,25 +15,23 @@ class ServicioController {
     public function crearServicio() {
         // Obtener datos de la solicitud POST (solo descripción y costo)
         $descripcion = isset($_POST['descripcion']) ? $_POST['descripcion'] : null;
-        $costo = isset($_POST['costo']) ? $_POST['costo'] : null;
+        $costo = isset($_POST['costo']) ? $_POST['costo'] : null;  // Costo ahora es opcional
     
-        if (empty($descripcion) || empty($costo)) {
-            // Validación en caso de que los campos sean vacíos
-            echo "Descripción y costo son obligatorios.";
+        // Validación en caso de que la descripción esté vacía
+        if (empty($descripcion)) {
+            echo "La descripción es obligatoria.";
             return;
         }
     
         // Crear un nuevo servicio
         $this->servicio->descripcion = $descripcion;
-        $this->servicio->costo = $costo;
+        $this->servicio->costo = $costo;  // Puede ser null si no se envió
     
-        if ($this->servicio->crearServicio()) {
-            // Mostrar mensaje de éxito
-            echo "Servicio creado exitosamente.";
-        } else {
-            // Mostrar mensaje de error
-            echo "Error al crear el servicio.";
-        }
+        // Llamar al método crearServicio y capturar el mensaje
+        $resultado = $this->servicio->crearServicio();
+    
+        // Mostrar el mensaje devuelto por el modelo
+        echo $resultado;
     }
     
 

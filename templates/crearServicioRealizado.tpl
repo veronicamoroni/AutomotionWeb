@@ -35,7 +35,7 @@
                                 <textarea class="form-control" id="notas" name="notas" rows="3"></textarea>
                             </div>
 
-                            <button type="submit" class="btn btn-success btn-block">Registrar Servicio Realizado</button>
+                            <button type="submit" class="btn btn-success btn-lg btn-block">Registrar Servicio Realizado</button>
                         </form>
                     </div>
                 </div>
@@ -43,9 +43,7 @@
         </div>
 
         <div class="text-center mt-3">
-            <div class="text-center mt-3">
-                <a href="/menu" class="btn btn-secondary btn-block">Volver al Menú</a>
-            </div>
+            <a href="/menu" class="btn btn-secondary btn-lg">Volver al Menú</a>
         </div>
     </div>
 

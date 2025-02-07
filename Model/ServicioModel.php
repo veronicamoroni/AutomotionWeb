@@ -13,26 +13,45 @@ class Servicio {
 
     // Crear un nuevo servicio
     public function crearServicio() {
-        try {
-            // Preparar la consulta
-            $query = "INSERT INTO " . $this->table . " (descripcion, costo) 
-                      VALUES (:descripcion, :costo)";
-            $stmt = $this->db->prepare($query);
+        // Verificar si ya existe el servicio con la misma descripción (nombre)
+        $queryCheck = "SELECT COUNT(*) FROM " . $this->table . " WHERE descripcion = :descripcion";
+        $stmtCheck = $this->db->prepare($queryCheck);
+        
+        // Limpiar y enlazar los parámetros
+        $this->descripcion = htmlspecialchars(strip_tags($this->descripcion));
+        $stmtCheck->bindParam(':descripcion', $this->descripcion);
+        
+        // Ejecutar la consulta de verificación
+        $stmtCheck->execute();
+        
+        // Si ya existe un servicio con la misma descripción, retornar el mensaje
+        $count = $stmtCheck->fetchColumn();
+        if ($count > 0) {
+            return "El servicio ya existe.";
+        }
     
-            // Limpiar los datos
-            $this->descripcion = htmlspecialchars(strip_tags($this->descripcion));
-            $this->costo = htmlspecialchars(strip_tags($this->costo));
-    
-            // Enlazar los parámetros
-            $stmt->bindParam(':descripcion', $this->descripcion);
+        // Si no existe, proceder con la inserción
+        // Si no se proporciona costo, se insertará NULL en la base de datos
+        $query = "INSERT INTO " . $this->table . " (descripcion, costo) VALUES (:descripcion, :costo)";
+        $stmt = $this->db->prepare($query);
+        $stmt->bindParam(':descripcion', $this->descripcion);
+        
+        // Si el costo es proporcionado, lo asignamos
+        if (isset($this->costo)) {
             $stmt->bindParam(':costo', $this->costo);
-    
-            // Ejecutar la consulta
-            return $stmt->execute();
-        } catch (PDOException $e) {
-            return "Error al crear el servicio: " . $e->getMessage();
+        } else {
+            // Si no se proporciona costo, se inserta NULL
+            $stmt->bindValue(':costo', null, PDO::PARAM_NULL);
+        }
+        
+        // Ejecutar la inserción y retornar el resultado
+        if ($stmt->execute()) {
+            return "El servicio se ha guardado exitosamente.";
+        } else {
+            return "Error al guardar el servicio.";
         }
     }
+    
     
     // Modificar un servicio
     public function modificarServicio() {
