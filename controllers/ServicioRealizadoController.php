@@ -30,23 +30,34 @@ class ServicioRealizadoController {
         }
     }
 
-    // Modificar un servicio realizado existente
-    public function modificarServicioRealizado() {
-        // Obtener los datos del formulario
-        $this->realizado->id = isset($_POST['id']) ? $_POST['id'] : null;
-        $this->realizado->notas = isset($_POST['notas']) ? $_POST['notas'] : null;
+   // Modificar un servicio realizado existente
+public function modificarServicioRealizado() {
+    // Obtener los datos del formulario
+    $servicios_realizados_id = isset($_POST['servicios_realizados_id']) ? $_POST['servicios_realizados_id'] : null;
+    $notas = isset($_POST['notas']) ? $_POST['notas'] : null;
+    $turnos_id = isset($_POST['turnos_id']) ? $_POST['turnos_id'] : null;
+    $servicios_id = isset($_POST['servicios_id']) ? $_POST['servicios_id'] : null;
 
-        if (empty($this->realizado->id) || empty($this->realizado->notas)) {
-            echo "Falta el ID o las notas.";
-            return;
-        }
-
-        if ($this->realizado->modificarServicioRealizado()) {
-            echo "Registro de servicio realizado modificado con éxito.";
-        } else {
-            echo "Error al modificar el registro de servicio realizado.";
-        }
+    // Validar que todos los campos necesarios estén presentes
+    if (empty($servicios_realizados_id) || empty($notas) || empty($turnos_id) || empty($servicios_id)) {
+        echo "Falta el ID del servicio realizado, las notas, el turno o el servicio.";
+        return;
     }
+
+    // Asignar los datos al objeto de servicio realizado
+    $this->realizado->id = $servicios_realizados_id;
+    $this->realizado->notas = $notas;
+    $this->realizado->turnos_id = $turnos_id;
+    $this->realizado->servicios_id = $servicios_id;
+
+    // Llamar al método modificarServicioRealizado() para actualizar el servicio
+    if ($this->realizado->modificarServicioRealizado()) {
+        echo "Registro de servicio realizado modificado con éxito.";
+    } else {
+        echo "Error al modificar el registro de servicio realizado.";
+    }
+}
+
 
     // Eliminar un registro de servicio realizado
     public function eliminarServicioRealizado() {
@@ -62,13 +73,14 @@ class ServicioRealizadoController {
             echo "Falta el ID del registro de servicio realizado.";
         }
     }
-    // Listar todos los servicios realizados
     public function obtenerServiciosRealizados() {
-        // Obtener todos los registros
-        $stmt = $this->realizado->obtenerServiciosRealizados();
-        $servicios = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        // Llamar al modelo para obtener los datos de los servicios realizados
+        $servicios = $this->realizado->obtenerServiciosRealizados();
+    
+        // Devolver los datos a la vista
         return $servicios;
-        
     }
+    
+    
 }
 ?>

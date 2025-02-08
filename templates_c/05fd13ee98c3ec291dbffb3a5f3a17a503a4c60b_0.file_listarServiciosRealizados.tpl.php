@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 5.4.0, created on 2025-02-05 22:24:58
+/* Smarty version 5.4.0, created on 2025-02-08 21:28:48
   from 'file:listarServiciosRealizados.tpl' */
 
 /* @var \Smarty\Template $_smarty_tpl */
 if ($_smarty_tpl->getCompiled()->isFresh($_smarty_tpl, array (
   'version' => '5.4.0',
-  'unifunc' => 'content_67a3d72a19ae00_70155417',
+  'unifunc' => 'content_67a7be80c11d17_31515407',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '05fd13ee98c3ec291dbffb3a5f3a17a503a4c60b' => 
     array (
       0 => 'listarServiciosRealizados.tpl',
-      1 => 1738787550,
+      1 => 1739043398,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->getCompiled()->isFresh($_smarty_tpl, array (
   array (
   ),
 ))) {
-function content_67a3d72a19ae00_70155417 (\Smarty\Template $_smarty_tpl) {
+function content_67a7be80c11d17_31515407 (\Smarty\Template $_smarty_tpl) {
 $_smarty_current_dir = 'C:\\xampp\\htdocs\\AutomotionWeb\\templates';
 ?><!DOCTYPE html>
 <html lang="es">
@@ -38,47 +38,54 @@ $_smarty_current_dir = 'C:\\xampp\\htdocs\\AutomotionWeb\\templates';
         <table class="table table-bordered">
             <thead class="table-dark">
                 <tr>
-                    <th>ID</th>
-                    <th>Servicio</th>
-                    <th>Turno</th>
+                    <th>Id</th>
+                    <th>Turno_id</th>
+                    <th>Fecha</th>
+                    <th>hora</th>
+                    <th>Servicio_id</th>
+                    <th>Nombre</th>
+                    <th>Costo</th>
+                    <th>Servicio_id</th>
                     <th>Notas</th>
-                    <th>Acciones</th>
+                   
+                   
                 </tr>
             </thead>
             <tbody>
-                <?php if ($_smarty_tpl->getSmarty()->getModifierCallback('count')($_smarty_tpl->getValue('servicios_realizados')) > 0) {?>
-                    <?php
+               <?php if ($_smarty_tpl->getSmarty()->getModifierCallback('count')($_smarty_tpl->getValue('servicios_realizados')) > 0) {?>
+        <?php
 $_from = $_smarty_tpl->getSmarty()->getRuntime('Foreach')->init($_smarty_tpl, $_smarty_tpl->getValue('servicios_realizados'), 'servicio_realizado');
 $foreach0DoElse = true;
 foreach ($_from ?? [] as $_smarty_tpl->getVariable('servicio_realizado')->value) {
 $foreach0DoElse = false;
 ?>
-                        <tr>
-                            <td><?php echo $_smarty_tpl->getValue('servicio_realizado')['id'];?>
+            <tr>
+                <td><?php echo $_smarty_tpl->getValue('servicio_realizado')['servicio_id'];?>
+</td> <!-- ID de la tabla servicios -->
+                <td><?php echo $_smarty_tpl->getValue('servicio_realizado')['turno_id'];?>
+</td> <!-- ID del turno -->
+                <td><?php echo $_smarty_tpl->getValue('servicio_realizado')['fecha_turno'];?>
+</td> <!-- Fecha del turno -->
+                <td><?php echo $_smarty_tpl->getValue('servicio_realizado')['hora_turno'];?>
+</td> <!-- Hora del turno -->
+                <td><?php echo $_smarty_tpl->getValue('servicio_realizado')['servicio_id'];?>
+</td> <!-- ID de la tabla servicios -->
+                <td><?php echo $_smarty_tpl->getValue('servicio_realizado')['servicio_nombre'];?>
+</td> <!-- Descripción del servicio -->
+                <td><?php echo $_smarty_tpl->getValue('servicio_realizado')['costo'];?>
+</td> <!-- Costo del servicio -->
+                <td><?php echo $_smarty_tpl->getValue('servicio_realizado')['notas'];?>
 </td>
-                            <td><?php echo $_smarty_tpl->getValue('servicio_realizado')['servicios_id'];?>
-</td>
-                            <td><?php echo $_smarty_tpl->getValue('servicio_realizado')['turnos_id'];?>
-</td>
-                            <td><?php echo $_smarty_tpl->getValue('servicio_realizado')['notas'];?>
-</td>
-                            <td>
-                                <!-- Botón para eliminar servicio realizado con confirmación -->
-                                <form method="POST" action="eliminar_servicio_realizado.php" class="d-inline" onsubmit="return confirmarEliminacion();">
-                                    <input type="hidden" name="id" value="<?php echo $_smarty_tpl->getValue('servicio_realizado')['id'];?>
-">
-                                    <button type="submit" class="btn btn-danger btn-sm">Eliminar</button>
-                                </form>
-                            </td>
-                        </tr>
-                    <?php
+               
+            </tr>
+        <?php
 }
 $_smarty_tpl->getSmarty()->getRuntime('Foreach')->restore($_smarty_tpl, 1);?>
-                <?php } else { ?>
-                    <tr>
-                        <td colspan="5" class="text-center">No hay servicios realizados registrados.</td>
-                    </tr>
-                <?php }?>
+    <?php } else { ?>
+        <tr>
+            <td colspan="7" class="text-center">No hay servicios realizados registrados.</td>
+        </tr>
+    <?php }?>
             </tbody>
         </table>
 

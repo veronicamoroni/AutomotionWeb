@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 5.4.0, created on 2025-02-06 20:35:53
+/* Smarty version 5.4.0, created on 2025-02-08 20:37:19
   from 'file:templates/menu.tpl' */
 
 /* @var \Smarty\Template $_smarty_tpl */
 if ($_smarty_tpl->getCompiled()->isFresh($_smarty_tpl, array (
   'version' => '5.4.0',
-  'unifunc' => 'content_67a50f19281356_43998153',
+  'unifunc' => 'content_67a7b26fda4f46_09303613',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '30c2da8b33c45004fcc00d034640c1f569fec217' => 
     array (
       0 => 'templates/menu.tpl',
-      1 => 1738870548,
+      1 => 1739043434,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->getCompiled()->isFresh($_smarty_tpl, array (
   array (
   ),
 ))) {
-function content_67a50f19281356_43998153 (\Smarty\Template $_smarty_tpl) {
+function content_67a7b26fda4f46_09303613 (\Smarty\Template $_smarty_tpl) {
 $_smarty_current_dir = 'C:\\xampp\\htdocs\\AutomotionWeb\\templates';
 ?><!DOCTYPE html>
 <html lang="es">
@@ -135,7 +135,7 @@ $_smarty_current_dir = 'C:\\xampp\\htdocs\\AutomotionWeb\\templates';
                     <a class="dropdown-item" href="/menu/modificarServicio">Modificar Servicios</a>
                     <a class="dropdown-item" href="/menu/eliminarServicio">Eliminar Servicios</a>
                     <a class="dropdown-item" href="/menu/listarServicios">Listar Servicios</a>
-                    <a class="dropdown-item" href="/menu/ServiciosRealizados"> Servicios realizados</a>
+                    
                 </div>
             </li>
              <!-- Dropdown  ServicioRealizado -->
@@ -145,10 +145,9 @@ $_smarty_current_dir = 'C:\\xampp\\htdocs\\AutomotionWeb\\templates';
                 </a>
                 <div class="dropdown-menu bg-primary" aria-labelledby="realizadoDropdown">
                     <a class="dropdown-item" href="/menu/crearServicioRealizado">Alta de Servicios Realizados</a>
-                    <a class="dropdown-item" href="/menu/modificarRealizado">Modificar Servicios Realizados</a>
-                    <a class="dropdown-item" href="/menu/eliminarRealizado">Eliminar Servicios Realizados</a>
+                    <a class="dropdown-item" href="/menu/modificarServicioRealizado">Modificar Servicios Realizados</a>
+                    <a class="dropdown-item" href="/menu/eliminarServicioRealizado">Eliminar Servicios Realizados</a>
                     <a class="dropdown-item" href="/menu/listarServicioRealizado">Listar Servicios Realizados</a>
-                
                 </div>
             </li>
     </header>

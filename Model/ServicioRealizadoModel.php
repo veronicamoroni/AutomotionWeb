@@ -33,15 +33,25 @@ class ServicioRealizado {
             return "Error al crear el registro: " . $e->getMessage();
         }
     }
-
-    // Obtener todos los registros de ServicioRealizado
     public function obtenerServiciosRealizados() {
-        $query = "SELECT * FROM " . $this->table;
+        $query = "SELECT sr.id, sr.notas, 
+                         s.id AS servicio_id, s.descripcion AS servicio_nombre, s.costo, 
+                         t.id AS turno_id, t.fecha AS fecha_turno, t.hora AS hora_turno
+                  FROM " . $this->table . " sr
+                  JOIN servicios s ON sr.servicios_id = s.id
+                  JOIN turnos t ON sr.turnos_id = t.id";
+    
+        // Preparar y ejecutar la consulta
         $stmt = $this->db->prepare($query);
         $stmt->execute();
-        return $stmt;
+    
+        // Retornar los resultados como un array asociativo
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
+   
+    
+    
     // Obtener un registro específico por ID
     public function obtenerServicioRealizadoPorId() {
         $query = "SELECT * FROM " . $this->table . " WHERE id = :id LIMIT 1";
@@ -50,21 +60,42 @@ class ServicioRealizado {
         $stmt->execute();
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
-
-    // Modificar un registro en ServicioRealizado
     public function modificarServicioRealizado() {
-        $query = "UPDATE " . $this->table . " SET notas = :notas WHERE id = :id";
-        $stmt = $this->db->prepare($query);
-
+        // Verificar si el servicio realizado con el ID proporcionado existe
+        $queryVerificar = "SELECT COUNT(*) FROM " . $this->table . " WHERE id = :id";
+        $stmtVerificar = $this->db->prepare($queryVerificar);
+        $stmtVerificar->bindParam(':id', $this->id);
+        $stmtVerificar->execute();
+        $result = $stmtVerificar->fetchColumn();
+    
+        // Si no se encuentra el servicio realizado con el ID proporcionado, retornar false
+        if ($result == 0) {
+            return false;
+        }
+    
+        // Preparar la consulta para modificar el servicio realizado
+        $queryModificar = "UPDATE " . $this->table . " 
+                           SET notas = :notas, turnos_id = :turnos_id, servicios_id = :servicios_id
+                           WHERE id = :id";
+        $stmtModificar = $this->db->prepare($queryModificar);
+    
+        // Limpiar los datos
         $this->notas = htmlspecialchars(strip_tags($this->notas));
+        $this->turnos_id = htmlspecialchars(strip_tags($this->turnos_id));
+        $this->servicios_id = htmlspecialchars(strip_tags($this->servicios_id));
         $this->id = htmlspecialchars(strip_tags($this->id));
-
-        $stmt->bindParam(':notas', $this->notas);
-        $stmt->bindParam(':id', $this->id);
-
-        return $stmt->execute();
+    
+        // Enlazar los parámetros
+        $stmtModificar->bindParam(':notas', $this->notas);
+        $stmtModificar->bindParam(':turnos_id', $this->turnos_id);
+        $stmtModificar->bindParam(':servicios_id', $this->servicios_id);
+        $stmtModificar->bindParam(':id', $this->id);
+    
+        // Ejecutar la consulta y devolver el resultado
+        return $stmtModificar->execute();
     }
-
+    
+    
     // Eliminar un registro en ServicioRealizado
     public function eliminarServicioRealizado() {
         $query = "DELETE FROM " . $this->table . " WHERE id = :id";

@@ -14,35 +14,39 @@
         <table class="table table-bordered">
             <thead class="table-dark">
                 <tr>
-                    <th>ID</th>
-                    <th>Servicio</th>
-                    <th>Turno</th>
+                    <th>Id</th>
+                    <th>Turno_id</th>
+                    <th>Fecha</th>
+                    <th>hora</th>
+                    <th>Servicio_id</th>
+                    <th>Nombre</th>
+                    <th>Costo</th>
+                    <th>Servicio_id</th>
                     <th>Notas</th>
-                    <th>Acciones</th>
+                   
+                   
                 </tr>
             </thead>
             <tbody>
-                {if $servicios_realizados|@count > 0}
-                    {foreach from=$servicios_realizados item=servicio_realizado}
-                        <tr>
-                            <td>{$servicio_realizado.id}</td>
-                            <td>{$servicio_realizado.servicios_id}</td>
-                            <td>{$servicio_realizado.turnos_id}</td>
-                            <td>{$servicio_realizado.notas}</td>
-                            <td>
-                                <!-- Botón para eliminar servicio realizado con confirmación -->
-                                <form method="POST" action="eliminar_servicio_realizado.php" class="d-inline" onsubmit="return confirmarEliminacion();">
-                                    <input type="hidden" name="id" value="{$servicio_realizado.id}">
-                                    <button type="submit" class="btn btn-danger btn-sm">Eliminar</button>
-                                </form>
-                            </td>
-                        </tr>
-                    {/foreach}
-                {else}
-                    <tr>
-                        <td colspan="5" class="text-center">No hay servicios realizados registrados.</td>
-                    </tr>
-                {/if}
+               {if $servicios_realizados|@count > 0}
+        {foreach from=$servicios_realizados item=servicio_realizado}
+            <tr>
+                <td>{$servicio_realizado.servicio_id}</td> <!-- ID de la tabla servicios -->
+                <td>{$servicio_realizado.turno_id}</td> <!-- ID del turno -->
+                <td>{$servicio_realizado.fecha_turno}</td> <!-- Fecha del turno -->
+                <td>{$servicio_realizado.hora_turno}</td> <!-- Hora del turno -->
+                <td>{$servicio_realizado.servicio_id}</td> <!-- ID de la tabla servicios -->
+                <td>{$servicio_realizado.servicio_nombre}</td> <!-- Descripción del servicio -->
+                <td>{$servicio_realizado.costo}</td> <!-- Costo del servicio -->
+                <td>{$servicio_realizado.notas}</td>
+               
+            </tr>
+        {/foreach}
+    {else}
+        <tr>
+            <td colspan="7" class="text-center">No hay servicios realizados registrados.</td>
+        </tr>
+    {/if}
             </tbody>
         </table>
 

@@ -111,7 +111,7 @@
                     <a class="dropdown-item" href="/menu/modificarServicio">Modificar Servicios</a>
                     <a class="dropdown-item" href="/menu/eliminarServicio">Eliminar Servicios</a>
                     <a class="dropdown-item" href="/menu/listarServicios">Listar Servicios</a>
-                    <a class="dropdown-item" href="/menu/ServiciosRealizados"> Servicios realizados</a>
+                    
                 </div>
             </li>
              <!-- Dropdown  ServicioRealizado -->
@@ -121,10 +121,9 @@
                 </a>
                 <div class="dropdown-menu bg-primary" aria-labelledby="realizadoDropdown">
                     <a class="dropdown-item" href="/menu/crearServicioRealizado">Alta de Servicios Realizados</a>
-                    <a class="dropdown-item" href="/menu/modificarRealizado">Modificar Servicios Realizados</a>
-                    <a class="dropdown-item" href="/menu/eliminarRealizado">Eliminar Servicios Realizados</a>
+                    <a class="dropdown-item" href="/menu/modificarServicioRealizado">Modificar Servicios Realizados</a>
+                    <a class="dropdown-item" href="/menu/eliminarServicioRealizado">Eliminar Servicios Realizados</a>
                     <a class="dropdown-item" href="/menu/listarServicioRealizado">Listar Servicios Realizados</a>
-                
                 </div>
             </li>
     </header>

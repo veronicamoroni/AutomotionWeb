@@ -77,14 +77,6 @@ switch ($request) {
         $smarty->display('templates/eliminarTurno.tpl');
         break;
 
-    
-    case '/menu/listarTurnos':
-        // Obtener y mostrar la lista de turnos
-        $turnos = $turnoController->obtenerTurnos();  // Llamamos al método para obtener los turnos
-        $smarty->assign('turnos', $turnos);  // Asignamos los turnos a Smarty
-        $smarty->display('listarTurnos.tpl');  // Mostramos la plantilla para listar los turnos
-        break;
-
     // Rutas para gestionar Servicios
     case '/menu/crearServicio':
         $smarty->display('templates/crearServicio.tpl'); // Mostrar formulario de creación de servicio
@@ -100,15 +92,27 @@ switch ($request) {
         // Obtener y mostrar la lista de servicios
         $servicioController->listarServicios(); // Llamar al método que lista los servicios
         break;
-    case '/menu/crearServicioRealizado':
-        // Mostrar el formulario de eliminación
-        $smarty->display('crearServicioRealizado.tpl'); 
-        break;   
-    case '/menu/listarServicioRealizado':
-        $servicios = $serviciorealizadoController->obtenerServiciosRealizados();
-        $smarty->assign('servicios_realizados', $servicios);
-        $smarty->display('listarServiciosRealizados.tpl'); 
-        break;
+        case '/menu/crearServicioRealizado':
+            // Mostrar el formulario de eliminación
+            $smarty->display('crearServicioRealizado.tpl'); 
+            break;
+            case '/menu/modificarServicioRealizado':
+                // Mostrar el formulario de eliminación
+                $smarty->display('modificarServicioRealizado.tpl'); 
+                break;
+    case '/menu/eliminarServicioRealizado':
+                // Mostrar el formulario de eliminación
+                $smarty->display('eliminarServiciosRealizados.tpl'); 
+                break;
+                      
+            case '/menu/listarServicioRealizado':
+                
+                    $servicios = $serviciorealizadoController->obtenerServiciosRealizados();
+                    $smarty->assign('servicios_realizados', $servicios);
+                    $smarty->display('listarServiciosRealizados.tpl'); 
+                    break;
+                     
+               
 }
 
 $action = isset($_GET['action']) ? $_GET['action'] : '';
@@ -159,9 +163,19 @@ switch ($action) {
         $id = isset($_POST['id']) ? $_POST['id'] : die("Falta id");
         $servicioController->eliminarServicio(); // Llamar al método para eliminar un servicio
         break;
+        case '/menu/listarServicios':
+            // Obtener y mostrar la lista de servicios
+            $servicioController->listarServicios(); // Llamar al método que lista los servicios
+            break;
     case 'crearServicioRealizado':
-        $serviciorealizadoController->crearServicioRealizado(); // Llamar al método para crear un servicio realizado
+            $serviciorealizadoController->crearServicioRealizado(); // Llamar al método para crear un servicio
+            break;
+    case 'modificarServicioRealizado':
+            $serviciorealizadoController->modificarServicioRealizado(); // Llamar al método para crear un servicio
+            break;
+    case 'eliminarServicioRealizado':
+        $serviciorealizadoController->eliminarServicioRealizado(); // Llamar al método para crear un servicio
         break;
+               
 }
-
 ?>
