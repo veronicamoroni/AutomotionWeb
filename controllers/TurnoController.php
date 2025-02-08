@@ -51,12 +51,7 @@ class TurnoController {
     }
         
 
-    // Método para obtener un turno por ID
-    public function obtenerTurnoPorId($id) {
-        $this->turno->setId($id);
-        $turno = $this->turno->obtenerTurnoPorId();
-        echo json_encode($turno);
-    }
+   
 
     // Método para eliminar un turno
     public function eliminarTurno() {
