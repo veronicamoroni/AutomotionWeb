@@ -124,6 +124,7 @@
                     <a class="dropdown-item" href="/menu/modificarServicioRealizado">Modificar Servicios Realizados</a>
                     <a class="dropdown-item" href="/menu/eliminarServicioRealizado">Eliminar Servicios Realizados</a>
                     <a class="dropdown-item" href="/menu/listarServicioRealizado">Listar Servicios Realizados</a>
+                    <a class="dropdown-item" href="/menu/costoTotal">Costo Total</a>
                 </div>
             </li>
     </header>

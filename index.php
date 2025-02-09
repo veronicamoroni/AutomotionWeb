@@ -104,6 +104,14 @@ switch ($request) {
         // Mostrar el formulario de eliminación
         $smarty->display('crearServicioRealizado.tpl'); 
         break;   
+        case '/menu/modificarServicioRealizado':
+            // Mostrar el formulario de eliminación
+            $smarty->display('modificarServicioRealizado.tpl'); 
+            break;
+case '/menu/eliminarServicioRealizado':
+            // Mostrar el formulario de eliminación
+            $smarty->display('eliminarServiciosRealizados.tpl'); 
+            break;
     case '/menu/listarServicioRealizado':
         $servicios = $serviciorealizadoController->obtenerServiciosRealizados();
         $smarty->assign('servicios_realizados', $servicios);
@@ -162,6 +170,13 @@ switch ($action) {
     case 'crearServicioRealizado':
         $serviciorealizadoController->crearServicioRealizado(); // Llamar al método para crear un servicio realizado
         break;
-}
+        case 'modificarServicioRealizado':
+            $serviciorealizadoController->modificarServicioRealizado(); // Llamar al método para crear un servicio
+            break;
+    case 'eliminarServicioRealizado':
+        $serviciorealizadoController->eliminarServicioRealizado(); // Llamar al método para crear un servicio
+        break;
+    }          
+
 
 ?>

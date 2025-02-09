@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 5.4.0, created on 2025-02-05 19:51:37
+/* Smarty version 5.4.0, created on 2025-02-09 22:08:03
   from 'file:crearServicioRealizado.tpl' */
 
 /* @var \Smarty\Template $_smarty_tpl */
 if ($_smarty_tpl->getCompiled()->isFresh($_smarty_tpl, array (
   'version' => '5.4.0',
-  'unifunc' => 'content_67a3b339454937_04321938',
+  'unifunc' => 'content_67a91933eb0463_23488293',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '5d2590c8ec559c4a49ce01cd73426f65414a3111' => 
     array (
       0 => 'crearServicioRealizado.tpl',
-      1 => 1738781473,
+      1 => 1739131112,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->getCompiled()->isFresh($_smarty_tpl, array (
   array (
   ),
 ))) {
-function content_67a3b339454937_04321938 (\Smarty\Template $_smarty_tpl) {
+function content_67a91933eb0463_23488293 (\Smarty\Template $_smarty_tpl) {
 $_smarty_current_dir = 'C:\\xampp\\htdocs\\AutomotionWeb\\templates';
 ?><!DOCTYPE html>
 <html lang="es">
@@ -59,7 +59,7 @@ $_smarty_current_dir = 'C:\\xampp\\htdocs\\AutomotionWeb\\templates';
                                 <textarea class="form-control" id="notas" name="notas" rows="3"></textarea>
                             </div>
 
-                            <button type="submit" class="btn btn-success btn-block">Registrar Servicio Realizado</button>
+                            <button type="submit" class="btn btn-success btn-lg btn-block">Registrar Servicio Realizado</button>
                         </form>
                     </div>
                 </div>
@@ -67,9 +67,7 @@ $_smarty_current_dir = 'C:\\xampp\\htdocs\\AutomotionWeb\\templates';
         </div>
 
         <div class="text-center mt-3">
-            <div class="text-center mt-3">
-                <a href="/menu" class="btn btn-secondary btn-block">Volver al Menú</a>
-            </div>
+            <a href="/menu" class="btn btn-secondary btn-sm">Volver al Menú</a>
         </div>
     </div>
 
