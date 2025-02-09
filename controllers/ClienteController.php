@@ -11,40 +11,38 @@ class ClienteController {
     }
 
     public function crearCliente() {
-        $mensaje = ''; // Inicializar el mensaje para mostrar en la página
-    
+        $mensaje = ''; 
+
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
-            // Obtener datos del formulario
+            
             $this->cliente->dni = isset($_POST['dni']) ? $_POST['dni'] : '';
             $this->cliente->nombre = isset($_POST['nombre']) ? $_POST['nombre'] : '';
             $this->cliente->apellido = isset($_POST['apellido']) ? $_POST['apellido'] : '';
             $this->cliente->telefono = isset($_POST['telefono']) ? $_POST['telefono'] : '';
             $this->cliente->email = isset($_POST['email']) ? $_POST['email'] : '';
-    
+
             // Validar que los campos obligatorios no estén vacíos
             if (!empty($this->cliente->dni) && !empty($this->cliente->nombre) && !empty($this->cliente->apellido)) {
                 // Llamar al método para crear el cliente
                 $resultado = $this->cliente->crearCliente();
-    
+
                 // Verificar el resultado
                 if ($resultado === true) {
-                    // Mostrar mensaje de éxito
+                    
                     $mensaje = "Cliente creado con éxito.";
-    
-                    echo "<script>document.getElementById('formCrearCliente').reset();</script>";
-    
+
+                    header("Location: /cliente/confirmacion"); // Cambia la URL de destino si es necesario
+                    exit();
                 } else {
-                    // Mostrar mensaje de error si el cliente ya existe o hubo otro problema
                     $mensaje = $resultado;
                 }
             } else {
-                // Mostrar mensaje si faltan campos obligatorios
                 $mensaje = "Por favor, rellena todos los campos obligatorios.";
             }
         }
-    
-        echo "<div id='mensaje'>$mensaje</div>";
+        echo $mensaje; // Aunque es mejor asignar el mensaje a Smarty para que la vista lo maneje
     }
+    
     
  // Método para actualizar un cliente
 public function modificarCliente() {
@@ -120,6 +118,5 @@ public function modificarCliente() {
     }
 }
 
-    }
-   
+}
 ?>
