@@ -13,26 +13,43 @@ class ServicioController {
 
     // Crear un nuevo servicio
     public function crearServicio() {
-        // Obtener datos de la solicitud POST (solo descripción y costo)
-        $descripcion = isset($_POST['descripcion']) ? $_POST['descripcion'] : null;
-        $costo = isset($_POST['costo']) ? $_POST['costo'] : null;  // Costo ahora es opcional
+        // Validación de los datos del formulario
+        if (empty($_POST['descripcion']) || empty($_POST['costo'])) {
+            $mensaje = "La descripción y el costo son obligatorios.";
+        } elseif (!is_numeric($_POST['costo']) || $_POST['costo'] <= 0) {
+            $mensaje = "El costo debe ser un número válido mayor que cero.";
+        } else {
+            // Comprobar si el servicio ya existe en la base de datos
+            $descripcion = $_POST['descripcion'];
     
-        // Validación en caso de que la descripción esté vacía
-        if (empty($descripcion)) {
-            echo "La descripción es obligatoria.";
-            return;
+            // Suponiendo que tienes una tabla 'servicios' y una columna 'descripcion'
+            $query = "SELECT COUNT(*) FROM servicios WHERE descripcion = :descripcion";
+            $stmt = $this->db->prepare($query);
+            $stmt->bindParam(':descripcion', $descripcion);
+            $stmt->execute();
+            $count = $stmt->fetchColumn();
+    
+            if ($count > 0) {
+                // Si ya existe un servicio con esa descripción
+                $mensaje = "El servicio '$descripcion' ya está registrado.";
+            } else {
+                // Si no existe, proceder a registrar el servicio
+                $costo = $_POST['costo'];
+                $insertQuery = "INSERT INTO servicios (descripcion, costo) VALUES (:descripcion, :costo)";
+                $insertStmt = $this->db->prepare($insertQuery);
+                $insertStmt->bindParam(':descripcion', $descripcion);
+                $insertStmt->bindParam(':costo', $costo);
+                $insertStmt->execute();
+    
+                $mensaje = "Servicio '$descripcion' creado exitosamente.";
+            }
         }
     
-        // Crear un nuevo servicio
-        $this->servicio->descripcion = $descripcion;
-        $this->servicio->costo = $costo;  // Puede ser null si no se envió
-    
-        // Llamar al método crearServicio y capturar el mensaje
-        $resultado = $this->servicio->crearServicio();
-    
-        // Mostrar el mensaje devuelto por el modelo
-        echo $resultado;
-    }
+        // Asignar el mensaje al template para mostrarlo
+        $smarty = new Smarty\Smarty;
+        $smarty->assign('mensaje', $mensaje);
+        $smarty->display('templates/crearServicio.tpl');
+    }   
     
 
     // Modificar un servicio existente

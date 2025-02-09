@@ -43,7 +43,7 @@
         </div>
 
         <div class="text-center mt-3">
-            <a href="/menu" class="btn btn-secondary btn-lg">Volver al Menú</a>
+            <a href="/menu" class="btn btn-secondary btn-sm">Volver al Menú</a>
         </div>
     </div>
 
