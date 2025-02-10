@@ -68,24 +68,23 @@ class ServicioController {
     }
     
 
-    // Eliminar un servicio
     public function eliminarServicio() {
-        // Verificar si el ID del servicio se pasa por POST
         if (isset($_POST['id'])) {
             $id = $_POST['id']; // Obtener el ID del servicio
-            $this->servicio->id = $id; // Asignar el ID al objeto del modelo Servicio
+            $this->servicio->id = $id; // Asignar el ID al objeto del modelo
     
             // Llamar al método de eliminación del modelo
-            if ($this->servicio->eliminarServicio()) {
-                echo "Servicio eliminado con éxito.";
+            $resultado = $this->servicio->eliminarServicio();
+    
+            if ($resultado === true) {
+                echo '<div class="alert alert-success">Servicio eliminado con éxito.</div>';
             } else {
-                echo "Error al eliminar el servicio.";
+                echo '<div class="alert alert-warning">' . $resultado . '</div>';
             }
         } else {
-            // En caso de que no se pase el ID, mostrar mensaje de error
-            echo "Falta el ID del servicio.";
+            echo '<div class="alert alert-danger">Falta el ID del servicio.</div>';
         }
-    }  
+    }
     
 
     public function listarServicios() {

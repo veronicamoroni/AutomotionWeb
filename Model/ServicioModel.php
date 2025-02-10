@@ -89,31 +89,32 @@ class Servicio {
         return $stmt->execute();
     }
     
-    
-    // Eliminar un servicio
     public function eliminarServicio() {
         try {
             // Comprobamos si el servicio con el ID existe en la tabla servicios
             $checkStmt = $this->db->prepare("SELECT COUNT(*) FROM " . $this->table . " WHERE id = :id");
             $checkStmt->bindParam(':id', $this->id);
             $checkStmt->execute();
-        
+    
             if ($checkStmt->fetchColumn() == 0) {
-                throw new Exception("El servicio con ID " . $this->id . " no existe.");
+                return "El servicio no existe.";
             }
-        
-            // Eliminar servicio
+    
+            // Intentamos eliminar el servicio
             $stmt = $this->db->prepare("DELETE FROM " . $this->table . " WHERE id = :id");
             $stmt->bindParam(':id', $this->id);
             $stmt->execute();
-        
+    
             return true;
-        } catch (Exception $e) {
-            // Mostrar mensaje de error
-            echo '<div class="alert alert-danger">' . $e->getMessage() . '</div>';
-            return false;
+        } catch (PDOException $e) {
+            // Si el error es por clave foránea (servicio con asociaciones)
+            if ($e->getCode() == '23503') {
+                return "No se puede eliminar el servicio .";
+            }
+            return "Error al eliminar el servicio.";
         }
     }
+    
     
     
     // Obtener todos los servicios
