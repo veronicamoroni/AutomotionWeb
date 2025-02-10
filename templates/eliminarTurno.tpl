@@ -20,7 +20,8 @@
                    <h2>Eliminar Turno</h2>
                 </div>
                 <div class="card p-4 shadow">
-                    <form id="formEliminarTurno" action="/index.php?action=eliminarTurno" method="post">
+                    <!-- Formulario de eliminación de turno -->
+                    <form action="/index.php?action=eliminarTurno" method="post">
                         <!-- ID del turno a eliminar -->
                         <div class="form-group">
                             <label for="id">ID del Turno:</label>
@@ -30,8 +31,12 @@
                         <button type="submit" class="btn btn-danger btn-block">Eliminar Turno</button>
                     </form>
 
-                    <!-- Área para mostrar mensajes de éxito o error -->
-                    <div id="mensaje" class="message mt-3"></div>
+                    <!-- Mostrar mensajes de éxito o error -->
+                    {if isset($mensaje)}
+                        <div id="mensaje" class="message mt-3 alert alert-info">
+                            {$mensaje}
+                        </div>
+                    {/if}
 
                     <div class="text-center mt-3">
                         <a href="/menu" class="btn btn-secondary btn-block">Volver al Menú</a>
@@ -44,32 +49,5 @@
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-
-    <!-- JavaScript para manejar el envío del formulario y mostrar el mensaje -->
-    <script>
-        document.getElementById('formEliminarTurno').onsubmit = function(event) {
-            event.preventDefault(); // Evita el envío automático del formulario
-
-            const form = document.getElementById('formEliminarTurno');
-            const formData = new FormData(form);
-
-            fetch('/index.php?action=eliminarTurno', {
-                method: 'POST',
-                body: formData
-            })
-            .then(response => response.text())
-            .then(data => {
-                // Mostrar el mensaje en el div 'mensaje'
-                document.getElementById('mensaje').innerHTML = data;
-
-                // Reiniciar el formulario
-                form.reset();
-            })
-            .catch(error => {
-                document.getElementById('mensaje').innerHTML = 'Error al eliminar el turno.';
-            });
-        };
-    </script>
-
 </body>
 </html>

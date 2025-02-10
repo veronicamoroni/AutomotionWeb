@@ -16,7 +16,7 @@
             </div>
           
             <!-- Formulario de actualización de turno -->
-            <form id="formActualizarTurno" action="/index.php?action=modificarTurno" method="post">
+            <form action="/index.php?action=modificarTurno" method="post">
                 <div class="form-group">
                     <label for="id">ID del Turno:</label>
                     <input type="text" class="form-control" id="id" name="id" required>
@@ -40,39 +40,16 @@
                 <button type="submit" class="btn btn-primary btn-block">Actualizar Turno</button>
             </form>
 
-            <!-- Área para mostrar mensajes de éxito o error -->
-            <div id="mensaje" class="message"></div>
+            <!-- mostrar mensajes de éxito o error -->
+            <div id="mensaje" class="message mt-3">
+                {$mensaje}
+            </div>
+
             <div class="text-center mt-3">
                 <a href="/menu" class="btn btn-secondary btn-block">Volver al Menú</a>
             </div>
         </div>
     </div>
-
-    <!-- JavaScript para manejar el envío del formulario y mostrar mensajes -->
-    <script>
-        document.getElementById('formActualizarTurno').onsubmit = function(event) {
-            event.preventDefault(); // Evita el envío automático del formulario
-
-            const form = document.getElementById('formActualizarTurno');
-            const formData = new FormData(form);
-
-            fetch('/index.php?action=modificarTurno', {
-                method: 'POST',
-                body: formData
-            })
-            .then(response => response.text())
-            .then(data => {
-                // Mostrar el mensaje en el div 'mensaje'
-                document.getElementById('mensaje').innerHTML = data;
-
-                // Reiniciar el formulario
-                form.reset();
-            })
-            .catch(error => {
-                document.getElementById('mensaje').innerHTML = 'Error al actualizar el turno.';
-            });
-        };
-    </script>
 
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>

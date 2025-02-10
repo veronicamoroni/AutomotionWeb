@@ -35,39 +35,18 @@
                 <button type="submit" class="btn btn-primary btn-block">Registrar Turno</button>
             </form>
 
-            <!-- Área para mostrar mensajes de éxito o error -->
-            <div id="mensaje" class="message"></div>
+            <!-- Mostrar mensajes de éxito o error -->
+            {if isset($mensaje) && $mensaje != ''}
+                <div class="alert alert-info mt-3">
+                    {$mensaje}
+                </div>
+            {/if}
+
             <div class="text-center mt-3">
                 <a href="/menu" class="btn btn-secondary btn-block">Volver al Menú</a>
             </div>
         </div>
     </div>
-
-    <!-- JavaScript para manejar el reinicio del formulario y mostrar el mensaje -->
-    <script>
-        document.getElementById('formCrearTurno').onsubmit = function(event) {
-            event.preventDefault(); // Evita el envío automático del formulario
-
-            const form = document.getElementById('formCrearTurno');
-            const formData = new FormData(form);
-
-            fetch('/index.php?action=crearTurno', {
-                method: 'POST',
-                body: formData
-            })
-            .then(response => response.text())
-            .then(data => {
-                // Mostrar el mensaje en el div 'mensaje'
-                document.getElementById('mensaje').innerHTML = data;
-
-                // Reiniciar el formulario
-                form.reset();
-            })
-            .catch(error => {
-                document.getElementById('mensaje').innerHTML = 'Error al registrar el turno.';
-            });
-        };
-    </script>
 
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
