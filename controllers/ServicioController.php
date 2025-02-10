@@ -54,37 +54,94 @@ class ServicioController {
 
     // Modificar un servicio existente
     public function modificarServicio() {
-        // Obtener los datos del formulario
-        $this->servicio->id = $_POST['id'];
-        $this->servicio->descripcion = $_POST['descripcion'];
-        $this->servicio->costo = $_POST['costo'];
+        $mensaje = ''; // Variable para el mensaje de éxito o error
     
-        // Llamar al método modificarServicio() del modelo
-        if ($this->servicio->modificarServicio()) {
-            echo "Servicio modificado con éxito.";
+        if ($_SERVER["REQUEST_METHOD"] == "POST") {
+            // Obtener los datos del formulario
+            $idServicio = isset($_POST['id']) ? $_POST['id'] : '';
+            $descripcion = isset($_POST['descripcion']) ? $_POST['descripcion'] : '';
+            $costo = isset($_POST['costo']) ? $_POST['costo'] : '';
+    
+            // Validar los datos recibidos
+            if (empty($idServicio) || empty($descripcion) || empty($costo)) {
+                $mensaje = "El ID del servicio, la descripción y el costo son obligatorios.";
+            } elseif (!is_numeric($idServicio) || $idServicio <= 0) {
+                $mensaje = "El ID del servicio debe ser un número válido mayor que cero.";
+            } elseif (!is_numeric($costo) || $costo <= 0) {
+                $mensaje = "El costo debe ser un número válido mayor que cero.";
+            } else {
+                // Comprobar si el servicio existe en la base de datos
+                $query = "SELECT COUNT(*) FROM servicios WHERE id = :id";
+                $stmt = $this->db->prepare($query);
+                $stmt->bindParam(':id', $idServicio);
+                $stmt->execute();
+                $count = $stmt->fetchColumn();
+    
+                if ($count == 0) {
+                    // Si no existe el servicio con ese ID
+                    $mensaje = "El servicio con ID '$idServicio' no existe.";
+                } else {
+                    // Si existe, proceder a modificar el servicio
+                    $updateQuery = "UPDATE servicios SET descripcion = :descripcion, costo = :costo WHERE id = :id";
+                    $updateStmt = $this->db->prepare($updateQuery);
+                    $updateStmt->bindParam(':id', $idServicio);
+                    $updateStmt->bindParam(':descripcion', $descripcion);
+                    $updateStmt->bindParam(':costo', $costo);
+                    $updateStmt->execute();
+    
+                    $mensaje = "Servicio con ID '$idServicio' modificado exitosamente.";
+                }
+            }
         } else {
-            echo "El servicio No existe.";
+            $mensaje = "Método de solicitud no permitido.";
         }
+    
+        // Asignar el mensaje al template para mostrarlo
+        $smarty = new Smarty\Smarty;
+        $smarty->assign('mensaje', $mensaje);
+        $smarty->display('templates/modificarServicio.tpl');
     }
+    
     
 
     public function eliminarServicio() {
-        if (isset($_POST['id'])) {
-            $id = $_POST['id']; // Obtener el ID del servicio
-            $this->servicio->id = $id; // Asignar el ID al objeto del modelo
-    
-            // Llamar al método de eliminación del modelo
-            $resultado = $this->servicio->eliminarServicio();
-    
-            if ($resultado === true) {
-                echo '<div class="alert alert-success">Servicio eliminado con éxito.</div>';
-            } else {
-                echo '<div class="alert alert-warning">' . $resultado . '</div>';
-            }
+        // Validación de los datos del formulario
+        if (empty($_POST['id'])) {
+            $mensaje = "El ID del servicio es obligatorio.";
+        } elseif (!is_numeric($_POST['id']) || $_POST['id'] <= 0) {
+            $mensaje = "El ID debe ser un número válido mayor que cero.";
         } else {
-            echo '<div class="alert alert-danger">Falta el ID del servicio.</div>';
+            // Obtener el ID del servicio desde el formulario
+            $idServicio = $_POST['id'];
+    
+            // Comprobar si el servicio existe en la base de datos
+            $query = "SELECT COUNT(*) FROM servicios WHERE id = :id";
+            $stmt = $this->db->prepare($query);
+            $stmt->bindParam(':id', $idServicio);
+            $stmt->execute();
+            $count = $stmt->fetchColumn();
+    
+            if ($count == 0) {
+                // Si no existe el servicio con ese ID
+                $mensaje = "El servicio con ID '$idServicio' no existe.";
+            } else {
+                // Si existe, proceder a eliminar el servicio
+                $deleteQuery = "DELETE FROM servicios WHERE id = :id";
+                $deleteStmt = $this->db->prepare($deleteQuery);
+                $deleteStmt->bindParam(':id', $idServicio);
+                $deleteStmt->execute();
+    
+                $mensaje = "Servicio con ID '$idServicio' eliminado exitosamente.";
+            }
         }
+    
+        // Asignar el mensaje al template para mostrarlo
+        $smarty = new Smarty\Smarty;
+        $smarty->assign('mensaje', $mensaje);
+        $smarty->display('templates/eliminarServicio.tpl');
     }
+    
+    
     
 
     public function listarServicios() {
