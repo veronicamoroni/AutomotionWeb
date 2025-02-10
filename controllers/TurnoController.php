@@ -16,23 +16,24 @@ class TurnoController {
         $mensaje = ''; // Inicializar el mensaje para mostrar en la página
     
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
-            // Obtener datos del formulario y asignarlos directamente a los atributos de la clase
+            // Obtener los datos del formulario y asignarlos directamente a los atributos de la clase
             $this->turno->fecha = isset($_POST['fecha']) ? $_POST['fecha'] : '';
             $this->turno->hora = isset($_POST['hora']) ? $_POST['hora'] : '';
             $this->turno->descripcion = isset($_POST['descripcion']) ? $_POST['descripcion'] : '';
             $this->turno->patente = isset($_POST['patente']) ? $_POST['patente'] : '';
     
-            // Validar que los campos obligatorios no estén vacíos
+            // Validación de los campos obligatorios
             if (empty($this->turno->fecha) || empty($this->turno->hora) || empty($this->turno->descripcion) || empty($this->turno->patente)) {
                 $mensaje = "Por favor, completa todos los campos obligatorios.";
             } else {
                 // Llamar al método del modelo para crear el turno
                 $resultado = $this->turno->crearTurno();
     
+                // Mostrar el mensaje de acuerdo al resultado
                 if ($resultado === true) {
                     $mensaje = "Turno creado exitosamente.";
                 } else {
-                    $mensaje = $resultado; // Mostrar mensaje de error
+                    $mensaje = $resultado; // Mostrar el mensaje de error retornado por el modelo
                 }
             }
         } else {
@@ -42,10 +43,9 @@ class TurnoController {
         // Asignar el mensaje a la plantilla
         $smarty = new Smarty\Smarty;
         $smarty->assign('mensaje', $mensaje);
-    
-        // Mostrar la plantilla 'crearTurno.tpl'
         $smarty->display('templates/crearTurno.tpl');
     }
+    
     
     
     public function obtenerTurnos() {
@@ -72,7 +72,7 @@ class TurnoController {
 
 
     public function modificarTurno() {
-        $mensaje = '';
+        $mensaje = ''; // Inicializar el mensaje
     
         // Verificar si la solicitud es POST
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -83,29 +83,29 @@ class TurnoController {
             $this->turno->descripcion = isset($_POST['descripcion']) ? $_POST['descripcion'] : '';
             $this->turno->patente = isset($_POST['patente']) ? $_POST['patente'] : '';
     
-            // Verificar que el ID no esté vacío
-            if (!empty($this->turno->id)) {
+            // Verificar que todos los campos obligatorios estén completos
+            if (empty($this->turno->id) || empty($this->turno->fecha) || empty($this->turno->hora) || empty($this->turno->descripcion) || empty($this->turno->patente)) {
+                $mensaje = "Todos los campos son obligatorios.";
+            } else {
                 // Llamar al método del modelo para modificar el turno
-                if ($this->turno->modificarTurno()) {
-                    // Si la actualización es exitosa
+                $resultado = $this->turno->modificarTurno();
+    
+                if ($resultado === true) {
                     $mensaje = "Turno actualizado exitosamente.";
                 } else {
-                    // Si el turno no se encuentra o no se pudo modificar
-                    $mensaje = "No existe un turno con el ID proporcionado.";
+                    $mensaje = $resultado; // Mostrar mensaje de error si no se pudo modificar
                 }
-            } else {
-                // Si no se proporciona un ID
-                $mensaje = "Falta el ID del turno.";
             }
         } else {
             // Si el método de solicitud no es POST
             $mensaje = "Método de solicitud no permitido.";
         }
     
+        // Asignar el mensaje a la plantilla
         $smarty = new Smarty\Smarty();
         $smarty->assign('mensaje', $mensaje);
         $smarty->display('templates/modificarTurno.tpl');
-    }
+    }    
     
 
     // Método para eliminar un turno
@@ -119,37 +119,30 @@ class TurnoController {
             // Validar que el ID no esté vacío
             if (empty($idTurno)) {
                 $mensaje = "Por favor, ingrese un ID válido.";
+            } elseif (!is_numeric($idTurno) || $idTurno <= 0) {
+                $mensaje = "El ID debe ser un número válido mayor que cero.";
             } else {
-                // Realizar la eliminación del turno
-                // Suponiendo que tienes un método en tu modelo para eliminar el turno
-                // Asegúrate de que el modelo tenga un método para esto
+                // Asignar el ID al objeto del modelo
+                $this->turno->id = $idTurno;
+                
+                // Llamar al método del modelo para eliminar el turno
+                $resultado = $this->turno->eliminarTurno();
     
-                // Ejemplo de SQL para eliminar el turno
-                $query = "DELETE FROM turnos WHERE id = :id";
-                $stmt = $this->db->prepare($query);
-                $stmt->bindParam(':id', $idTurno, PDO::PARAM_INT);
-    
-                // Ejecutar la consulta
-                $stmt->execute();
-    
-                // Verificar si se eliminó alguna fila (turno)
-                if ($stmt->rowCount() > 0) {
-                    $mensaje = "Turno eliminado.";
+                if ($resultado === true) {
+                    $mensaje = "Turno eliminado exitosamente.";
                 } else {
-                    // Si no se eliminó ninguna fila, el turno no existe
-                    $mensaje = "El turno con ID $idTurno no existe.";
+                    $mensaje = $resultado; // Mostrar mensaje de error
                 }
             }
         } else {
             $mensaje = "Método de solicitud no permitido.";
         }
     
-        // Asignar el mensaje a Smarty para mostrarlo en la plantilla
+        // Asignar el mensaje a la plantilla
         $smarty = new Smarty\Smarty;
         $smarty->assign('mensaje', $mensaje);
         $smarty->display('templates/eliminarTurno.tpl');
-    }   
-    
+    }
+       
 }
-
 ?>
