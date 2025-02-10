@@ -39,38 +39,21 @@
                 <button type="submit" class="btn btn-primary btn-block">Modificar Vehículo</button>
             </form>
 
-            <!-- Área para mostrar mensajes de éxito o error -->
-            <div id="mensaje" class="message"></div>
+            <!-- Mostrar mensaje de éxito o error -->
+            {if isset($mensaje)}
+                <div id="mensaje" class="message mt-3 alert alert-info">
+                    {$mensaje}
+                </div>
+            {/if}
+
             <div class="text-center mt-3">
                 <a href="/menu" class="btn btn-secondary btn-block">Volver al Menú</a>
             </div>
         </div>
     </div>
 
-    <!-- JavaScript para manejar el reinicio del formulario y mostrar el mensaje -->
-    <script>
-        document.getElementById('formModificarVehiculo').onsubmit = function(event) {
-            event.preventDefault(); // Evita el envío automático del formulario
-
-            const form = document.getElementById('formModificarVehiculo');
-            const formData = new FormData(form);
-
-            fetch('/index.php?action=modificarVehiculo', {
-                method: 'POST',
-                body: formData
-            })
-            .then(response => response.text())
-            .then(data => {
-                // Mostrar el mensaje en el div 'mensaje'
-                document.getElementById('mensaje').innerHTML = data;
-
-                // Reiniciar el formulario
-                form.reset();
-            })
-            .catch(error => {
-                document.getElementById('mensaje').innerHTML = 'Error al modificar el vehículo.';
-            });
-        };
-    </script>
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 </html>

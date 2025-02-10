@@ -2,10 +2,9 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>Registro de Vehículo</title>
+    <title>Alta de Vehículo</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="/templates/styles.css">
-
 </head>
 <body>
     {include file="navbar.tpl"}
@@ -16,7 +15,7 @@
                 <span class="material-symbols-outlined">Alta de Vehículo</span>
             </div>
 
-            <!-- Formulario de registro de vehículo -->
+            <!-- Formulario para crear vehículo -->
             <form id="formCrearVehiculo" action="/index.php?action=crearVehiculo" method="post">
                 <div class="form-group">
                     <label for="patente">Patente:</label>
@@ -37,38 +36,21 @@
                 <button type="submit" class="btn btn-primary btn-block">Registrar Vehículo</button>
             </form>
 
-            <!-- Área para mostrar mensajes de éxito o error -->
-            <div id="mensaje" class="message"></div>
+            <!-- Mostrar mensaje de éxito o error -->
+            {if isset($mensaje)}
+                <div id="mensaje" class="message mt-3 alert alert-info">
+                    {$mensaje}
+                </div>
+            {/if}
+
             <div class="text-center mt-3">
                 <a href="/menu" class="btn btn-secondary btn-block">Volver al Menú</a>
             </div>
         </div>
     </div>
 
-    <!-- JavaScript para manejar el reinicio del formulario y mostrar el mensaje -->
-    <script>
-        document.getElementById('formCrearVehiculo').onsubmit = function(event) {
-            event.preventDefault(); // Evita el envío automático del formulario
-
-            const form = document.getElementById('formCrearVehiculo');
-            const formData = new FormData(form);
-
-            fetch('/index.php?action=crearVehiculo', {
-                method: 'POST',
-                body: formData
-            })
-            .then(response => response.text())
-            .then(data => {
-                // Mostrar el mensaje en el div 'mensaje'
-                document.getElementById('mensaje').innerHTML = data;
-
-                // Reiniciar el formulario
-                form.reset();
-            })
-            .catch(error => {
-                document.getElementById('mensaje').innerHTML = 'Error al registrar el vehículo.';
-            });
-        };
-    </script>
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 </html>
