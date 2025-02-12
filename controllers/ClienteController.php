@@ -11,80 +11,95 @@ class ClienteController {
     }
 
     public function crearCliente() {
+        // Inicializar el mensaje
         $mensaje = ''; 
-
+    
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
             
+            // Obtener datos del formulario
             $this->cliente->dni = isset($_POST['dni']) ? $_POST['dni'] : '';
             $this->cliente->nombre = isset($_POST['nombre']) ? $_POST['nombre'] : '';
             $this->cliente->apellido = isset($_POST['apellido']) ? $_POST['apellido'] : '';
             $this->cliente->telefono = isset($_POST['telefono']) ? $_POST['telefono'] : '';
             $this->cliente->email = isset($_POST['email']) ? $_POST['email'] : '';
-
-            // Validar que los campos obligatorios no estén vacíos
-            if (!empty($this->cliente->dni) && !empty($this->cliente->nombre) && !empty($this->cliente->apellido)) {
-                // Llamar al método para crear el cliente
+    
+            // Validación de los campos obligatorios
+            if (empty($this->cliente->dni) || empty($this->cliente->nombre) || empty($this->cliente->apellido)) {
+                $mensaje = "El DNI, nombre y apellido son obligatorios.";
+            } else {
+                // Usar el modelo para crear el cliente
                 $resultado = $this->cliente->crearCliente();
+    
+                // Manejar el resultado del modelo
+                if ($resultado === true) {
+                    $mensaje = "Cliente creado con éxito.";
+                    header("Location: /cliente/confirmacion"); // Redirigir a la página de confirmación
+                    exit();
+                } else {
+                    $mensaje = $resultado; // Mostrar el mensaje de error o éxito
+                }
+            }
+        }
+    
+        // Asignar el mensaje al template para mostrarlo
+        $smarty = new Smarty\Smarty;
+        $smarty->assign('mensaje', $mensaje);
+        $smarty->display('templates/crearCliente.tpl');
+    }
+    
+    
+    // Método para actualizar un cliente
+    public function modificarCliente() {
+        if ($_SERVER["REQUEST_METHOD"] == "POST") {
+            // Obtener los datos enviados por el formulario
+            $this->cliente->dni = isset($_POST['dni']) ? $_POST['dni'] : '';
+            $this->cliente->telefono = isset($_POST['telefono']) ? $_POST['telefono'] : '';
+            $this->cliente->email = isset($_POST['email']) ? $_POST['email'] : '';
+
+            // Validar que los datos esenciales estén presentes
+            if (!empty($this->cliente->dni)) {
+                // Llamar al método del modelo para modificar el cliente
+                $resultado = $this->cliente->modificarCliente();
 
                 // Verificar el resultado
                 if ($resultado === true) {
-                    
-                    $mensaje = "Cliente creado con éxito.";
-
-                    header("Location: /cliente/confirmacion"); // Cambia la URL de destino si es necesario
-                    exit();
+                    // Si la actualización es exitosa
+                    $mensaje = "Cliente actualizado.";
                 } else {
+                    // Si no se pudo modificar (por ejemplo, cliente no encontrado)
                     $mensaje = $resultado;
                 }
             } else {
-                $mensaje = "Por favor, rellena todos los campos obligatorios.";
+                // Si el DNI está vacío
+                $mensaje = "Falta el DNI del cliente.";
             }
+
+            // Asignar el mensaje a la vista
+            $smarty = new Smarty\Smarty;
+            $smarty->assign('mensaje', $mensaje);
+            $smarty->display('templates/modificarCliente.tpl');
         }
-        echo $mensaje; // Aunque es mejor asignar el mensaje a Smarty para que la vista lo maneje
     }
-    
-    
- // Método para actualizar un cliente
-public function modificarCliente() {
-    if ($_SERVER["REQUEST_METHOD"] == "POST") {
-        // Obtener los datos enviados por el formulario
-        $this->cliente->dni = isset($_POST['dni']) ? $_POST['dni'] : '';
-        $this->cliente->nombre = isset($_POST['nombre']) ? $_POST['nombre'] : '';
-        $this->cliente->apellido = isset($_POST['apellido']) ? $_POST['apellido'] : '';
-        $this->cliente->telefono = isset($_POST['telefono']) ? $_POST['telefono'] : '';
-        $this->cliente->email = isset($_POST['email']) ? $_POST['email'] : '';
-        
-        // Verificar que el DNI no esté vacío
-        if (!empty($this->cliente->dni)) {
-            // Llamar al método del modelo para modificar el cliente
-            if ($this->cliente->modificarCliente()) {
-                // Si la actualización es exitosa
-                echo "¡Cliente actualizado con éxito!";
-            } else {
-                // Si el cliente no se encuentra o no se pudo modificar
-                echo "No existe el cliente con el DNI proporcionado.";
-            }
-        } else {
-            // Si no se proporciona un DNI
-            echo "Falta el DNI del cliente.";
-        }
-    } else {
-        // Si el método de solicitud no es POST
-        echo "Método de solicitud no permitido.";
-    }
-}
 
 
     // Método para eliminar un cliente
     public function eliminarCliente($dni) {
         $this->cliente->dni = $dni;
-
-        if ($this->cliente->eliminarCliente()) {
-            echo "Cliente eliminado con éxito.";
-        } else {
-            echo "Error al eliminar el cliente.";
+    
+        // Intentamos eliminar al cliente
+        $mensaje = $this->cliente->eliminarCliente();
+        
+        // Verificamos si el mensaje es un error o éxito
+        if ($mensaje === true) {
+            $mensaje = "Cliente eliminado con éxito."; // Mensaje de éxito
         }
-    }
+        
+        // Asignamos el mensaje a la plantilla
+        $smarty = new Smarty\Smarty;
+        $smarty->assign('mensaje', $mensaje);
+        $smarty->display('templates/eliminarCliente.tpl');
+    } 
+    
     
     public function obtenerClientes() {
         // Llamar al método del modelo para obtener los datos de los clientes
@@ -115,8 +130,8 @@ public function modificarCliente() {
     } else {
         // Retornar un mensaje indicando que no se encontró el cliente
         echo json_encode(["message" => "Cliente no encontrado."]);
+        }
     }
-}
 
 }
 ?>
