@@ -75,16 +75,28 @@ class VehiculoController {
     
     
     
-    // Método para eliminar un vehículo
     public function eliminarVehiculo() {
-        $mensaje = '';  // Variable para el mensaje de éxito o error
-        
+        $mensaje = ''; // Variable para el mensaje de éxito o error
+    
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
             // Obtener la patente del vehículo desde el formulario
             $this->vehiculo->patente = $_POST['patente'] ?? '';
-        
-            // Llamar al método del modelo para eliminar el vehículo
-            $mensaje = $this->vehiculo->eliminarVehiculo() ? "Vehículo eliminado." : "El vehículo con la patente proporcionada no existe o no pudo ser eliminado.";
+    
+            try {
+                // Intentar eliminar el vehículo
+                if ($this->vehiculo->eliminarVehiculo()) {
+                    $mensaje = "Vehículo eliminado correctamente.";
+                } else {
+                    $mensaje = "El vehículo con la patente proporcionada no existe o no pudo ser eliminado.";
+                }
+            } catch (PDOException $e) {
+                // Verificar si el error es por una clave foránea
+                if ($e->getCode() == '23503') { // Código de error de clave foránea en PostgreSQL
+                    $mensaje = "No se puede eliminar el vehículo porque tiene turnos asociados. Primero elimine o modifique los turnos relacionados.";
+                } else {
+                    $mensaje = "Ocurrió un error al intentar eliminar el vehículo.";
+                }
+            }
         } else {
             $mensaje = "Método de solicitud no permitido.";
         }
@@ -92,7 +104,7 @@ class VehiculoController {
         // Asignar el mensaje a la plantilla Smarty
         $smarty = new Smarty\Smarty;
         $smarty->assign('mensaje', $mensaje);
-        $smarty->display('templates/eliminarVehiculo.tpl');  // Mostrar la plantilla con el mensaje
+        $smarty->display('templates/eliminarVehiculo.tpl'); // Mostrar la plantilla con el mensaje
     }
     
     

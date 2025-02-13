@@ -4,15 +4,18 @@
     <meta charset="UTF-8">
     <title>Alta de Vehículo</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <link rel="stylesheet" href="/templates/styles.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet">
+    <link rel="stylesheet" href="/templates/styles/Formulario.css">
 </head>
-<body>
+<body class="bg-light">
+    {assign var="titulo" value="Gestión de Vehículos"}
     {include file="navbar.tpl"}
 
     <div class="container d-flex justify-content-center align-items-center" style="height: 100vh;">
-        <div class="card p-4">
+        <div class="card p-4 shadow-lg" style="max-width: 500px; width: 100%;">
             <div class="text-center mb-4">
-                <span class="material-symbols-outlined">Alta de Vehículo</span>
+                <span class="material-symbols-outlined" style="font-size: 50px; color: #007bff;">directions_car</span>
+                <h3 class="mt-2">Alta de Vehículo</h3>
             </div>
 
             <!-- Formulario para crear vehículo -->
@@ -33,24 +36,27 @@
                     <label for="dni_cliente">DNI del Cliente:</label>
                     <input type="text" class="form-control" id="dni_cliente" name="dni_cliente" required>
                 </div>
-                <button type="submit" class="btn btn-primary btn-block">Registrar Vehículo</button>
+                <button type="submit" class="btn btn-primary w-100 mt-3">Registrar Vehículo</button>
             </form>
 
             <!-- Mostrar mensaje de éxito o error -->
             {if isset($mensaje)}
-                <div id="mensaje" class="message mt-3 alert alert-info">
+                <div id="mensaje" class="message mt-3 alert alert-info text-center">
                     {$mensaje}
                 </div>
             {/if}
 
             <div class="text-center mt-3">
-                <a href="/menu" class="btn btn-secondary btn-block">Volver al Menú</a>
+                <a href="/menu" class="btn btn-secondary w-100">Volver al Menú</a>
             </div>
         </div>
     </div>
+
+    {include file="footer.tpl"}
 
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 </html>
+
