@@ -6,64 +6,16 @@
     <title>Menu</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 <link rel="icon" type="image/x-icon" href="favicon.ico">
+<link rel="stylesheet" href="/templates/styles/Menu.css">
 
-    <style>
-        /* Estilos personalizados para la barra de navegación */
-        .navbar-custom {
-            background-color: #004085; /* Color de fondo azul */
-            background-size: cover;
-        }
-        
-        /* Cambiar el color de los enlaces del menú a blanco */
-        .nav-link, .dropdown-item {
-            color: rgb(230, 223, 223) !important; /* Color blanco */
-        }
-        
-        /* Cambiar el color de fondo del header */
-        header {
-            background-color: #004085; /* Fondo azul */
-            padding: 10rem 0; /* Reducir padding vertical */
-        }
-        
-        /* Estilo para el título con degradado */
-        .custom-font {
-            font-family: 'Arial', sans-serif; /* Aplica una fuente personalizada */
-            font-weight: bolder;
-            font-size: 3.5rem; /* Tamaño del texto */
-            background: linear-gradient(90deg, yellow, white, lightblue); /* Degradado de colores */
-            background-clip: text;
-            -webkit-background-clip: text;
-            color: transparent; /* Texto transparente para mostrar el degradado */
-            text-align: center; /* Centra el texto */
-            margin-left: auto; /* Alinea a la derecha en el flexbox */
-            margin-right: auto; /* Alinea a la izquierda en el flexbox */
-        }
-        
-        /* Fondo de la página */
-        body {
-          
-            background-size: cover;
-            background-position: center;
-            background-repeat: no-repeat;
-            height: 80vh;
-            background-attachment: fixed;
-        }
-        
-        /* Estilos para el pie de página */
-        footer {
-            background-color: #004085; /* Color de fondo azul */
-            padding: 0.5rem 0; /* Reducir el padding vertical */
-        }
-    </style>
 </head>
 <body>
     <header class="text-white py-2"> 
-        <div class="container">
-            <div class="d-flex justify-content-between align-items-center">
-                <img src="/logo.png" alt="Logo AUTOMOTION" class="img-fluid" style="max-width: 150px;">
-                <h1 class="custom-font text-center mx-auto">AUTOMOTION</h1>
-            </div>
+        <div class="navbar-custom d-flex justify-content-start align-items-center">
+            <img src="/logo.png" alt="Logo AUTOMOTION" class="img-fluid" style="max-width: 150px;">
+            <h1 class="custom-font mx-auto">AUTOMOTION</h1>
         </div>
+        
         <ul class="nav nav-tabs justify-content-center">
             <!-- Dropdown Clientes -->
             <li class="nav-item dropdown">
@@ -117,7 +69,7 @@
              <!-- Dropdown  ServicioRealizado -->
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" id="realizadoDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                   Servicio Realizado
+                   Servicios Realizados
                 </a>
                 <div class="dropdown-menu bg-primary" aria-labelledby="realizadoDropdown">
                     <a class="dropdown-item" href="/menu/crearServicioRealizado">Alta de Servicios Realizados</a>
@@ -138,9 +90,7 @@
         </div>
     </main>
 
-    <footer class="text-white text-center fixed-bottom">
-        <p>&copy; 2024 Derechos Reservados AUTOMOTION</p>
-    </footer>
+    {include file="footer.tpl"}
 
     <!-- Scripts de JavaScript -->
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>

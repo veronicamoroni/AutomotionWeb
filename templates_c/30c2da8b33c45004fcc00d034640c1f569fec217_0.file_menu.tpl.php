@@ -1,26 +1,27 @@
 <?php
-/* Smarty version 5.4.0, created on 2025-02-09 22:37:03
+/* Smarty version 5.4.0, created on 2025-02-13 13:49:53
   from 'file:templates/menu.tpl' */
 
 /* @var \Smarty\Template $_smarty_tpl */
 if ($_smarty_tpl->getCompiled()->isFresh($_smarty_tpl, array (
   'version' => '5.4.0',
-  'unifunc' => 'content_67a91fff3343f5_71474202',
+  'unifunc' => 'content_67adea71d07720_83813762',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '30c2da8b33c45004fcc00d034640c1f569fec217' => 
     array (
       0 => 'templates/menu.tpl',
-      1 => 1739137015,
+      1 => 1739450889,
       2 => 'file',
     ),
   ),
   'includes' => 
   array (
+    'file:footer.tpl' => 1,
   ),
 ))) {
-function content_67a91fff3343f5_71474202 (\Smarty\Template $_smarty_tpl) {
+function content_67adea71d07720_83813762 (\Smarty\Template $_smarty_tpl) {
 $_smarty_current_dir = 'C:\\xampp\\htdocs\\AutomotionWeb\\templates';
 ?><!DOCTYPE html>
 <html lang="es">
@@ -30,64 +31,16 @@ $_smarty_current_dir = 'C:\\xampp\\htdocs\\AutomotionWeb\\templates';
     <title>Menu</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 <link rel="icon" type="image/x-icon" href="favicon.ico">
+<link rel="stylesheet" href="/templates/styles/Menu.css">
 
-    <style>
-        /* Estilos personalizados para la barra de navegación */
-        .navbar-custom {
-            background-color: #004085; /* Color de fondo azul */
-            background-size: cover;
-        }
-        
-        /* Cambiar el color de los enlaces del menú a blanco */
-        .nav-link, .dropdown-item {
-            color: rgb(230, 223, 223) !important; /* Color blanco */
-        }
-        
-        /* Cambiar el color de fondo del header */
-        header {
-            background-color: #004085; /* Fondo azul */
-            padding: 10rem 0; /* Reducir padding vertical */
-        }
-        
-        /* Estilo para el título con degradado */
-        .custom-font {
-            font-family: 'Arial', sans-serif; /* Aplica una fuente personalizada */
-            font-weight: bolder;
-            font-size: 3.5rem; /* Tamaño del texto */
-            background: linear-gradient(90deg, yellow, white, lightblue); /* Degradado de colores */
-            background-clip: text;
-            -webkit-background-clip: text;
-            color: transparent; /* Texto transparente para mostrar el degradado */
-            text-align: center; /* Centra el texto */
-            margin-left: auto; /* Alinea a la derecha en el flexbox */
-            margin-right: auto; /* Alinea a la izquierda en el flexbox */
-        }
-        
-        /* Fondo de la página */
-        body {
-          
-            background-size: cover;
-            background-position: center;
-            background-repeat: no-repeat;
-            height: 80vh;
-            background-attachment: fixed;
-        }
-        
-        /* Estilos para el pie de página */
-        footer {
-            background-color: #004085; /* Color de fondo azul */
-            padding: 0.5rem 0; /* Reducir el padding vertical */
-        }
-    </style>
 </head>
 <body>
     <header class="text-white py-2"> 
-        <div class="container">
-            <div class="d-flex justify-content-between align-items-center">
-                <img src="/logo.png" alt="Logo AUTOMOTION" class="img-fluid" style="max-width: 150px;">
-                <h1 class="custom-font text-center mx-auto">AUTOMOTION</h1>
-            </div>
+        <div class="navbar-custom d-flex justify-content-start align-items-center">
+            <img src="/logo.png" alt="Logo AUTOMOTION" class="img-fluid" style="max-width: 150px;">
+            <h1 class="custom-font mx-auto">AUTOMOTION</h1>
         </div>
+        
         <ul class="nav nav-tabs justify-content-center">
             <!-- Dropdown Clientes -->
             <li class="nav-item dropdown">
@@ -141,7 +94,7 @@ $_smarty_current_dir = 'C:\\xampp\\htdocs\\AutomotionWeb\\templates';
              <!-- Dropdown  ServicioRealizado -->
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" id="realizadoDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                   Servicio Realizado
+                   Servicios Realizados
                 </a>
                 <div class="dropdown-menu bg-primary" aria-labelledby="realizadoDropdown">
                     <a class="dropdown-item" href="/menu/crearServicioRealizado">Alta de Servicios Realizados</a>
@@ -162,9 +115,8 @@ $_smarty_current_dir = 'C:\\xampp\\htdocs\\AutomotionWeb\\templates';
         </div>
     </main>
 
-    <footer class="text-white text-center fixed-bottom">
-        <p>&copy; 2024 Derechos Reservados AUTOMOTION</p>
-    </footer>
+    <?php $_smarty_tpl->renderSubTemplate("file:footer.tpl", $_smarty_tpl->cache_id, $_smarty_tpl->compile_id, 0, $_smarty_tpl->cache_lifetime, array(), (int) 0, $_smarty_current_dir);
+?>
 
     <!-- Scripts de JavaScript -->
     <?php echo '<script'; ?>

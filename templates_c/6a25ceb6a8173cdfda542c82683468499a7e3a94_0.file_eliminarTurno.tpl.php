@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 5.4.0, created on 2025-01-29 14:20:56
+/* Smarty version 5.4.0, created on 2025-02-13 13:37:21
   from 'file:templates/eliminarTurno.tpl' */
 
 /* @var \Smarty\Template $_smarty_tpl */
 if ($_smarty_tpl->getCompiled()->isFresh($_smarty_tpl, array (
   'version' => '5.4.0',
-  'unifunc' => 'content_679a2b383cd866_30902454',
+  'unifunc' => 'content_67ade781edabb7_26144560',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '6a25ceb6a8173cdfda542c82683468499a7e3a94' => 
     array (
       0 => 'templates/eliminarTurno.tpl',
-      1 => 1738156481,
+      1 => 1739300700,
       2 => 'file',
     ),
   ),
@@ -21,7 +21,7 @@ if ($_smarty_tpl->getCompiled()->isFresh($_smarty_tpl, array (
     'file:navbar.tpl' => 1,
   ),
 ))) {
-function content_679a2b383cd866_30902454 (\Smarty\Template $_smarty_tpl) {
+function content_67ade781edabb7_26144560 (\Smarty\Template $_smarty_tpl) {
 $_smarty_current_dir = 'C:\\xampp\\htdocs\\AutomotionWeb\\templates';
 ?><!DOCTYPE html>
 <html lang="es">
@@ -46,7 +46,8 @@ $_smarty_current_dir = 'C:\\xampp\\htdocs\\AutomotionWeb\\templates';
                    <h2>Eliminar Turno</h2>
                 </div>
                 <div class="card p-4 shadow">
-                    <form id="formEliminarTurno" action="/index.php?action=eliminarTurno" method="post">
+                    <!-- Formulario de eliminación de turno -->
+                    <form action="/index.php?action=eliminarTurno" method="post">
                         <!-- ID del turno a eliminar -->
                         <div class="form-group">
                             <label for="id">ID del Turno:</label>
@@ -56,8 +57,13 @@ $_smarty_current_dir = 'C:\\xampp\\htdocs\\AutomotionWeb\\templates';
                         <button type="submit" class="btn btn-danger btn-block">Eliminar Turno</button>
                     </form>
 
-                    <!-- Área para mostrar mensajes de éxito o error -->
-                    <div id="mensaje" class="message mt-3"></div>
+                    <!-- Mostrar mensajes de éxito o error -->
+                    <?php if ((null !== ($_smarty_tpl->getValue('mensaje') ?? null))) {?>
+                        <div id="mensaje" class="message mt-3 alert alert-info">
+                            <?php echo $_smarty_tpl->getValue('mensaje');?>
+
+                        </div>
+                    <?php }?>
 
                     <div class="text-center mt-3">
                         <a href="/menu" class="btn btn-secondary btn-block">Volver al Menú</a>
@@ -76,35 +82,6 @@ $_smarty_current_dir = 'C:\\xampp\\htdocs\\AutomotionWeb\\templates';
     <?php echo '<script'; ?>
  src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"><?php echo '</script'; ?>
 >
-
-    <!-- JavaScript para manejar el envío del formulario y mostrar el mensaje -->
-    <?php echo '<script'; ?>
->
-        document.getElementById('formEliminarTurno').onsubmit = function(event) {
-            event.preventDefault(); // Evita el envío automático del formulario
-
-            const form = document.getElementById('formEliminarTurno');
-            const formData = new FormData(form);
-
-            fetch('/index.php?action=eliminarTurno', {
-                method: 'POST',
-                body: formData
-            })
-            .then(response => response.text())
-            .then(data => {
-                // Mostrar el mensaje en el div 'mensaje'
-                document.getElementById('mensaje').innerHTML = data;
-
-                // Reiniciar el formulario
-                form.reset();
-            })
-            .catch(error => {
-                document.getElementById('mensaje').innerHTML = 'Error al eliminar el turno.';
-            });
-        };
-    <?php echo '</script'; ?>
->
-
 </body>
 </html>
 <?php }

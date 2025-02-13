@@ -1,0 +1,50 @@
+/* Reducir altura de la barra de navegación */
+.navbar-custom {
+    background-color: #004085; /* Color de fondo azul */
+    background-size: cover;
+    padding: 0.1rem 1rem; /* Reduce el padding vertical */
+    min-height: 50px; /* Altura mínima más pequeña */
+}
+    
+.nav-link, .dropdown-item {
+    color: rgb(230, 223, 223) !important; /* Color blanco */
+    font-size: 1.2rem; /* Tamaño más grande */
+    font-weight: bold;
+    margin-right: 1rem; /* Añadir margen a la derecha para separar los títulos */
+}
+    
+    /* Cambiar el color de fondo del header */
+    header {
+        background-color: #004085; /* Fondo azul */
+        padding: 4rem 0; /* Reducir padding vertical */
+    }
+    
+    /* Estilo para el título con degradado */
+    .custom-font {
+        font-family: 'Arial', sans-serif; /* Aplica una fuente personalizada */
+        font-weight: bolder;
+        font-size: 3.5rem; /* Tamaño del texto */
+        background: linear-gradient(90deg, yellow, white, lightblue); /* Degradado de colores */
+        background-clip: text;
+        -webkit-background-clip: text;
+        color: transparent; /* Texto transparente para mostrar el degradado */
+        text-align: center; /* Centra el texto */
+        margin-left: auto; /* Alinea a la derecha en el flexbox */
+        margin-right: auto; /* Alinea a la izquierda en el flexbox */
+    }
+    
+    /* Fondo de la página */
+    body {
+        background-image: url('/imagen.jpeg');
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        height: 80vh;
+        background-attachment: fixed;
+    }
+    
+    /* Estilos para el pie de página */
+    footer {
+        background-color: #004085; /* Color de fondo azul */
+        padding: 0.5rem 0; /* Reducir el padding vertical */
+    }

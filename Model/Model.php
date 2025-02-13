@@ -1,5 +1,5 @@
 <?php
-require_once('C:\xampp\htdocs\AutomotionWeb\configs\conexion.php'); // Ruta actualizada
+require_once('./configs/Conexion.php');
 
 class Model  {
     private $db = null;
