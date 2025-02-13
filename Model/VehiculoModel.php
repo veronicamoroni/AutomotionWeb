@@ -43,38 +43,44 @@ class Vehiculo {
         }
     }
 
-// Método para modificar un vehículo
-public function modificarVehiculo() {
-    // Verificar si el vehículo con la patente original existe
-    $queryVerificar = "SELECT COUNT(*) FROM vehiculos WHERE patente = :patente";
-    $stmtVerificar = $this->db->prepare($queryVerificar);
-    $stmtVerificar->bindParam(':patente', $this->patente);
-    $stmtVerificar->execute();
-    $result = $stmtVerificar->fetchColumn();
-
-    // Si no se encuentra el vehículo con la patente original, retornar false
-    if ($result == 0) {
-        return false; // Vehículo no encontrado
+    public function modificarVehiculo() {
+        try {
+            // Verificar si el vehículo con la patente original existe
+            $queryVerificar = "SELECT COUNT(*) FROM vehiculos WHERE patente = :patente";
+            $stmtVerificar = $this->db->prepare($queryVerificar);
+            $stmtVerificar->bindParam(':patente', $this->patente);
+            $stmtVerificar->execute();
+            $result = $stmtVerificar->fetchColumn();
+    
+            if ($result == 0) {
+                return false; // Vehículo no encontrado
+            }
+    
+            // Actualizar el vehículo
+            $query = "UPDATE vehiculos 
+                    SET patente = :nueva_patente, marca = :marca, modelo = :modelo, dni_cliente = :dni_cliente 
+                    WHERE patente = :patente";
+    
+            $stmt = $this->db->prepare($query);
+            $stmt->bindParam(':patente', $this->patente);
+            $stmt->bindParam(':nueva_patente', $this->nueva_patente);
+            $stmt->bindParam(':marca', $this->marca);
+            $stmt->bindParam(':modelo', $this->modelo);
+            $stmt->bindParam(':dni_cliente', $this->dni_cliente);
+    
+            return $stmt->execute();
+        } catch (PDOException $e) {
+            // Si hay un error de clave foránea, mostrar un mensaje personalizado
+            if ($e->getCode() == '23503') { // Código de error de clave foránea en PostgreSQL
+                echo "No se puede modificar la patente porque está asociada a turnos existentes.";
+                return false;
+            } else {
+                echo "Error al modificar el vehículo: " . $e->getMessage();
+                return false;
+            }
+        }
     }
-
-    // Si el vehículo existe, proceder con la actualización
-    $query = "UPDATE vehiculos 
-            SET patente = :nueva_patente, marca = :marca, modelo = :modelo, dni_cliente = :dni_cliente 
-            WHERE patente = :patente";
-
-    // Preparar la consulta
-    $stmt = $this->db->prepare($query);
-
-    // Enlazar los parámetros
-    $stmt->bindParam(':patente', $this->patente);
-    $stmt->bindParam(':nueva_patente', $this->nueva_patente);
-    $stmt->bindParam(':marca', $this->marca);
-    $stmt->bindParam(':modelo', $this->modelo);
-    $stmt->bindParam(':dni_cliente', $this->dni_cliente);
-
-    // Ejecutar la consulta y devolver el resultado
-    return $stmt->execute();
-}
+    
 
 
     // Eliminar vehículo

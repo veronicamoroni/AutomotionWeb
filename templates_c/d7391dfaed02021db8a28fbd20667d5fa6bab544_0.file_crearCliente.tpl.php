@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 5.4.0, created on 2025-02-13 13:54:55
+/* Smarty version 5.4.0, created on 2025-02-13 22:29:41
   from 'file:templates/crearCliente.tpl' */
 
 /* @var \Smarty\Template $_smarty_tpl */
 if ($_smarty_tpl->getCompiled()->isFresh($_smarty_tpl, array (
   'version' => '5.4.0',
-  'unifunc' => 'content_67adeb9f7f92f0_07504507',
+  'unifunc' => 'content_67ae644596e630_05464158',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     'd7391dfaed02021db8a28fbd20667d5fa6bab544' => 
     array (
       0 => 'templates/crearCliente.tpl',
-      1 => 1739450580,
+      1 => 1739482174,
       2 => 'file',
     ),
   ),
@@ -22,7 +22,7 @@ if ($_smarty_tpl->getCompiled()->isFresh($_smarty_tpl, array (
     'file:footer.tpl' => 1,
   ),
 ))) {
-function content_67adeb9f7f92f0_07504507 (\Smarty\Template $_smarty_tpl) {
+function content_67ae644596e630_05464158 (\Smarty\Template $_smarty_tpl) {
 $_smarty_current_dir = 'C:\\xampp\\htdocs\\AutomotionWeb\\templates';
 ?><!DOCTYPE html>
 <html lang="es">
@@ -30,7 +30,7 @@ $_smarty_current_dir = 'C:\\xampp\\htdocs\\AutomotionWeb\\templates';
     <meta charset="UTF-8">
     <title>Registro de Cliente</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined">
     <link rel="stylesheet" href="/templates/styles/Formulario.css">
 </head>
 <body class="bg-light">
@@ -70,19 +70,47 @@ $_smarty_current_dir = 'C:\\xampp\\htdocs\\AutomotionWeb\\templates';
                 <button type="submit" class="btn btn-primary w-100 mt-3">Registrar Cliente</button>
             </form>
 
-            <!-- Mostrar mensajes de éxito o error -->
-            <?php if ((null !== ($_smarty_tpl->getValue('mensaje') ?? null))) {?>
-                <div id="mensaje" class="message mt-3 alert alert-info text-center">
-                    <?php echo $_smarty_tpl->getValue('mensaje');?>
-
-                </div>
-            <?php }?>
+            <!-- Mensaje de éxito o error (inicialmente oculto) -->
+            <div id="mensaje" class="message mt-3 alert text-center" style="display: none;"></div>
 
             <div class="text-center mt-3">
                 <a href="/menu" class="btn btn-secondary w-100">Volver al Menú</a>
             </div>
         </div>
     </div>
+
+    <!-- JavaScript para manejar el formulario -->
+    <?php echo '<script'; ?>
+>
+        document.getElementById('formCrearCliente').onsubmit = function(event) {
+            event.preventDefault(); // Evita el envío automático del formulario
+
+            const form = document.getElementById('formCrearCliente');
+            const formData = new FormData(form);
+            const mensajeDiv = document.getElementById('mensaje');
+
+            fetch('/index.php?action=crearCliente', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.text())
+            .then(data => {
+                // Mostrar mensaje
+                mensajeDiv.innerHTML = data;
+                mensajeDiv.classList.add('alert-info'); // Estilo de Bootstrap para mensajes
+                mensajeDiv.style.display = 'block';
+
+                // Reiniciar formulario después de mostrar el mensaje
+                form.reset();
+            })
+            .catch(error => {
+                mensajeDiv.innerHTML = 'Error al registrar el cliente.';
+                mensajeDiv.classList.add('alert-danger');
+                mensajeDiv.style.display = 'block';
+            });
+        };
+    <?php echo '</script'; ?>
+>
 
     <?php $_smarty_tpl->renderSubTemplate("file:footer.tpl", $_smarty_tpl->cache_id, $_smarty_tpl->compile_id, 0, $_smarty_tpl->cache_lifetime, array(), (int) 0, $_smarty_current_dir);
 ?>

@@ -80,13 +80,14 @@ public function modificarCliente() {
     // Método para eliminar un cliente
     public function eliminarCliente($dni) {
         $this->cliente->dni = $dni;
+    $resultado = $this->cliente->eliminarCliente();
 
-        if ($this->cliente->eliminarCliente()) {
-            echo "Cliente eliminado con éxito.";
-        } else {
-            echo "Error al eliminar el cliente.";
-        }
+    if ($resultado === true) {
+        echo '<div class="alert alert-success">Cliente eliminado con éxito.</div>';
+    } else {
+        echo '<div class="alert alert-danger">' . $resultado . '</div>'; // Mostrar el mensaje de error si falla
     }
+}
     
     public function obtenerClientes() {
         // Llamar al método del modelo para obtener los datos de los clientes

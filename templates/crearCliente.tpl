@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <title>Registro de Cliente</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined">
     <link rel="stylesheet" href="/templates/styles/Formulario.css">
 </head>
 <body class="bg-light">
@@ -43,18 +43,45 @@
                 <button type="submit" class="btn btn-primary w-100 mt-3">Registrar Cliente</button>
             </form>
 
-            <!-- Mostrar mensajes de éxito o error -->
-            {if isset($mensaje)}
-                <div id="mensaje" class="message mt-3 alert alert-info text-center">
-                    {$mensaje}
-                </div>
-            {/if}
+            <!-- Mensaje de éxito o error (inicialmente oculto) -->
+            <div id="mensaje" class="message mt-3 alert text-center" style="display: none;"></div>
 
             <div class="text-center mt-3">
                 <a href="/menu" class="btn btn-secondary w-100">Volver al Menú</a>
             </div>
         </div>
     </div>
+
+    <!-- JavaScript para manejar el formulario -->
+    <script>
+        document.getElementById('formCrearCliente').onsubmit = function(event) {
+            event.preventDefault(); // Evita el envío automático del formulario
+
+            const form = document.getElementById('formCrearCliente');
+            const formData = new FormData(form);
+            const mensajeDiv = document.getElementById('mensaje');
+
+            fetch('/index.php?action=crearCliente', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.text())
+            .then(data => {
+                // Mostrar mensaje
+                mensajeDiv.innerHTML = data;
+                mensajeDiv.classList.add('alert-info'); // Estilo de Bootstrap para mensajes
+                mensajeDiv.style.display = 'block';
+
+                // Reiniciar formulario después de mostrar el mensaje
+                form.reset();
+            })
+            .catch(error => {
+                mensajeDiv.innerHTML = 'Error al registrar el cliente.';
+                mensajeDiv.classList.add('alert-danger');
+                mensajeDiv.style.display = 'block';
+            });
+        };
+    </script>
 
     {include file="footer.tpl"}
 

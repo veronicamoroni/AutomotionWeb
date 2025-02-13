@@ -13,120 +13,62 @@ class ServicioController {
 
     // Crear un nuevo servicio
     public function crearServicio() {
-        // Validación de los datos del formulario
-        if (empty($_POST['descripcion']) || empty($_POST['costo'])) {
-            $mensaje = "La descripción y el costo son obligatorios.";
-        } elseif (!is_numeric($_POST['costo']) || $_POST['costo'] <= 0) {
-            $mensaje = "El costo debe ser un número válido mayor que cero.";
-        } else {
-            // Usamos el modelo para crear el servicio
-            $this->servicio->descripcion = $_POST['descripcion'];
-            $this->servicio->costo = $_POST['costo'];
+        // Obtener datos de la solicitud POST (solo descripción y costo)
+        $descripcion = isset($_POST['descripcion']) ? $_POST['descripcion'] : null;
+        $costo = isset($_POST['costo']) ? $_POST['costo'] : null;
     
-            if ($this->servicio->crearServicio()) {
-                $mensaje = "Servicio creado exitosamente.";
-            } else {
-                $mensaje = "El servicio ya está registrado.";
-            }
+        if (empty($descripcion) || empty($costo)) {
+            // Validación en caso de que los campos sean vacíos
+            echo "Descripción y costo son obligatorios.";
+            return;
         }
     
-        // Asignar el mensaje al template para mostrarlo
-        $smarty = new Smarty\Smarty;
-        $smarty->assign('mensaje', $mensaje);
-        $smarty->display('templates/crearServicio.tpl');
-    }
+        // Crear un nuevo servicio
+        $this->servicio->descripcion = $descripcion;
+        $this->servicio->costo = $costo;
     
+        if ($this->servicio->crearServicio()) {
+            // Mostrar mensaje de éxito
+            echo "Servicio creado exitosamente.";
+        } else {
+            // Mostrar mensaje de error
+            echo "Error al crear el servicio.";
+        }
+    }
     
 
     // Modificar un servicio existente
     public function modificarServicio() {
-        $mensaje = ''; // Variable para el mensaje de éxito o error
-        
-        if ($_SERVER["REQUEST_METHOD"] == "POST") {
-            // Obtener los datos del formulario
-            $idServicio = isset($_POST['id']) ? $_POST['id'] : '';
-            $descripcion = isset($_POST['descripcion']) ? $_POST['descripcion'] : '';
-            $costo = isset($_POST['costo']) ? $_POST['costo'] : '';
-        
-            // Validar los datos recibidos
-            if (empty($idServicio) || empty($descripcion) || empty($costo)) {
-                $mensaje = "El ID del servicio, la descripción y el costo son obligatorios.";
-            } elseif (!is_numeric($idServicio) || $idServicio <= 0) {
-                $mensaje = "El ID del servicio debe ser un número válido mayor que cero.";
-            } elseif (!is_numeric($costo) || $costo <= 0) {
-                $mensaje = "El costo debe ser un número válido mayor que cero.";
-            } else {
-                // Verificar si el servicio con el ID proporcionado existe en la base de datos
-                $queryVerificar = "SELECT COUNT(*) FROM servicios WHERE id = :id";
-                $stmtVerificar = $this->db->prepare($queryVerificar);
-                $stmtVerificar->bindParam(':id', $idServicio);
-                $stmtVerificar->execute();
-                $result = $stmtVerificar->fetchColumn();
-        
-                if ($result == 0) {
-                    // Si no existe el servicio con el ID proporcionado
-                    $mensaje = "El servicio con ID '$idServicio' no existe.";
-                } else {
-                    // Asignar los datos al modelo
-                    $this->servicio->id = $idServicio;
-                    $this->servicio->descripcion = $descripcion;
-                    $this->servicio->costo = $costo;
-        
-                    // Llamar al método modificarServicio del modelo
-                    if ($this->servicio->modificarServicio()) {
-                        $mensaje = "Servicio con ID '$idServicio' modificado exitosamente.";
-                    } else {
-                        $mensaje = "Error al modificar el servicio. Intenta nuevamente.";
-                    }
-                }
-            }
-        } else {
-            $mensaje = "Método de solicitud no permitido.";
-        }
+        // Obtener los datos del formulario
+        $this->servicio->id = $_POST['id'];
+        $this->servicio->descripcion = $_POST['descripcion'];
+        $this->servicio->costo = $_POST['costo'];
     
-        // Asignar el mensaje al template para mostrarlo
-        $smarty = new Smarty\Smarty;
-        $smarty->assign('mensaje', $mensaje);
-        $smarty->display('templates/modificarServicio.tpl');
+        // Llamar al método modificarServicio() del modelo
+        if ($this->servicio->modificarServicio()) {
+            echo "Servicio modificado con éxito.";
+        } else {
+            echo "El servicio No existe.";
+        }
     }
     
-
     public function eliminarServicio() {
-        $mensaje = ''; // Variable para el mensaje de éxito o error
+        // Verificar si el ID del servicio se pasa por POST
+        if (isset($_POST['id'])) {
+            $id = $_POST['id']; // Obtener el ID del servicio
+            $this->servicio->id = $id; // Asignar el ID al objeto del modelo Servicio
     
-        if ($_SERVER["REQUEST_METHOD"] == "POST") {
-            // Obtener el ID del servicio desde el formulario
-            $idServicio = isset($_POST['id']) ? $_POST['id'] : '';
-    
-            // Validación de los datos
-            if (empty($idServicio)) {
-                $mensaje = "El ID del servicio es obligatorio.";
-            } elseif (!is_numeric($idServicio) || $idServicio <= 0) {
-                $mensaje = "El ID debe ser un número válido mayor que cero.";
+            // Llamar al método de eliminación del modelo
+            if ($this->servicio->eliminarServicio()) {
+                echo "Servicio eliminado con éxito.";
             } else {
-                // Asignar el ID al objeto del modelo
-                $this->servicio->id = $idServicio;
-    
-                // Llamar al método eliminarServicio del modelo
-                $resultado = $this->servicio->eliminarServicio();
-    
-                // Asignar el mensaje basado en el resultado
-                if ($resultado === true) {
-                    $mensaje = "Servicio con ID '$idServicio' eliminado exitosamente.";
-                } else {
-                    $mensaje = $resultado; // El mensaje de error proveniente del modelo
-                }
+                echo "Error al eliminar el servicio.";
             }
         } else {
-            $mensaje = "Método de solicitud no permitido.";
+            // En caso de que no se pase el ID, mostrar mensaje de error
+            echo "Falta el ID del servicio.";
         }
-    
-        // Asignar el mensaje a la plantilla para mostrarlo
-        $smarty = new Smarty\Smarty;
-        $smarty->assign('mensaje', $mensaje);
-        $smarty->display('templates/eliminarServicio.tpl');
     }
-    
 
     public function listarServicios() {
         // Obtener todos los servicios

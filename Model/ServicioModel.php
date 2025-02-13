@@ -11,61 +11,61 @@ class Servicio {
         $this->db = $db;
     }
 
-    
+    // Crear un nuevo servicio
     public function crearServicio() {
-        // Verificar si ya existe el servicio con la misma descripción (nombre)
-        $queryCheck = "SELECT COUNT(*) FROM " . $this->table . " WHERE descripcion = :descripcion";
-        $stmtCheck = $this->db->prepare($queryCheck);
-        $stmtCheck->bindParam(':descripcion', $this->descripcion);
-        $stmtCheck->execute();
-        
-        // Si ya existe un servicio con la misma descripción, retornar el mensaje
-        $count = $stmtCheck->fetchColumn();
-        if ($count > 0) {
-            return false;  // Indicamos que el servicio no puede ser creado
-        }
+        try {
+            // Preparar la consulta
+            $query = "INSERT INTO " . $this->table . " (descripcion, costo) 
+                      VALUES (:descripcion, :costo)";
+            $stmt = $this->db->prepare($query);
     
-        // Si no existe, proceder con la inserción
-        $query = "INSERT INTO " . $this->table . " (descripcion, costo) VALUES (:descripcion, :costo)";
-        $stmt = $this->db->prepare($query);
-        $stmt->bindParam(':descripcion', $this->descripcion);
+            // Limpiar los datos
+            $this->descripcion = htmlspecialchars(strip_tags($this->descripcion));
+            $this->costo = htmlspecialchars(strip_tags($this->costo));
     
-        if (isset($this->costo)) {
+            // Enlazar los parámetros
+            $stmt->bindParam(':descripcion', $this->descripcion);
             $stmt->bindParam(':costo', $this->costo);
-        } else {
-            $stmt->bindValue(':costo', null, PDO::PARAM_NULL);
-        }
     
-        // Ejecutar la inserción y retornar el resultado
-        if ($stmt->execute()) {
-            return true;  // Servicio creado exitosamente
-        } else {
-            return false;  // Error al guardar el servicio
+            // Ejecutar la consulta
+            return $stmt->execute();
+        } catch (PDOException $e) {
+            return "Error al crear el servicio: " . $e->getMessage();
         }
     }
     
-    
-    
     // Modificar un servicio
     public function modificarServicio() {
+        // Verificar si el servicio con el ID proporcionado existe
+        $queryVerificar = "SELECT COUNT(*) FROM servicios WHERE id = :id";
+        $stmtVerificar = $this->db->prepare($queryVerificar);
+        $stmtVerificar->bindParam(':id', $this->id);
+        $stmtVerificar->execute();
+        $result = $stmtVerificar->fetchColumn();
+    
+        // Si no se encuentra el servicio con el ID proporcionado, retornar false
+        if ($result == 0) {
+            return false; // Servicio no encontrado
+        }
+    
+        // Si el servicio existe, proceder con la actualización
+        $query = "UPDATE servicios 
+                SET descripcion = :descripcion, costo = :costo
+                WHERE id = :id";
+    
+        // Preparar la consulta
+        $stmt = $this->db->prepare($query);
+    
         // Limpiar los datos (por si acaso no se han limpiado en el setter del modelo)
         $this->descripcion = htmlspecialchars(strip_tags($this->descripcion));
         $this->costo = htmlspecialchars(strip_tags($this->costo));
         $this->id = htmlspecialchars(strip_tags($this->id));
     
-        // Proceder con la actualización
-        $query = "UPDATE servicios 
-                  SET descripcion = :descripcion, costo = :costo
-                  WHERE id = :id";
-        
-        // Preparar la consulta
-        $stmt = $this->db->prepare($query);
-        
         // Enlazar los parámetros
         $stmt->bindParam(':id', $this->id);
         $stmt->bindParam(':descripcion', $this->descripcion);
         $stmt->bindParam(':costo', $this->costo);
-        
+    
         // Ejecutar la consulta y devolver el resultado
         return $stmt->execute();
     }
@@ -73,26 +73,27 @@ class Servicio {
     
     public function eliminarServicio() {
         try {
-            // Intentamos eliminar el servicio directamente
+            // Comprobamos si el servicio con el ID existe en la tabla servicios
+            $checkStmt = $this->db->prepare("SELECT COUNT(*) FROM " . $this->table . " WHERE id = :id");
+            $checkStmt->bindParam(':id', $this->id);
+            $checkStmt->execute();
+        
+            if ($checkStmt->fetchColumn() == 0) {
+                throw new Exception("El servicio con ID " . $this->id . " no existe.");
+            }
+        
+            // Eliminar servicio
             $stmt = $this->db->prepare("DELETE FROM " . $this->table . " WHERE id = :id");
             $stmt->bindParam(':id', $this->id);
             $stmt->execute();
-    
-            // Verificamos si alguna fila fue afectada
-            if ($stmt->rowCount() == 0) {
-                return "El servicio no existe.";
-            }
-    
-            return true; // Servicio eliminado exitosamente
-        } catch (PDOException $e) {
-            // Manejo de errores de clave foránea
-            if ($e->getCode() == '23503') {
-                return "No se puede eliminar el servicio porque tiene dependencias asociadas.";
-            }
-            return "Error al eliminar el servicio: " . $e->getMessage();
+        
+            return true;
+        } catch (Exception $e) {
+            // Mostrar mensaje de error
+            echo '<div class="alert alert-danger">' . $e->getMessage() . '</div>';
+            return false;
         }
     }
-    
     
     // Obtener todos los servicios
     public function obtenerServicios() {

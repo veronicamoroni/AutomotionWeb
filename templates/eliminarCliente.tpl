@@ -32,7 +32,35 @@
             </div>
         </div>
     </div>
-
+    <script>
+        document.querySelector('form').onsubmit = function(event) {
+            event.preventDefault(); // Evita el envío automático del formulario
+    
+            const form = event.target;
+            const formData = new FormData(form);
+            const mensajeDiv = document.createElement('div'); // Crear un div para el mensaje
+            mensajeDiv.className = "message mt-3 alert text-center";
+            form.appendChild(mensajeDiv); // Agregar el mensaje debajo del formulario
+    
+            fetch('/index.php?action=eliminarCliente', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.text())
+            .then(data => {
+                mensajeDiv.innerHTML = data;
+                mensajeDiv.classList.add('alert-success'); // Mensaje de éxito
+                form.reset(); // Reiniciar formulario
+            })
+            .catch(error => {
+                mensajeDiv.innerHTML = 'Error al eliminar el cliente.';
+                mensajeDiv.classList.add('alert-danger');
+            });
+    
+            mensajeDiv.style.display = 'block';
+        };
+    </script>
+    
     {include file="footer.tpl"}
 
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>

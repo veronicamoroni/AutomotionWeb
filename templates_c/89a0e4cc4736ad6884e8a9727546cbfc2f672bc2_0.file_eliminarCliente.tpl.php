@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 5.4.0, created on 2025-02-13 13:52:02
+/* Smarty version 5.4.0, created on 2025-02-14 00:15:09
   from 'file:templates/eliminarCliente.tpl' */
 
 /* @var \Smarty\Template $_smarty_tpl */
 if ($_smarty_tpl->getCompiled()->isFresh($_smarty_tpl, array (
   'version' => '5.4.0',
-  'unifunc' => 'content_67adeaf27c5b94_62838488',
+  'unifunc' => 'content_67ae7cfd41e8a9_45352581',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '89a0e4cc4736ad6884e8a9727546cbfc2f672bc2' => 
     array (
       0 => 'templates/eliminarCliente.tpl',
-      1 => 1739451009,
+      1 => 1739488502,
       2 => 'file',
     ),
   ),
@@ -22,7 +22,7 @@ if ($_smarty_tpl->getCompiled()->isFresh($_smarty_tpl, array (
     'file:footer.tpl' => 1,
   ),
 ))) {
-function content_67adeaf27c5b94_62838488 (\Smarty\Template $_smarty_tpl) {
+function content_67ae7cfd41e8a9_45352581 (\Smarty\Template $_smarty_tpl) {
 $_smarty_current_dir = 'C:\\xampp\\htdocs\\AutomotionWeb\\templates';
 ?><!DOCTYPE html>
 <html lang="es">
@@ -59,7 +59,37 @@ $_smarty_current_dir = 'C:\\xampp\\htdocs\\AutomotionWeb\\templates';
             </div>
         </div>
     </div>
-
+    <?php echo '<script'; ?>
+>
+        document.querySelector('form').onsubmit = function(event) {
+            event.preventDefault(); // Evita el envío automático del formulario
+    
+            const form = event.target;
+            const formData = new FormData(form);
+            const mensajeDiv = document.createElement('div'); // Crear un div para el mensaje
+            mensajeDiv.className = "message mt-3 alert text-center";
+            form.appendChild(mensajeDiv); // Agregar el mensaje debajo del formulario
+    
+            fetch('/index.php?action=eliminarCliente', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.text())
+            .then(data => {
+                mensajeDiv.innerHTML = data;
+                mensajeDiv.classList.add('alert-success'); // Mensaje de éxito
+                form.reset(); // Reiniciar formulario
+            })
+            .catch(error => {
+                mensajeDiv.innerHTML = 'Error al eliminar el cliente.';
+                mensajeDiv.classList.add('alert-danger');
+            });
+    
+            mensajeDiv.style.display = 'block';
+        };
+    <?php echo '</script'; ?>
+>
+    
     <?php $_smarty_tpl->renderSubTemplate("file:footer.tpl", $_smarty_tpl->cache_id, $_smarty_tpl->compile_id, 0, $_smarty_tpl->cache_lifetime, array(), (int) 0, $_smarty_current_dir);
 ?>
 
