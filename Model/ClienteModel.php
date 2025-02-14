@@ -79,40 +79,37 @@ class Cliente {
         return $stmtModificar->execute();
     }
     
-   
-    // Eliminar un cliente
-    public function eliminarCliente() {
-        try {
-            // Comprobamos si el DNI existe en la tabla clientes
-            $checkStmt = $this->db->prepare("SELECT COUNT(*) FROM " . $this->table . " WHERE dni = :dni");
-            $checkStmt->bindParam(':dni', $this->dni);
-            $checkStmt->execute();
-    
-            if ($checkStmt->fetchColumn() == 0) {
-                throw new Exception("El cliente con DNI " . $this->dni . " no existe.");
-            }
-    
-            // Comprobamos si existen vehículos asociados
-            $vehiculosStmt = $this->db->prepare("SELECT COUNT(*) FROM vehiculos WHERE dni_cliente = :dni");
-            $vehiculosStmt->bindParam(':dni', $this->dni);
-            $vehiculosStmt->execute();
-    
-            if ($vehiculosStmt->fetchColumn() > 0) {
-                throw new Exception("El cliente no se puede eliminar porque tiene vehículos asociados.");
-            }
-    
-            // Eliminar cliente
-            $stmt = $this->db->prepare("DELETE FROM " . $this->table . " WHERE dni = :dni");
-            $stmt->bindParam(':dni', $this->dni);
-            $stmt->execute();
-    
-            return true;
-        } catch (Exception $e) {
-            // Mostrar mensaje de error
-            echo '<div class="alert alert-danger">' . $e->getMessage() . '</div>';
-            return false;
+  // Método en la clase Cliente para eliminar un cliente
+public function eliminarCliente() {
+    try {
+        // Comprobar si el DNI existe en la tabla clientes
+        $checkStmt = $this->db->prepare("SELECT COUNT(*) FROM " . $this->table . " WHERE dni = :dni");
+        $checkStmt->bindParam(':dni', $this->dni);
+        $checkStmt->execute();
+
+        if ($checkStmt->fetchColumn() == 0) {
+            throw new Exception("El cliente con DNI " . $this->dni . " no existe.");
         }
+
+        // Comprobar si existen vehículos asociados
+        $vehiculosStmt = $this->db->prepare("SELECT COUNT(*) FROM vehiculos WHERE dni_cliente = :dni");
+        $vehiculosStmt->bindParam(':dni', $this->dni);
+        $vehiculosStmt->execute();
+
+        if ($vehiculosStmt->fetchColumn() > 0) {
+            throw new Exception("El cliente no se puede eliminar porque tiene vehículos asociados.");
+        }
+
+        // Eliminar cliente
+        $stmt = $this->db->prepare("DELETE FROM " . $this->table . " WHERE dni = :dni");
+        $stmt->bindParam(':dni', $this->dni);
+        $stmt->execute();
+
+        return true;
+    } catch (Exception $e) {
+        return $e->getMessage(); // Retornar mensaje de error en lugar de imprimirlo
     }
+}
     
    
   // Obtener todos los clientes

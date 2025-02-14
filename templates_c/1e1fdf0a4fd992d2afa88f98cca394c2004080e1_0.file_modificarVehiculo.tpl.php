@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 5.4.0, created on 2025-02-13 14:37:03
+/* Smarty version 5.4.0, created on 2025-02-14 01:20:20
   from 'file:templates/modificarVehiculo.tpl' */
 
 /* @var \Smarty\Template $_smarty_tpl */
 if ($_smarty_tpl->getCompiled()->isFresh($_smarty_tpl, array (
   'version' => '5.4.0',
-  'unifunc' => 'content_67adf57fe83bf6_42260924',
+  'unifunc' => 'content_67ae8c44e0e079_83341086',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '1e1fdf0a4fd992d2afa88f98cca394c2004080e1' => 
     array (
       0 => 'templates/modificarVehiculo.tpl',
-      1 => 1739453779,
+      1 => 1739492415,
       2 => 'file',
     ),
   ),
@@ -22,7 +22,7 @@ if ($_smarty_tpl->getCompiled()->isFresh($_smarty_tpl, array (
     'file:footer.tpl' => 1,
   ),
 ))) {
-function content_67adf57fe83bf6_42260924 (\Smarty\Template $_smarty_tpl) {
+function content_67ae8c44e0e079_83341086 (\Smarty\Template $_smarty_tpl) {
 $_smarty_current_dir = 'C:\\xampp\\htdocs\\AutomotionWeb\\templates';
 ?><!DOCTYPE html>
 <html lang="es">
@@ -91,7 +91,7 @@ echo $_smarty_tpl->getValue('vehiculo')['dni_cliente'];
             </div>
         </div>
     </div>
-
+    
     <?php $_smarty_tpl->renderSubTemplate("file:footer.tpl", $_smarty_tpl->cache_id, $_smarty_tpl->compile_id, 0, $_smarty_tpl->cache_lifetime, array(), (int) 0, $_smarty_current_dir);
 ?>
 

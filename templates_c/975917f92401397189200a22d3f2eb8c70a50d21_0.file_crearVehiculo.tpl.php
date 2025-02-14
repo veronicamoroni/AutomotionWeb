@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 5.4.0, created on 2025-02-13 14:27:41
+/* Smarty version 5.4.0, created on 2025-02-14 00:42:17
   from 'file:templates/crearVehiculo.tpl' */
 
 /* @var \Smarty\Template $_smarty_tpl */
 if ($_smarty_tpl->getCompiled()->isFresh($_smarty_tpl, array (
   'version' => '5.4.0',
-  'unifunc' => 'content_67adf34d092947_57367812',
+  'unifunc' => 'content_67ae83590906f6_44257972',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '975917f92401397189200a22d3f2eb8c70a50d21' => 
     array (
       0 => 'templates/crearVehiculo.tpl',
-      1 => 1739452890,
+      1 => 1739490130,
       2 => 'file',
     ),
   ),
@@ -22,7 +22,7 @@ if ($_smarty_tpl->getCompiled()->isFresh($_smarty_tpl, array (
     'file:footer.tpl' => 1,
   ),
 ))) {
-function content_67adf34d092947_57367812 (\Smarty\Template $_smarty_tpl) {
+function content_67ae83590906f6_44257972 (\Smarty\Template $_smarty_tpl) {
 $_smarty_current_dir = 'C:\\xampp\\htdocs\\AutomotionWeb\\templates';
 ?><!DOCTYPE html>
 <html lang="es">
@@ -30,7 +30,7 @@ $_smarty_current_dir = 'C:\\xampp\\htdocs\\AutomotionWeb\\templates';
     <meta charset="UTF-8">
     <title>Alta de Vehículo</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined">
     <link rel="stylesheet" href="/templates/styles/Formulario.css">
 </head>
 <body class="bg-light">
@@ -67,12 +67,7 @@ $_smarty_current_dir = 'C:\\xampp\\htdocs\\AutomotionWeb\\templates';
             </form>
 
             <!-- Mostrar mensaje de éxito o error -->
-            <?php if ((null !== ($_smarty_tpl->getValue('mensaje') ?? null))) {?>
-                <div id="mensaje" class="message mt-3 alert alert-info text-center">
-                    <?php echo $_smarty_tpl->getValue('mensaje');?>
-
-                </div>
-            <?php }?>
+            <div id="mensaje" class="mt-3 text-center"></div>
 
             <div class="text-center mt-3">
                 <a href="/menu" class="btn btn-secondary w-100">Volver al Menú</a>
@@ -92,8 +87,39 @@ $_smarty_current_dir = 'C:\\xampp\\htdocs\\AutomotionWeb\\templates';
     <?php echo '<script'; ?>
  src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"><?php echo '</script'; ?>
 >
+
+    <!-- JavaScript para manejar el envío del formulario y mostrar el mensaje -->
+    <?php echo '<script'; ?>
+>
+        document.getElementById('formCrearVehiculo').onsubmit = function(event) {
+            event.preventDefault(); // Evita el envío automático del formulario
+
+            const form = document.getElementById('formCrearVehiculo');
+            const formData = new FormData(form);
+
+            fetch('/index.php?action=crearVehiculo', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.text())
+            .then(data => {
+                // Mostrar el mensaje en el div 'mensaje'
+                const mensajeDiv = document.getElementById('mensaje');
+                mensajeDiv.innerHTML = data;
+                mensajeDiv.className = "alert alert-info"; // Aplica estilos al mensaje
+
+                // Reiniciar el formulario si el mensaje no indica error
+                if (!data.includes("Error")) {
+                    form.reset();
+                }
+            })
+            .catch(error => {
+                document.getElementById('mensaje').innerHTML = '<div class="alert alert-danger">Error al registrar el vehículo.</div>';
+            });
+        };
+    <?php echo '</script'; ?>
+>
 </body>
 </html>
-
 <?php }
 }
