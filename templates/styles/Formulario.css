@@ -1,48 +1,31 @@
-body {bg-light
-    background-color:  #004085; 
+body {
+    background-color: #004085;
     font-family: Arial, sans-serif;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh; /* Asegura que el cuerpo ocupe al menos toda la altura de la ventana */
+    margin: 0; /* Elimina el margen predeterminado del body */
 }
+
+.container {
+    flex: 1; /* Permite que el contenedor ocupe el espacio restante */
+    padding: 30px; /* Ajusta el padding según sea necesario */
+}
+
 .navbar {
     background-color: #004085;
+    display: flex;
+    justify-content: center; /* Centra los elementos dentro del navbar */
 }
+
+.navbar-brand {
+    margin-right: auto; /* Alinea el logo a la izquierda */
+}
+
 .navbar-brand img {
     height: 70px;
 }
-.navbar-title {
-    color: white;
-    font-size: 24px;
-    margin-left: 20px;
-}
-.card {
-    border: 1px solid #ced4da;
-    border-radius: 0.5rem;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-}
-.card h2 {
-    color:  #004085;
-}
-.form-group label {
-    font-weight: bold;
-}
-.btn-primary {
-    background-color: #007bff;
-    border: none;
-}
-.btn-primary:hover {
-    background-color: #0056b3;
-}
-.text-center {
-    margin-bottom: 20px;
-}
-.material-symbols-outlined {
-    font-size: 50px;
-    color: #007bff;
-}
-.message {
-    margin-top: 20px;
-    font-size: 18px;
-    color: green;
-}
+
 .navbar-title {
     color: #b1e09f; /* Cambia este color según prefieras */
     font-size: 40px;
@@ -51,22 +34,55 @@ body {bg-light
     width: 100%; /* Asegura que ocupe toda la anchura disponible */
 }
 
-.navbar {
-    display: flex;
-    justify-content: center; /* Centra los elementos dentro del navbar */
+.card {
+    border: 1px solid #ced4da;
+    border-radius: 0.5rem;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-.navbar-brand {
-    margin-right: auto; /* Alinea el logo a la izquierda */
+.card h2 {
+    color: #004085;
 }
- 
-      footer {
+
+.form-group label {
+    font-weight: bold;
+}
+
+.btn-primary {
+    background-color: #007bff;
+    border: none;
+}
+
+.btn-primary:hover {
+    background-color: #0056b3;
+}
+
+.text-center {
+    margin-bottom: 20px;
+}
+
+.material-symbols-outlined {
+    font-size: 50px;
+    color: #007bff;
+}
+
+.message {
+    margin-top: 20px;
+    font-size: 18px;
+    color: green;
+}
+
+
+
+footer {
     background-color: #004085; /* Azul oscuro */
     color: white; /* Letras en blanco */
     text-align: center; /* Alinear el texto */
     padding: 1rem 0; /* Espaciado superior e inferior */
+    margin-top: auto; /* Empuja el footer hacia abajo */
 }
-.container {
-    height: 90vh; /* Cambia esto para ajustar la altura del contenedor */
-    margin-top: -30px; /* Ajusta este valor para mover el formulario hacia arriba */
+html, body {
+    margin: 0;
+    padding: 0;
+    height: 100%; /* Asegura que el body ocupe toda la altura de la ventana */
 }
