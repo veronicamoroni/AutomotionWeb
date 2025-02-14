@@ -52,56 +52,50 @@ class TurnoController {
         
 
    
-
-    // Método para eliminar un turno
     public function eliminarTurno() {
-        // Obtener el id del turno desde la solicitud POST
-        if (isset($_POST['id'])) {
-            $id = $_POST['id'];
-    
-            // Llamar al método eliminarTurno() del modelo y pasarle el id
-            $this->turno->id = $id;
-    
-            // Intentar eliminar el turno
-            if ($this->turno->eliminarTurno()) {
-                echo "Turno eliminado con éxito.";
-            } else {
-                echo "El turno no existe."; // Si no existe, mostrar este mensaje
-            }
-        } else {
+        if (!isset($_POST['id'])) {
             echo "ID del turno no proporcionado.";
+            return;
         }
-    }  
+    
+        // Asignar el ID al objeto turno
+        $this->turno->id = $_POST['id'];
+    
+        // Ejecutar la eliminación y mostrar el mensaje resultante
+        echo $this->turno->eliminarTurno();
+    }
+    
     
 
-    public function modificarTurno() {
-        if ($_SERVER["REQUEST_METHOD"] == "POST") {
-            // Obtener los datos enviados por el formulario
-            $this->turno->id = isset($_POST['id']) ? $_POST['id'] : '';
-            $this->turno->fecha = isset($_POST['fecha']) ? $_POST['fecha'] : '';
-            $this->turno->hora = isset($_POST['hora']) ? $_POST['hora'] : '';
-            $this->turno->descripcion = isset($_POST['descripcion']) ? $_POST['descripcion'] : '';
-            $this->turno->patente = isset($_POST['patente']) ? $_POST['patente'] : '';
-    
-            // Verificar que el ID no esté vacío
-            if (!empty($this->turno->id)) {
-                // Llamar al método del modelo para modificar el turno
-                if ($this->turno->modificarTurno()) {
-                    // Si la actualización es exitosa
-                    echo "¡Turno actualizado con éxito!";
-                } else {
-                    // Si el turno no se encuentra o no se pudo modificar
-                    echo "No existe un turno con el ID proporcionado.";
-                }
+   public function modificarTurno() {
+    if ($_SERVER["REQUEST_METHOD"] == "POST") {
+        // Obtener los datos enviados por el formulario
+        $this->turno->id = isset($_POST['id']) ? $_POST['id'] : '';
+        $this->turno->fecha = isset($_POST['fecha']) ? $_POST['fecha'] : '';
+        $this->turno->hora = isset($_POST['hora']) ? $_POST['hora'] : '';
+        $this->turno->descripcion = isset($_POST['descripcion']) ? $_POST['descripcion'] : '';
+        $this->turno->patente = isset($_POST['patente']) ? $_POST['patente'] : '';
+
+        // Verificar que el ID no esté vacío
+        if (!empty($this->turno->id)) {
+            // Llamar al método del modelo para modificar el turno
+            $resultado = $this->turno->modificarTurno();
+            
+            if ($resultado === true) {
+                echo "¡Turno actualizado con éxito!";
+            } elseif ($resultado === false) {
+                echo "No existe un turno con el ID proporcionado.";
             } else {
-                // Si no se proporciona un ID
-                echo "Falta el ID del turno.";
+                echo $resultado; // Mensaje de error por patente inexistente
             }
         } else {
-            // Si el método de solicitud no es POST
-            echo "Método de solicitud no permitido.";
+            echo "Falta el ID del turno.";
         }
+    } else {
+        echo "Método de solicitud no permitido.";
     }
+}
+
     
 }
 

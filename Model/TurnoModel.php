@@ -73,27 +73,45 @@ class Turno {
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
 
-    // Método para eliminar un turno
     public function eliminarTurno() {
-        // Verificar si el turno existe
-        $query = "SELECT COUNT(*) FROM " . $this->table . " WHERE id = :id";
-        $stmt = $this->db->prepare($query);
-        $stmt->bindParam(':id', $this->id);
-        $stmt->execute();
-        $existeTurno = $stmt->fetchColumn();
+        try {
+            // Verificar si el turno tiene servicios asociados
+            $queryVerificar = "SELECT COUNT(*) FROM servicios_realizados WHERE turnos_id = :id";
+            $stmtVerificar = $this->db->prepare($queryVerificar);
+            $stmtVerificar->bindParam(':id', $this->id);
+            $stmtVerificar->execute();
+            $serviciosAsociados = $stmtVerificar->fetchColumn();
     
-        // Si el turno no existe, retornar false
-        if ($existeTurno == 0) {
-            return false;
+            // Si hay servicios asociados, no permitir la eliminación del turno
+            if ($serviciosAsociados > 0) {
+                return "No se puede eliminar el turno porque tiene servicios asociados.";
+            }
+    
+            // Verificar si el turno existe
+            $queryExiste = "SELECT COUNT(*) FROM " . $this->table . " WHERE id = :id";
+            $stmtExiste = $this->db->prepare($queryExiste);
+            $stmtExiste->bindParam(':id', $this->id);
+            $stmtExiste->execute();
+            $existeTurno = $stmtExiste->fetchColumn();
+    
+            // Si el turno no existe, retornar mensaje
+            if ($existeTurno == 0) {
+                return "El turno con el ID proporcionado no existe.";
+            }
+    
+            // Si el turno existe y no tiene servicios asociados, proceder con la eliminación
+            $query = "DELETE FROM " . $this->table . " WHERE id = :id";
+            $stmt = $this->db->prepare($query);
+            $stmt->bindParam(':id', $this->id);
+    
+            if ($stmt->execute()) {
+                return "Turno eliminado con éxito.";
+            }
+        } catch (PDOException $e) {
+            return "Error al eliminar el turno: " . $e->getMessage();
         }
-    
-        // Si el turno existe, proceder con la eliminación
-        $query = "DELETE FROM " . $this->table . " WHERE id = :id";
-        $stmt = $this->db->prepare($query);
-        $stmt->bindParam(':id', $this->id);
-        return $stmt->execute();
     }
-
+    
    
     public function modificarTurno() {
         // Verificar si el turno con el ID proporcionado existe
@@ -106,6 +124,18 @@ class Turno {
         // Si no se encuentra el turno con el ID proporcionado, retornar false
         if ($result == 0) {
             return false;
+        }
+    
+        // Verificar si la patente existe en la tabla vehiculos
+        $queryVerificarPatente = "SELECT COUNT(*) FROM vehiculos WHERE patente = :patente";
+        $stmtVerificarPatente = $this->db->prepare($queryVerificarPatente);
+        $stmtVerificarPatente->bindParam(':patente', $this->patente);
+        $stmtVerificarPatente->execute();
+        $patenteExiste = $stmtVerificarPatente->fetchColumn();
+    
+        if ($patenteExiste == 0) {
+            // La patente no existe en la tabla vehiculos
+            return "Error: La patente proporcionada no existe en la base de datos.";
         }
     
         // Preparar la consulta para modificar el turno
@@ -131,7 +161,5 @@ class Turno {
         // Ejecutar la consulta y devolver el resultado
         return $stmtModificar->execute();
     }
-    
-}
-
+} 
 ?>
