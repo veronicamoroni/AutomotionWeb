@@ -10,59 +10,61 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="/templates/styles/Formulario.css">
 </head>
-<body class="bg-light">
+<body class="d-flex flex-column min-vh-100 bg-light">
+
     {assign var="titulo" value="Gestión de Clientes"}
     {include file="navbar.tpl"}
 
-    <div class="container d-flex justify-content-center align-items-center" style="height: 100vh;">
-        <div class="card p-4 shadow-lg" style="max-width: 500px; width: 100%;"> <!-- Aplicado el estilo shadow-lg y max-width -->
-            <div class="text-center mb-4">
-                <span class="material-symbols-outlined" style="font-size: 50px; color: #dc3545;">delete_forever</span> <!-- Icono delete -->
-                <h3 class="mt-2">Eliminar Cliente</h3>
-            </div>
-            <form action="/index.php?action=eliminarCliente" method="post">
-                <div class="form-group">
-                    <label for="dni">DNI del cliente a Eliminar:</label>
-                    <input type="text" class="form-control" id="dni" name="dni" required>
+    <!-- Contenedor principal -->
+    <div class="container flex-fill mt-5">
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <div class="card shadow-lg p-4">
+                    <div class="card-header text-center">
+                        <span class="material-symbols-outlined" style="font-size: 50px; color: #dc3545;">delete_forever</span>
+                        <h3 class="mt-2">Eliminar Cliente</h3>
+                    </div>
+                    <div class="card-body">
+                        <form action="/index.php?action=eliminarCliente" method="post" onsubmit="return confirmarEliminacion();">
+                            <div class="form-group">
+                                <label for="dni">DNI del cliente a Eliminar:</label>
+                                <input type="text" class="form-control" id="dni" name="dni" required>
+                            </div>
+                            <button type="submit" class="btn btn-danger btn-lg btn-block mt-3">Eliminar Usuario</button>
+                        </form>
+
+                        <!-- Mensaje de respuesta -->
+                        {if isset($mensaje)}
+                            <div id="mensaje" class="message mt-3 alert alert-info text-center">
+                                {$mensaje}
+                            </div>
+                        {/if}
+
+                    </div>
                 </div>
-                <button type="submit" class="btn btn-danger w-100 mt-3">Eliminar Usuario</button> <!-- Se añadió la clase w-100 y mt-3 -->
-            </form>
-            <div class="text-center mt-3">
-                <a href="/menu" class="btn btn-secondary w-100">Volver al Menú</a> <!-- Se añadió la clase w-100 -->
             </div>
         </div>
-    </div>
-    <script>
-        document.querySelector('form').onsubmit = function(event) {
-            event.preventDefault(); // Evita el envío automático del formulario
-    
-            const form = event.target;
-            const formData = new FormData(form);
-            const mensajeDiv = document.createElement('div'); // Crear un div para el mensaje
-            mensajeDiv.className = "message mt-3 alert text-center";
-            form.appendChild(mensajeDiv); // Agregar el mensaje debajo del formulario
-    
-            fetch('/index.php?action=eliminarCliente', {
-                method: 'POST',
-                body: formData
-            })
-            .then(response => response.text())
-            .then(data => {
-                mensajeDiv.innerHTML = data;
-                mensajeDiv.classList.add('alert-success'); // Mensaje de éxito
-                form.reset(); // Reiniciar formulario
-            })
-            .catch(error => {
-                mensajeDiv.innerHTML = 'Error al eliminar el cliente.';
-                mensajeDiv.classList.add('alert-danger');
-            });
-    
-            mensajeDiv.style.display = 'block';
-        };
-    </script>
-    
-    {include file="footer.tpl"}
 
+        <!-- Volver al Menú -->
+        <div class="text-center mt-3">
+            <a href="/menu" class="btn btn-secondary btn-sm">Volver al Menú</a>
+        </div>
+    </div>
+
+   
+
+    <!-- JavaScript para confirmación de eliminación -->
+    <script>
+        function confirmarEliminacion() {
+            return confirm("¿Estás seguro de que deseas eliminar este cliente?");
+        }
+    </script>
+    <!-- Footer -->
+    <footer class="text-white text-center py-3 mt-auto" style="background-color: #004085;">
+        <p>© 2025 Automotion - Todos los derechos reservados</p>
+    </footer>
+
+    <!-- Scripts de Bootstrap -->
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>

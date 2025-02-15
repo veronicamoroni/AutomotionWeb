@@ -4,38 +4,71 @@
     <meta charset="UTF-8">
     <title>Eliminar Servicio Realizado</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined">
 </head>
-<body>
-    {include file="navbar.tpl"}
+<body class="d-flex flex-column min-vh-100">
 
-    <div class="container">
+    <!-- Navbar -->
+    {assign var="titulo" value="Gestión de Servicios"}
+    <nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #004085;">
+        <a class="navbar-brand" href="#">
+            <img src="/logo.png" alt="Logo" style="height: 70px;">
+        </a>
+        <div class="navbar-title mx-auto text-center text-white" ;">
+            {$titulo}
+        </div>
+    </nav>
+    
+    <!-- Contenedor principal -->
+    <div class="container flex-fill mt-5">
         <div class="row justify-content-center">
-            <div class="col-md-8">
-                <h2 class="text-center">Eliminar Servicio Realizado</h2>
-                <div class="card p-4 shadow">
-                    <form action="/index.php?action=eliminarServicioRealizado" method="post" onsubmit="return confirmarEliminacion();">
-                        <div class="form-group">
-                            <label for="id">ID del Servicio Realizado a Eliminar:</label>
-                            <input type="text" class="form-control" id="id" name="id" required>
-                        </div>
-                        <button type="submit" class="btn btn-danger btn-block">Eliminar Servicio</button>
-                        <div class="text-center mt-3">
-                            <a href="/menu" class="btn btn-secondary btn-block">Volver al Menú</a>
-                        </div>
-                    </form>
+            <div class="col-md-6">
+                <div class="card shadow p-4">
+                    <div class="card-header text-center">
+                        <span class="material-symbols-outlined" style="font-size: 50px; color: #dc3545;">delete</span>
+                        <h3 class="mt-2">Eliminar Servicio Realizado</h3>
+                    </div>
+                    <div class="card-body">
+                        <form action="/index.php?action=eliminarServicioRealizado" method="post" onsubmit="return confirmarEliminacion();">
+                            <div class="form-group">
+                                <label for="id">ID del Servicio Realizado a Eliminar:</label>
+                                <input type="text" class="form-control" id="id" name="id" required>
+                            </div>
+                            <button type="submit" class="btn btn-danger btn-lg btn-block">Eliminar Servicio</button>
+                        </form>
+
+                        <!-- Mensaje -->
+                        {if isset($mensaje)}
+                            <div id="mensaje" class="message mt-3 alert alert-info">
+                                {$mensaje}
+                            </div>
+                        {/if}
+                    </div>
                 </div>
             </div>
         </div>
+
+        <!-- Volver al Menú -->
+        <div class="text-center mt-3">
+            <a href="/menu" class="btn btn-secondary btn-sm">Volver al Menú</a>
+        </div>
     </div>
 
+    <!-- Footer -->
+    <footer class="bg-primary text-white text-center py-3 mt-auto">
+        <p>© 2025 Automotion - Todos los derechos reservados</p>
+    </footer>
+
+    <!-- JavaScript para confirmación de eliminación -->
     <script>
         function confirmarEliminacion() {
             return confirm("¿Estás seguro de que deseas eliminar este servicio realizado?");
         }
     </script>
 
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+    <!-- Scripts de Bootstrap -->
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 </html>

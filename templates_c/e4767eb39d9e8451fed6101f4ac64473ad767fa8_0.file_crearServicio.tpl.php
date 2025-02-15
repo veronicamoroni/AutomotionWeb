@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 5.4.0, created on 2025-02-14 23:34:10
+/* Smarty version 5.4.0, created on 2025-02-15 22:21:15
   from 'file:templates/crearServicio.tpl' */
 
 /* @var \Smarty\Template $_smarty_tpl */
 if ($_smarty_tpl->getCompiled()->isFresh($_smarty_tpl, array (
   'version' => '5.4.0',
-  'unifunc' => 'content_67afc4e2c43e79_70666874',
+  'unifunc' => 'content_67b1054b8e3d48_12368978',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     'e4767eb39d9e8451fed6101f4ac64473ad767fa8' => 
     array (
       0 => 'templates/crearServicio.tpl',
-      1 => 1739572446,
+      1 => 1739654460,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->getCompiled()->isFresh($_smarty_tpl, array (
   array (
   ),
 ))) {
-function content_67afc4e2c43e79_70666874 (\Smarty\Template $_smarty_tpl) {
+function content_67b1054b8e3d48_12368978 (\Smarty\Template $_smarty_tpl) {
 $_smarty_current_dir = 'C:\\xampp\\htdocs\\AutomotionWeb\\templates';
 ?><!DOCTYPE html>
 <html lang="es">
