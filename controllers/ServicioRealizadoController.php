@@ -59,20 +59,20 @@ public function modificarServicioRealizado() {
 }
 
 
-    // Eliminar un registro de servicio realizado
+
+
     public function eliminarServicioRealizado() {
         if (isset($_POST['id'])) {
             $this->realizado->id = $_POST['id'];
 
-            if ($this->realizado->eliminarServicioRealizado()) {
-                echo "Registro de servicio realizado eliminado con éxito.";
-            } else {
-                echo "Error al eliminar el registro de servicio realizado.";
-            }
+            $mensaje = $this->realizado->eliminarServicioRealizado();
+            echo $mensaje;
         } else {
-            echo "Falta el ID del registro de servicio realizado.";
+            echo "Falta el ID del servicio realizado.";
         }
     }
+
+
     public function obtenerServiciosRealizados() {
         // Llamar al modelo para obtener los datos de los servicios realizados
         $servicios = $this->realizado->obtenerServiciosRealizados();

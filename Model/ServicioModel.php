@@ -73,27 +73,33 @@ class Servicio {
     
     public function eliminarServicio() {
         try {
-            // Comprobamos si el servicio con el ID existe en la tabla servicios
-            $checkStmt = $this->db->prepare("SELECT COUNT(*) FROM " . $this->table . " WHERE id = :id");
-            $checkStmt->bindParam(':id', $this->id);
-            $checkStmt->execute();
-        
-            if ($checkStmt->fetchColumn() == 0) {
-                throw new Exception("El servicio con ID " . $this->id . " no existe.");
+            // Verificar si el servicio con el ID existe
+            $queryVerificar = "SELECT COUNT(*) FROM servicios WHERE id = :id";
+            $stmtVerificar = $this->db->prepare($queryVerificar);
+            $stmtVerificar->bindParam(':id', $this->id, PDO::PARAM_INT);
+            $stmtVerificar->execute();
+            
+            if ($stmtVerificar->fetchColumn() == 0) {
+                return "El servicio con ID " . $this->id . " no existe.";
             }
-        
-            // Eliminar servicio
-            $stmt = $this->db->prepare("DELETE FROM " . $this->table . " WHERE id = :id");
-            $stmt->bindParam(':id', $this->id);
-            $stmt->execute();
-        
-            return true;
-        } catch (Exception $e) {
-            // Mostrar mensaje de error
-            echo '<div class="alert alert-danger">' . $e->getMessage() . '</div>';
-            return false;
+    
+            // Intentar eliminar el servicio
+            $query = "DELETE FROM servicios WHERE id = :id";
+            $stmt = $this->db->prepare($query);
+            $stmt->bindParam(':id', $this->id, PDO::PARAM_INT);
+            
+            if ($stmt->execute()) {
+                return "Servicio eliminado con éxito.";
+            }
+    
+        } catch (PDOException $e) {
+            if ($e->getCode() == '23503') { 
+                return "No se puede eliminar el servicio porque está vinculado a otra tabla.";
+            }
+            return "Error al eliminar el servicio: " . $e->getMessage();
         }
     }
+    
     
     // Obtener todos los servicios
     public function obtenerServicios() {

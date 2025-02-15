@@ -6,8 +6,19 @@
     <title>Registrar Servicio Realizado</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 </head>
-<body>
-    <div class="container mt-5">
+<body class="d-flex flex-column min-vh-100">
+
+    {assign var="titulo" value="Gestión de Clientes"}
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #004085;">
+        <a class="navbar-brand" href="/">
+            <img src="logo.png" alt="Logo" height="70">
+        </a>
+        <div class="navbar-title text-white mx-auto">Registrar Servicio Realizado</div>
+    </nav>
+
+    <!-- Contenedor principal -->
+    <div class="container flex-fill mt-5">
         <div class="row justify-content-center">
             <div class="col-md-6">
                 <div class="card">
@@ -42,11 +53,18 @@
             </div>
         </div>
 
+        <!-- Volver al Menú -->
         <div class="text-center mt-3">
             <a href="/menu" class="btn btn-secondary btn-sm">Volver al Menú</a>
         </div>
     </div>
 
+    <!-- Footer -->
+    <footer style="background-color: #004085;" class="text-white text-center py-3 mt-auto">
+        <p>© 2025 Automotion - Todos los derechos reservados</p>
+    </footer>
+
+    <!-- Scripts de Bootstrap -->
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
