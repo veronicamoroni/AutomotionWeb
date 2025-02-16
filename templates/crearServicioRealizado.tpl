@@ -5,25 +5,23 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Registrar Servicio Realizado</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
+    <link rel="stylesheet" href="/templates/styles/Formulario.css">
 </head>
-<body class="d-flex flex-column min-vh-100">
-
-    {assign var="titulo" value="Gestión de Clientes"}
-    <!-- Navbar -->
-    <nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #004085;">
-        <a class="navbar-brand" href="/">
-            <img src="logo.png" alt="Logo" height="70">
-        </a>
-        <div class="navbar-title text-white mx-auto">Registrar Servicio Realizado</div>
-    </nav>
-
+<body class="d-flex flex-column min-vh-100 bg-light">
+    {assign var="titulo" value="Gestión de Servicios Realizados"}
+    {include file="navbar.tpl"}
+  
+    
     <!-- Contenedor principal -->
     <div class="container flex-fill mt-5">
         <div class="row justify-content-center">
             <div class="col-md-6">
                 <div class="card">
                     <div class="card-header text-center">
-                        <h3>Registrar Servicio Realizado</h3>
+                        <!-- Icono junto al título -->
+                        <span class="material-symbols-outlined" style="font-size: 50px; color: #007bff;">build</span>
+                        <h3 class="mt-2">Registrar Servicio Realizado</h3>
                     </div>
                     <div class="card-body">
                         <form action="/index.php?action=crearServicioRealizado" method="POST" id="formServicioRealizado">
@@ -46,7 +44,10 @@
                                 <textarea class="form-control" id="notas" name="notas" rows="3"></textarea>
                             </div>
 
-                            <button type="submit" class="btn btn-success btn-lg btn-block">Registrar Servicio Realizado</button>
+                            <!-- Icono dentro del botón -->
+                            <button type="submit" class="btn btn-primary btn-lg btn-block">
+                                <span class="material-symbols-outlined" style="font-size: 20px;">build</span> Registrar Servicio Realizado
+                            </button>
                         </form>
                     </div>
                 </div>
@@ -59,8 +60,9 @@
         </div>
     </div>
 
+   
     <!-- Footer -->
-    <footer style="background-color: #004085;" class="text-white text-center py-3 mt-auto">
+    <footer class="text-white text-center py-3 mt-auto" style="background-color: #004085;">
         <p>© 2025 Automotion - Todos los derechos reservados</p>
     </footer>
 

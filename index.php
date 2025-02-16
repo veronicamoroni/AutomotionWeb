@@ -62,6 +62,7 @@ switch ($request) {
         break;
     case '/menu/eliminarVehiculo':
         $smarty->display('templates/eliminarVehiculo.tpl');
+        break;
     case '/menu/listarVehiculos':
             $vehiculos = $vehiculoController->obtenerVehiculos();
             $smarty->assign('vehiculos', $vehiculos);

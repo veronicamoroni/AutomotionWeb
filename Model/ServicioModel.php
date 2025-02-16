@@ -82,14 +82,21 @@ class Servicio {
             if ($stmtVerificar->fetchColumn() == 0) {
                 return "El servicio con ID " . $this->id . " no existe.";
             }
-    
+            
             // Intentar eliminar el servicio
             $query = "DELETE FROM servicios WHERE id = :id";
             $stmt = $this->db->prepare($query);
             $stmt->bindParam(':id', $this->id, PDO::PARAM_INT);
             
             if ($stmt->execute()) {
-                return "Servicio eliminado con éxito.";
+                // Verificar si realmente se eliminó algo
+                if ($stmt->rowCount() > 0) {
+                    return "Servicio eliminado con éxito.";
+                } else {
+                    return "No se pudo eliminar el servicio. Puede que ya haya sido eliminado.";
+                }
+            } else {
+                return "Error: No se pudo eliminar el servicio.";
             }
     
         } catch (PDOException $e) {
@@ -99,7 +106,6 @@ class Servicio {
             return "Error al eliminar el servicio: " . $e->getMessage();
         }
     }
-    
     
     // Obtener todos los servicios
     public function obtenerServicios() {

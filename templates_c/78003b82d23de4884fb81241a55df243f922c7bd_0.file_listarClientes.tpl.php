@@ -1,28 +1,27 @@
 <?php
-/* Smarty version 5.4.0, created on 2025-02-13 13:51:51
+/* Smarty version 5.4.0, created on 2025-02-15 23:40:45
   from 'file:listarClientes.tpl' */
 
 /* @var \Smarty\Template $_smarty_tpl */
 if ($_smarty_tpl->getCompiled()->isFresh($_smarty_tpl, array (
   'version' => '5.4.0',
-  'unifunc' => 'content_67adeae799f755_81517085',
+  'unifunc' => 'content_67b117edc95387_02915373',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '78003b82d23de4884fb81241a55df243f922c7bd' => 
     array (
       0 => 'listarClientes.tpl',
-      1 => 1739450981,
+      1 => 1739659241,
       2 => 'file',
     ),
   ),
   'includes' => 
   array (
     'file:navbar.tpl' => 1,
-    'file:footer.tpl' => 1,
   ),
 ))) {
-function content_67adeae799f755_81517085 (\Smarty\Template $_smarty_tpl) {
+function content_67b117edc95387_02915373 (\Smarty\Template $_smarty_tpl) {
 $_smarty_current_dir = 'C:\\xampp\\htdocs\\AutomotionWeb\\templates';
 ?><!DOCTYPE html>
 <html lang="es">
@@ -95,8 +94,7 @@ $_smarty_tpl->getSmarty()->getRuntime('Foreach')->restore($_smarty_tpl, 1);?>
         </div>
     </div>
 
-    <?php $_smarty_tpl->renderSubTemplate("file:footer.tpl", $_smarty_tpl->cache_id, $_smarty_tpl->compile_id, 0, $_smarty_tpl->cache_lifetime, array(), (int) 0, $_smarty_current_dir);
-?>
+   
 
     <?php echo '<script'; ?>
  src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"><?php echo '</script'; ?>

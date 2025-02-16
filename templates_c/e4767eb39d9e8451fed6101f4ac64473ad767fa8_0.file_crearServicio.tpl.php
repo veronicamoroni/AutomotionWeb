@@ -1,26 +1,27 @@
 <?php
-/* Smarty version 5.4.0, created on 2025-02-15 22:21:15
+/* Smarty version 5.4.0, created on 2025-02-16 01:18:52
   from 'file:templates/crearServicio.tpl' */
 
 /* @var \Smarty\Template $_smarty_tpl */
 if ($_smarty_tpl->getCompiled()->isFresh($_smarty_tpl, array (
   'version' => '5.4.0',
-  'unifunc' => 'content_67b1054b8e3d48_12368978',
+  'unifunc' => 'content_67b12eecc87843_91459518',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     'e4767eb39d9e8451fed6101f4ac64473ad767fa8' => 
     array (
       0 => 'templates/crearServicio.tpl',
-      1 => 1739654460,
+      1 => 1739665125,
       2 => 'file',
     ),
   ),
   'includes' => 
   array (
+    'file:navbar.tpl' => 1,
   ),
 ))) {
-function content_67b1054b8e3d48_12368978 (\Smarty\Template $_smarty_tpl) {
+function content_67b12eecc87843_91459518 (\Smarty\Template $_smarty_tpl) {
 $_smarty_current_dir = 'C:\\xampp\\htdocs\\AutomotionWeb\\templates';
 ?><!DOCTYPE html>
 <html lang="es">
@@ -28,22 +29,14 @@ $_smarty_current_dir = 'C:\\xampp\\htdocs\\AutomotionWeb\\templates';
     <meta charset="UTF-8">
     <title>Alta de Servicio</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
+    <link rel="stylesheet" href="/templates/styles/Formulario.css">
 </head>
 <body class="d-flex flex-column min-vh-100">
 
-    <!-- Navbar -->
-   
-    <?php $_smarty_tpl->assign('titulo', "Gestión de Clientes", false, NULL);?>
-    <nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #004085;">
-        <a class="navbar-brand" href="#">
-            <img src="/logo.png" alt="Logo" style="height: 70px;">
-        </a>
-        <div class="navbar-title mx-auto text-center text-white" ;">
-            <?php echo $_smarty_tpl->getValue('titulo');?>
-
-        </div>
-    </nav>
+    <?php $_smarty_tpl->assign('titulo', "Gestión de Servicios", false, NULL);?>
+    <?php $_smarty_tpl->renderSubTemplate("file:navbar.tpl", $_smarty_tpl->cache_id, $_smarty_tpl->compile_id, 0, $_smarty_tpl->cache_lifetime, array(), (int) 0, $_smarty_current_dir);
+?>
     
     <!-- Contenedor principal -->
     <div class="container flex-fill mt-5">
@@ -51,6 +44,7 @@ $_smarty_current_dir = 'C:\\xampp\\htdocs\\AutomotionWeb\\templates';
             <div class="col-md-6">
                 <div class="card">
                     <div class="card-header text-center">
+                        <!-- Icono junto al título -->
                         <span class="material-symbols-outlined" style="font-size: 50px; color: #007bff;">build</span>
                         <h3 class="mt-2">Registrar Servicio</h3>
                     </div>
@@ -64,7 +58,10 @@ $_smarty_current_dir = 'C:\\xampp\\htdocs\\AutomotionWeb\\templates';
                                 <label for="costo">Costo:</label>
                                 <input type="number" class="form-control" id="costo" name="costo" step="0.01" required>
                             </div>
-                            <button type="submit" class="btn btn-primary btn-lg btn-block">Registrar Servicio</button>
+                            <!-- Icono dentro del botón -->
+                            <button type="submit" class="btn btn-primary btn-lg btn-block">
+                                <span class="material-symbols-outlined" style="font-size: 20px;">build</span> Registrar Servicio
+                            </button>
                         </form>
 
                         <!-- Mensaje -->
@@ -102,6 +99,7 @@ $_smarty_current_dir = 'C:\\xampp\\htdocs\\AutomotionWeb\\templates';
 >
 </body>
 </html>
+
 
 <?php }
 }

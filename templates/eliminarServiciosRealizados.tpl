@@ -5,19 +5,12 @@
     <title>Eliminar Servicio Realizado</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined">
+    <link rel="stylesheet" href="/templates/styles/Formulario.css">
 </head>
-<body class="d-flex flex-column min-vh-100">
-
-    <!-- Navbar -->
-    {assign var="titulo" value="Gestión de Servicios"}
-    <nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #004085;">
-        <a class="navbar-brand" href="#">
-            <img src="/logo.png" alt="Logo" style="height: 70px;">
-        </a>
-        <div class="navbar-title mx-auto text-center text-white" ;">
-            {$titulo}
-        </div>
-    </nav>
+<body class="d-flex flex-column min-vh-100 bg-light">
+    {assign var="titulo" value="Gestión de Servicios Realizados"}
+    {include file="navbar.tpl"}
+  
     
     <!-- Contenedor principal -->
     <div class="container flex-fill mt-5">
@@ -55,9 +48,10 @@
     </div>
 
     <!-- Footer -->
-    <footer class="bg-primary text-white text-center py-3 mt-auto">
+    <footer class="text-white text-center py-3 mt-auto" style="background-color: #004085;">
         <p>© 2025 Automotion - Todos los derechos reservados</p>
     </footer>
+
 
     <!-- JavaScript para confirmación de eliminación -->
     <script>

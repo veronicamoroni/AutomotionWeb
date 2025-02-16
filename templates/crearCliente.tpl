@@ -5,7 +5,7 @@
     <title>Alta de Cliente</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined">
-    <link rel="stylesheet" href="/templates/styles/Formulario.css">
+   <link rel="stylesheet" href="/templates/styles/Formulario.css">
 </head>
 <body class="d-flex flex-column min-vh-100">
 

@@ -52,27 +52,24 @@ class TurnoController {
         
 
    
+// Método para eliminar un turno
+public function eliminarTurno() {
+    if (isset($_POST['id'])) {
+        $id = $_POST['id'];
 
-    // Método para eliminar un turno
-    public function eliminarTurno() {
-        // Obtener el id del turno desde la solicitud POST
-        if (isset($_POST['id'])) {
-            $id = $_POST['id'];
-    
-            // Llamar al método eliminarTurno() del modelo y pasarle el id
-            $this->turno->id = $id;
-    
-            // Intentar eliminar el turno
-            if ($this->turno->eliminarTurno()) {
-                echo "Turno eliminado con éxito.";
-            } else {
-                echo "El turno no existe."; // Si no existe, mostrar este mensaje
-            }
-        } else {
-            echo "ID del turno no proporcionado.";
-        }
-    }  
-    
+        // Asignar el ID del turno al modelo
+        $this->turno->id = $id;
+
+        // Llamar al método del modelo y almacenar el mensaje de respuesta
+        $mensaje = $this->turno->eliminarTurno();
+
+        // Mostrar el mensaje correcto
+        echo $mensaje;
+    } else {
+        echo "ID del turno no proporcionado.";
+    }
+}
+
 
     public function modificarTurno() {
         if ($_SERVER["REQUEST_METHOD"] == "POST") {

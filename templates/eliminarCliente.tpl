@@ -8,12 +8,20 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <link rel="stylesheet" href="/templates/styles/Formulario.css">
+    
 </head>
 <body class="d-flex flex-column min-vh-100 bg-light">
 
+    <!-- Navbar -->
     {assign var="titulo" value="Gestión de Clientes"}
-    {include file="navbar.tpl"}
+    <nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #004085;">
+        <a class="navbar-brand" href="#">
+            <img src="/logo.png" alt="Logo" style="height: 70px;">
+        </a>
+        <div class="navbar-title mx-auto text-center text-white">
+            {$titulo}
+        </div>
+    </nav>
 
     <!-- Contenedor principal -->
     <div class="container flex-fill mt-5">

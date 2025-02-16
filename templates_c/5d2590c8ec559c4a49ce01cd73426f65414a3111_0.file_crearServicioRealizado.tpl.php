@@ -1,26 +1,27 @@
 <?php
-/* Smarty version 5.4.0, created on 2025-02-14 23:33:44
+/* Smarty version 5.4.0, created on 2025-02-16 02:24:16
   from 'file:crearServicioRealizado.tpl' */
 
 /* @var \Smarty\Template $_smarty_tpl */
 if ($_smarty_tpl->getCompiled()->isFresh($_smarty_tpl, array (
   'version' => '5.4.0',
-  'unifunc' => 'content_67afc4c818fc62_72465891',
+  'unifunc' => 'content_67b13e40249142_85560751',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '5d2590c8ec559c4a49ce01cd73426f65414a3111' => 
     array (
       0 => 'crearServicioRealizado.tpl',
-      1 => 1739572409,
+      1 => 1739669049,
       2 => 'file',
     ),
   ),
   'includes' => 
   array (
+    'file:navbar.tpl' => 1,
   ),
 ))) {
-function content_67afc4c818fc62_72465891 (\Smarty\Template $_smarty_tpl) {
+function content_67b13e40249142_85560751 (\Smarty\Template $_smarty_tpl) {
 $_smarty_current_dir = 'C:\\xampp\\htdocs\\AutomotionWeb\\templates';
 ?><!DOCTYPE html>
 <html lang="es">
@@ -29,25 +30,24 @@ $_smarty_current_dir = 'C:\\xampp\\htdocs\\AutomotionWeb\\templates';
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Registrar Servicio Realizado</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
+    <link rel="stylesheet" href="/templates/styles/Formulario.css">
 </head>
-<body class="d-flex flex-column min-vh-100">
-
-    <?php $_smarty_tpl->assign('titulo', "Gestión de Clientes", false, NULL);?>
-    <!-- Navbar -->
-    <nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #004085;">
-        <a class="navbar-brand" href="/">
-            <img src="logo.png" alt="Logo" height="70">
-        </a>
-        <div class="navbar-title text-white mx-auto">Registrar Servicio Realizado</div>
-    </nav>
-
+<body class="d-flex flex-column min-vh-100 bg-light">
+    <?php $_smarty_tpl->assign('titulo', "Gestión de Servicios Realizados", false, NULL);?>
+    <?php $_smarty_tpl->renderSubTemplate("file:navbar.tpl", $_smarty_tpl->cache_id, $_smarty_tpl->compile_id, 0, $_smarty_tpl->cache_lifetime, array(), (int) 0, $_smarty_current_dir);
+?>
+  
+    
     <!-- Contenedor principal -->
     <div class="container flex-fill mt-5">
         <div class="row justify-content-center">
             <div class="col-md-6">
                 <div class="card">
                     <div class="card-header text-center">
-                        <h3>Registrar Servicio Realizado</h3>
+                        <!-- Icono junto al título -->
+                        <span class="material-symbols-outlined" style="font-size: 50px; color: #007bff;">build</span>
+                        <h3 class="mt-2">Registrar Servicio Realizado</h3>
                     </div>
                     <div class="card-body">
                         <form action="/index.php?action=crearServicioRealizado" method="POST" id="formServicioRealizado">
@@ -70,7 +70,10 @@ $_smarty_current_dir = 'C:\\xampp\\htdocs\\AutomotionWeb\\templates';
                                 <textarea class="form-control" id="notas" name="notas" rows="3"></textarea>
                             </div>
 
-                            <button type="submit" class="btn btn-success btn-lg btn-block">Registrar Servicio Realizado</button>
+                            <!-- Icono dentro del botón -->
+                            <button type="submit" class="btn btn-primary btn-lg btn-block">
+                                <span class="material-symbols-outlined" style="font-size: 20px;">build</span> Registrar Servicio Realizado
+                            </button>
                         </form>
                     </div>
                 </div>
@@ -83,8 +86,9 @@ $_smarty_current_dir = 'C:\\xampp\\htdocs\\AutomotionWeb\\templates';
         </div>
     </div>
 
+   
     <!-- Footer -->
-    <footer style="background-color: #004085;" class="text-white text-center py-3 mt-auto">
+    <footer class="text-white text-center py-3 mt-auto" style="background-color: #004085;">
         <p>© 2025 Automotion - Todos los derechos reservados</p>
     </footer>
 

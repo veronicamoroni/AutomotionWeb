@@ -4,21 +4,13 @@
     <meta charset="UTF-8">
     <title>Alta de Servicio</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
+    <link rel="stylesheet" href="/templates/styles/Formulario.css">
 </head>
 <body class="d-flex flex-column min-vh-100">
 
-    <!-- Navbar -->
-   
-    {assign var="titulo" value="Gestión de Clientes"}
-    <nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #004085;">
-        <a class="navbar-brand" href="#">
-            <img src="/logo.png" alt="Logo" style="height: 70px;">
-        </a>
-        <div class="navbar-title mx-auto text-center text-white" ;">
-            {$titulo}
-        </div>
-    </nav>
+    {assign var="titulo" value="Gestión de Servicios"}
+    {include file="navbar.tpl"}
     
     <!-- Contenedor principal -->
     <div class="container flex-fill mt-5">
@@ -26,6 +18,7 @@
             <div class="col-md-6">
                 <div class="card">
                     <div class="card-header text-center">
+                        <!-- Icono junto al título -->
                         <span class="material-symbols-outlined" style="font-size: 50px; color: #007bff;">build</span>
                         <h3 class="mt-2">Registrar Servicio</h3>
                     </div>
@@ -39,7 +32,10 @@
                                 <label for="costo">Costo:</label>
                                 <input type="number" class="form-control" id="costo" name="costo" step="0.01" required>
                             </div>
-                            <button type="submit" class="btn btn-primary btn-lg btn-block">Registrar Servicio</button>
+                            <!-- Icono dentro del botón -->
+                            <button type="submit" class="btn btn-primary btn-lg btn-block">
+                                <span class="material-symbols-outlined" style="font-size: 20px;">build</span> Registrar Servicio
+                            </button>
                         </form>
 
                         <!-- Mensaje -->
@@ -60,9 +56,10 @@
     </div>
 
     <!-- Footer -->
-    <footer class="bg-primary text-white text-center py-3 mt-auto">
+    <footer class="text-white text-center py-3 mt-auto" style="background-color: #004085;">
         <p>© 2025 Automotion - Todos los derechos reservados</p>
     </footer>
+
 
     <!-- Scripts de Bootstrap -->
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
@@ -70,4 +67,5 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 </html>
+
 
