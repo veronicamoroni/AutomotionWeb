@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 5.4.0, created on 2025-02-16 00:29:22
+/* Smarty version 5.4.0, created on 2025-02-16 14:07:38
   from 'file:templates/eliminarTurno.tpl' */
 
 /* @var \Smarty\Template $_smarty_tpl */
 if ($_smarty_tpl->getCompiled()->isFresh($_smarty_tpl, array (
   'version' => '5.4.0',
-  'unifunc' => 'content_67b12352cbd2c2_78417318',
+  'unifunc' => 'content_67b1e31a27cca0_34794751',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '6a25ceb6a8173cdfda542c82683468499a7e3a94' => 
     array (
       0 => 'templates/eliminarTurno.tpl',
-      1 => 1739662156,
+      1 => 1739711248,
       2 => 'file',
     ),
   ),
@@ -21,7 +21,7 @@ if ($_smarty_tpl->getCompiled()->isFresh($_smarty_tpl, array (
     'file:navbar.tpl' => 1,
   ),
 ))) {
-function content_67b12352cbd2c2_78417318 (\Smarty\Template $_smarty_tpl) {
+function content_67b1e31a27cca0_34794751 (\Smarty\Template $_smarty_tpl) {
 $_smarty_current_dir = 'C:\\xampp\\htdocs\\AutomotionWeb\\templates';
 ?><!DOCTYPE html>
 <html lang="es">
@@ -51,7 +51,7 @@ $_smarty_current_dir = 'C:\\xampp\\htdocs\\AutomotionWeb\\templates';
                         <h3 class="mt-2">Eliminar Turno</h3>
                     </div>
                     <div class="card-body">
-                        <form action="/index.php?action=eliminarTurno" method="post" onsubmit="return confirmarEliminacion();">
+                        <form id="formEliminarTurno">
                             <div class="form-group">
                                 <label for="id">ID del Turno a Eliminar:</label>
                                 <input type="text" class="form-control" id="id" name="id" required>
@@ -60,13 +60,9 @@ $_smarty_current_dir = 'C:\\xampp\\htdocs\\AutomotionWeb\\templates';
                         </form>
 
                         <!-- Mensaje de respuesta -->
-                        <?php if ((null !== ($_smarty_tpl->getValue('mensaje') ?? null))) {?>
-                            <div id="mensaje" class="message mt-3 alert alert-info text-center">
-                                <?php echo $_smarty_tpl->getValue('mensaje');?>
-
-                            </div>
-                        <?php }?>
-
+                        <div id="mensaje" class="message mt-3 alert alert-info text-center" style="display:none;">
+                            <!-- El mensaje se actualizará aquí -->
+                        </div>
                     </div>
                 </div>
             </div>
@@ -78,12 +74,38 @@ $_smarty_current_dir = 'C:\\xampp\\htdocs\\AutomotionWeb\\templates';
         </div>
     </div>
 
-    <!-- JavaScript para confirmación de eliminación -->
+    <!-- Script para enviar el formulario con fetch -->
     <?php echo '<script'; ?>
 >
-        function confirmarEliminacion() {
-            return confirm("¿Estás seguro de que deseas eliminar este turno?");
-        }
+        document.getElementById('formEliminarTurno').onsubmit = function(event) {
+            event.preventDefault(); // Evita el envío automático del formulario
+
+            const form = document.getElementById('formEliminarTurno');
+            const formData = new FormData(form);
+
+            fetch('/index.php?action=eliminarTurno', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.text())
+            .then(data => {
+                // Mostrar el mensaje en el div 'mensaje'
+                const mensajeDiv = document.getElementById('mensaje');
+                mensajeDiv.innerHTML = data;
+                mensajeDiv.style.display = "block"; // Muestra el mensaje
+                mensajeDiv.className = "alert alert-info"; // Aplica estilos al mensaje
+
+                // Si el mensaje no contiene "Error", puedes reiniciar el formulario
+                if (!data.includes("Error")) {
+                    form.reset();
+                }
+            })
+            .catch(error => {
+                // En caso de error, mostrar el mensaje de error
+                document.getElementById('mensaje').innerHTML = '<div class="alert alert-danger">Error al eliminar el turno.</div>';
+                document.getElementById('mensaje').style.display = "block";
+            });
+        };
     <?php echo '</script'; ?>
 >
 

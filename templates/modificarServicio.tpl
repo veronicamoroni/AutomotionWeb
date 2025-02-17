@@ -43,11 +43,7 @@
                         </form>
 
                         <!-- Mensaje -->
-                        {if isset($mensaje)}
-                            <div id="mensaje" class="message mt-3 alert alert-info">
-                                {$mensaje}
-                            </div>
-                        {/if}
+                        <div id="mensaje" class="message mt-3" style="display:none;"></div>
                     </div>
                 </div>
             </div>
@@ -63,9 +59,43 @@
     <footer class="text-white text-center py-3 mt-auto" style="background-color: #004085;">
         <p>© 2025 Automotion - Todos los derechos reservados</p>
     </footer>
+
     <!-- Scripts de Bootstrap -->
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+    <!-- Script para enviar el formulario con fetch -->
+    <script>
+        document.getElementById('formModificarServicio').onsubmit = function(event) {
+            event.preventDefault(); // Evita el envío automático del formulario
+
+            const form = document.getElementById('formModificarServicio');
+            const formData = new FormData(form);
+
+            fetch('/index.php?action=modificarServicio', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.text())
+            .then(data => {
+                // Mostrar el mensaje en el div 'mensaje'
+                const mensajeDiv = document.getElementById('mensaje');
+                mensajeDiv.innerHTML = data;
+                mensajeDiv.style.display = "block"; // Muestra el mensaje
+                mensajeDiv.className = "alert alert-info"; // Aplica estilos al mensaje
+
+                // Si el mensaje no contiene "Error", puedes reiniciar el formulario
+                if (!data.includes("Error")) {
+                    form.reset();
+                }
+            })
+            .catch(error => {
+                // En caso de error, mostrar el mensaje de error
+                document.getElementById('mensaje').innerHTML = '<div class="alert alert-danger">Error al modificar el servicio.</div>';
+                document.getElementById('mensaje').style.display = "block";
+            });
+        };
+    </script>
 </body>
 </html>

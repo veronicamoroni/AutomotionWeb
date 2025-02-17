@@ -11,8 +11,7 @@
 <body class="d-flex flex-column min-vh-100 bg-light">
     {assign var="titulo" value="Gestión de Servicios Realizados"}
     {include file="navbar.tpl"}
-  
-    
+
     <!-- Contenedor principal -->
     <div class="container flex-fill mt-5">
         <div class="row justify-content-center">
@@ -48,6 +47,9 @@
                             <button type="submit" class="btn btn-primary btn-lg btn-block">
                                 <span class="material-symbols-outlined" style="font-size: 20px;">build</span> Registrar Servicio Realizado
                             </button>
+
+                            <!-- Div para mostrar mensajes debajo del botón -->
+                            <div id="mensaje" style="display: none;"></div>
                         </form>
                     </div>
                 </div>
@@ -60,7 +62,39 @@
         </div>
     </div>
 
-   
+    <!-- Script para manejar el formulario -->
+    <script>
+        document.getElementById('formServicioRealizado').onsubmit = function(event) {
+            event.preventDefault(); // Evita el envío automático del formulario
+    
+            const form = document.getElementById('formServicioRealizado');
+            const formData = new FormData(form);
+    
+            fetch('/index.php?action=crearServicioRealizado', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.text())
+            .then(data => {
+                // Mostrar el mensaje debajo del botón de registrar
+                const mensajeDiv = document.getElementById('mensaje');
+                mensajeDiv.innerHTML = data;
+                mensajeDiv.style.display = "block"; // Muestra el mensaje
+                mensajeDiv.className = "alert alert-info"; // Aplica estilos al mensaje
+    
+                // Si el mensaje no contiene "Error", puedes reiniciar el formulario
+                if (!data.includes("Error")) {
+                    form.reset();
+                }
+            })
+            .catch(error => {
+                // En caso de error, mostrar el mensaje de error debajo del botón
+                document.getElementById('mensaje').innerHTML = '<div class="alert alert-danger">Error al registrar el servicio realizado.</div>';
+                document.getElementById('mensaje').style.display = "block";
+            });
+        };
+    </script>
+
     <!-- Footer -->
     <footer class="text-white text-center py-3 mt-auto" style="background-color: #004085;">
         <p>© 2025 Automotion - Todos los derechos reservados</p>

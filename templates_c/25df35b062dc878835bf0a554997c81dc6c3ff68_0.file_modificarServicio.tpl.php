@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 5.4.0, created on 2025-02-16 01:26:10
+/* Smarty version 5.4.0, created on 2025-02-16 15:18:22
   from 'file:templates/modificarServicio.tpl' */
 
 /* @var \Smarty\Template $_smarty_tpl */
 if ($_smarty_tpl->getCompiled()->isFresh($_smarty_tpl, array (
   'version' => '5.4.0',
-  'unifunc' => 'content_67b130a2ddbb76_47298271',
+  'unifunc' => 'content_67b1f3aee88e87_36028020',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '25df35b062dc878835bf0a554997c81dc6c3ff68' => 
     array (
       0 => 'templates/modificarServicio.tpl',
-      1 => 1739665557,
+      1 => 1739715499,
       2 => 'file',
     ),
   ),
@@ -21,7 +21,7 @@ if ($_smarty_tpl->getCompiled()->isFresh($_smarty_tpl, array (
     'file:navbar.tpl' => 1,
   ),
 ))) {
-function content_67b130a2ddbb76_47298271 (\Smarty\Template $_smarty_tpl) {
+function content_67b1f3aee88e87_36028020 (\Smarty\Template $_smarty_tpl) {
 $_smarty_current_dir = 'C:\\xampp\\htdocs\\AutomotionWeb\\templates';
 ?><!DOCTYPE html>
 <html lang="es">
@@ -69,12 +69,7 @@ $_smarty_current_dir = 'C:\\xampp\\htdocs\\AutomotionWeb\\templates';
                         </form>
 
                         <!-- Mensaje -->
-                        <?php if ((null !== ($_smarty_tpl->getValue('mensaje') ?? null))) {?>
-                            <div id="mensaje" class="message mt-3 alert alert-info">
-                                <?php echo $_smarty_tpl->getValue('mensaje');?>
-
-                            </div>
-                        <?php }?>
+                        <div id="mensaje" class="message mt-3" style="display:none;"></div>
                     </div>
                 </div>
             </div>
@@ -90,6 +85,7 @@ $_smarty_current_dir = 'C:\\xampp\\htdocs\\AutomotionWeb\\templates';
     <footer class="text-white text-center py-3 mt-auto" style="background-color: #004085;">
         <p>© 2025 Automotion - Todos los derechos reservados</p>
     </footer>
+
     <!-- Scripts de Bootstrap -->
     <?php echo '<script'; ?>
  src="https://code.jquery.com/jquery-3.5.1.min.js"><?php echo '</script'; ?>
@@ -99,6 +95,41 @@ $_smarty_current_dir = 'C:\\xampp\\htdocs\\AutomotionWeb\\templates';
 >
     <?php echo '<script'; ?>
  src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"><?php echo '</script'; ?>
+>
+
+    <!-- Script para enviar el formulario con fetch -->
+    <?php echo '<script'; ?>
+>
+        document.getElementById('formModificarServicio').onsubmit = function(event) {
+            event.preventDefault(); // Evita el envío automático del formulario
+
+            const form = document.getElementById('formModificarServicio');
+            const formData = new FormData(form);
+
+            fetch('/index.php?action=modificarServicio', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.text())
+            .then(data => {
+                // Mostrar el mensaje en el div 'mensaje'
+                const mensajeDiv = document.getElementById('mensaje');
+                mensajeDiv.innerHTML = data;
+                mensajeDiv.style.display = "block"; // Muestra el mensaje
+                mensajeDiv.className = "alert alert-info"; // Aplica estilos al mensaje
+
+                // Si el mensaje no contiene "Error", puedes reiniciar el formulario
+                if (!data.includes("Error")) {
+                    form.reset();
+                }
+            })
+            .catch(error => {
+                // En caso de error, mostrar el mensaje de error
+                document.getElementById('mensaje').innerHTML = '<div class="alert alert-danger">Error al modificar el servicio.</div>';
+                document.getElementById('mensaje').style.display = "block";
+            });
+        };
+    <?php echo '</script'; ?>
 >
 </body>
 </html>

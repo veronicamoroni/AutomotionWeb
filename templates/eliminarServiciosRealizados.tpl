@@ -11,7 +11,6 @@
     {assign var="titulo" value="Gestión de Servicios Realizados"}
     {include file="navbar.tpl"}
   
-    
     <!-- Contenedor principal -->
     <div class="container flex-fill mt-5">
         <div class="row justify-content-center">
@@ -22,20 +21,20 @@
                         <h3 class="mt-2">Eliminar Servicio Realizado</h3>
                     </div>
                     <div class="card-body">
-                        <form action="/index.php?action=eliminarServicioRealizado" method="post" onsubmit="return confirmarEliminacion();">
+                        <form id="formEliminarServicio" method="post">
                             <div class="form-group">
                                 <label for="id">ID del Servicio Realizado a Eliminar:</label>
                                 <input type="text" class="form-control" id="id" name="id" required>
                             </div>
-                            <button type="submit" class="btn btn-danger btn-lg btn-block">Eliminar Servicio</button>
+                            <button type="submit" class="btn btn-danger btn-lg btn-block">
+                                Eliminar Servicio
+                            </button>
                         </form>
 
                         <!-- Mensaje -->
-                        {if isset($mensaje)}
-                            <div id="mensaje" class="message mt-3 alert alert-info">
-                                {$mensaje}
-                            </div>
-                        {/if}
+                        <div id="mensaje" class="message mt-3 alert alert-info" style="display:none;">
+                            <!-- El mensaje se actualizará aquí -->
+                        </div>
                     </div>
                 </div>
             </div>
@@ -52,17 +51,43 @@
         <p>© 2025 Automotion - Todos los derechos reservados</p>
     </footer>
 
-
-    <!-- JavaScript para confirmación de eliminación -->
-    <script>
-        function confirmarEliminacion() {
-            return confirm("¿Estás seguro de que deseas eliminar este servicio realizado?");
-        }
-    </script>
-
     <!-- Scripts de Bootstrap -->
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+    <!-- Script para eliminar servicio con fetch -->
+    <script>
+        document.getElementById('formEliminarServicio').onsubmit = function(event) {
+            event.preventDefault(); // Evita el envío automático del formulario
+
+            const form = document.getElementById('formEliminarServicio');
+            const formData = new FormData(form);
+
+            // Mostrar confirmación antes de enviar el formulario
+            if (confirm("¿Estás seguro de que deseas eliminar este servicio realizado?")) {
+                fetch('/index.php?action=eliminarServicioRealizado', {
+                    method: 'POST',
+                    body: formData
+                })
+                .then(response => response.text())
+                .then(data => {
+                    // Mostrar el mensaje en el div 'mensaje'
+                    const mensajeDiv = document.getElementById('mensaje');
+                    mensajeDiv.innerHTML = data;
+                    mensajeDiv.style.display = "block"; // Muestra el mensaje
+                    mensajeDiv.className = "alert alert-info"; // Aplica estilos al mensaje
+                    form.reset(); // Resetea el formulario
+                })
+                .catch(error => {
+                    // En caso de error, mostrar el mensaje de error
+                    const mensajeDiv = document.getElementById('mensaje');
+                    mensajeDiv.innerHTML = '<div class="alert alert-danger">Error al eliminar el servicio realizado.</div>';
+                    mensajeDiv.style.display = "block";
+                });
+            }
+        };
+    </script>
+
 </body>
 </html>

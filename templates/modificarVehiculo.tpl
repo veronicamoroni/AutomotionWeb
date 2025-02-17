@@ -48,11 +48,7 @@
                     </form>
 
                     <!-- Mostrar mensaje de éxito o error -->
-                    {if isset($mensaje)}
-                        <div id="mensaje" class="message mt-3 alert alert-info">
-                            {$mensaje}
-                        </div>
-                    {/if}
+                    <div id="mensaje" class="message mt-3"></div>
 
                     <!-- Volver al Menú -->
                     <div class="text-center mt-3">
@@ -72,5 +68,36 @@
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+    <!-- Script para enviar el formulario de forma asincrónica -->
+    <script>
+        document.getElementById('formModificarVehiculo').onsubmit = function(event) {
+            event.preventDefault(); // Evita el envío automático del formulario
+
+            const form = document.getElementById('formModificarVehiculo');
+            const formData = new FormData(form);
+
+            fetch('/index.php?action=modificarVehiculo', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.text())
+            .then(data => {
+                // Mostrar el mensaje en el div 'mensaje'
+                const mensajeDiv = document.getElementById('mensaje');
+                mensajeDiv.innerHTML = data;
+                mensajeDiv.className = "alert alert-info"; // Aplica estilos al mensaje
+
+                // Reiniciar el formulario si el mensaje no indica error
+                if (!data.includes("Error")) {
+                    form.reset();
+                }
+            })
+            .catch(error => {
+                document.getElementById('mensaje').innerHTML = '<div class="alert alert-danger">Error al modificar el vehículo.</div>';
+            });
+        };
+    </script>
+
 </body>
 </html>

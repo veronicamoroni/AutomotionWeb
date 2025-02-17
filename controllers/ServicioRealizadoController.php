@@ -10,28 +10,32 @@ class ServicioRealizadoController {
         $this->db = $db;
         $this->realizado = new ServicioRealizado($this->db);
     }
+// Crear un nuevo registro de servicio realizado
+public function crearServicioRealizado() {
+    // Obtener datos de la solicitud POST
+    $this->realizado->servicios_id = isset($_POST['servicios_id']) ? $_POST['servicios_id'] : null;
+    $this->realizado->turnos_id = isset($_POST['turnos_id']) ? $_POST['turnos_id'] : null;
+    $this->realizado->notas = isset($_POST['notas']) ? $_POST['notas'] : null;
 
-    // Crear un nuevo registro de servicio realizado
-    public function crearServicioRealizado() {
-        // Obtener datos de la solicitud POST
-        $this->realizado->servicios_id = isset($_POST['servicios_id']) ? $_POST['servicios_id'] : null;
-        $this->realizado->turnos_id = isset($_POST['turnos_id']) ? $_POST['turnos_id'] : null;
-        $this->realizado->notas = isset($_POST['notas']) ? $_POST['notas'] : null;
-
-        if (empty($this->realizado->servicios_id) || empty($this->realizado->turnos_id) || empty($this->realizado->notas)) {
-            echo "Todos los campos son obligatorios.";
-            return;
-        }
-
-        if ($this->realizado->crearServicioRealizado()) {
-            echo "Servicio realizado registrado exitosamente.";
-        } else {
-            echo "Error al registrar el servicio realizado.";
-        }
+    // Validar que todos los campos estén presentes
+    if (empty($this->realizado->servicios_id) || empty($this->realizado->turnos_id) || empty($this->realizado->notas)) {
+        echo "Todos los campos son obligatorios.";
+        return;
     }
 
+    // Llamar al método del modelo para crear el servicio realizado
+    $resultado = $this->realizado->crearServicioRealizado();
+
+    // Mostrar el resultado
+    if ($resultado === true) {
+        echo "Servicio realizado registrado exitosamente.";
+    } else {
+        echo $resultado; // Mostrar el mensaje de error devuelto por el modelo
+    }
+}
+
    // Modificar un servicio realizado existente
-public function modificarServicioRealizado() {
+   public function modificarServicioRealizado() {
     // Obtener los datos del formulario
     $servicios_realizados_id = isset($_POST['servicios_realizados_id']) ? $_POST['servicios_realizados_id'] : null;
     $notas = isset($_POST['notas']) ? $_POST['notas'] : null;
@@ -58,9 +62,6 @@ public function modificarServicioRealizado() {
     }
 }
 
-
-
-
     public function eliminarServicioRealizado() {
         if (isset($_POST['id'])) {
             $this->realizado->id = $_POST['id'];
@@ -80,7 +81,30 @@ public function modificarServicioRealizado() {
         // Devolver los datos a la vista
         return $servicios;
     }
+    public function obtenerDetalleTurno() {
+        // Obtener el ID del turno desde la solicitud (por ejemplo, desde un formulario o parámetro de URL)
+        $turnos_id = isset($_POST['turnos_id']) ? $_POST['turnos_id'] : null;
     
+        // Validar que el ID del turno esté presente
+        if (empty($turnos_id)) {
+            return [
+                'error' => "El ID del turno es obligatorio."
+            ];
+        }
     
+        // Llamar a la función del modelo para obtener el detalle del turno
+        $detalleTurno = $this->realizado->detalleTurnoConCostoTotal($turnos_id);
+    
+        // Verificar si es un array (datos) o un string (mensaje de error)
+        if (is_array($detalleTurno)) {
+            return [
+                'detalleTurno' => $detalleTurno
+            ];
+        } else {
+            return [
+                'error' => $detalleTurno
+            ];
+        }
+    }
 }
 ?>

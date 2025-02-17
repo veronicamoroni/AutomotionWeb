@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 5.4.0, created on 2025-02-16 02:26:27
+/* Smarty version 5.4.0, created on 2025-02-17 01:23:42
   from 'file:listarServiciosRealizados.tpl' */
 
 /* @var \Smarty\Template $_smarty_tpl */
 if ($_smarty_tpl->getCompiled()->isFresh($_smarty_tpl, array (
   'version' => '5.4.0',
-  'unifunc' => 'content_67b13ec373a0b2_25130586',
+  'unifunc' => 'content_67b2818ed85618_93008847',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '05fd13ee98c3ec291dbffb3a5f3a17a503a4c60b' => 
     array (
       0 => 'listarServiciosRealizados.tpl',
-      1 => 1739669139,
+      1 => 1739751794,
       2 => 'file',
     ),
   ),
@@ -22,7 +22,7 @@ if ($_smarty_tpl->getCompiled()->isFresh($_smarty_tpl, array (
     'file:footer.tpl' => 1,
   ),
 ))) {
-function content_67b13ec373a0b2_25130586 (\Smarty\Template $_smarty_tpl) {
+function content_67b2818ed85618_93008847 (\Smarty\Template $_smarty_tpl) {
 $_smarty_current_dir = 'C:\\xampp\\htdocs\\AutomotionWeb\\templates';
 ?><!DOCTYPE html>
 <html lang="es">
@@ -48,15 +48,14 @@ $_smarty_current_dir = 'C:\\xampp\\htdocs\\AutomotionWeb\\templates';
             <table class="table table-bordered table-striped table-hover">
                 <thead class="bg-secondary text-white text-center">
                     <tr>
-                        <th>ID</th>
-                        <th>Turno ID</th>
+                        <th>ID</th> <th>Turno ID</th>
                         <th>Fecha</th>
                         <th>Hora</th>
                         <th>Servicio ID</th>
                         <th>Nombre</th>
                         <th>Costo</th>
                         <th>Notas</th>
-                    </tr>
+                        <th>Acciones</th> </tr>
                 </thead>
                 <tbody>
                     <?php if ($_smarty_tpl->getSmarty()->getModifierCallback('count')($_smarty_tpl->getValue('servicios_realizados')) > 0) {?>
@@ -67,29 +66,34 @@ foreach ($_from ?? [] as $_smarty_tpl->getVariable('servicio_realizado')->value)
 $foreach0DoElse = false;
 ?>
                             <tr class="text-center">
-                                <td><?php echo $_smarty_tpl->getValue('servicio_realizado')['servicio_id'];?>
+                                <td><?php echo $_smarty_tpl->getValue('servicio_realizado')['servicio_realizado_id'];?>
+</td> <td><?php echo $_smarty_tpl->getValue('servicio_realizado')['turno_id'];?>
 </td>
-                                <td><?php echo $_smarty_tpl->getValue('servicio_realizado')['turno_id'];?>
+                                <td><?php echo $_smarty_tpl->getValue('servicio_realizado')['turno_fecha'];?>
 </td>
-                                <td><?php echo $_smarty_tpl->getValue('servicio_realizado')['fecha_turno'];?>
-</td>
-                                <td><?php echo $_smarty_tpl->getValue('servicio_realizado')['hora_turno'];?>
+                                <td><?php echo $_smarty_tpl->getValue('servicio_realizado')['turno_hora'];?>
 </td>
                                 <td><?php echo $_smarty_tpl->getValue('servicio_realizado')['servicio_id'];?>
 </td>
                                 <td><?php echo $_smarty_tpl->getValue('servicio_realizado')['servicio_nombre'];?>
 </td>
-                                <td><?php echo $_smarty_tpl->getValue('servicio_realizado')['costo'];?>
+                                <td><?php echo $_smarty_tpl->getValue('servicio_realizado')['servicio_costo'];?>
 </td>
-                                <td><?php echo $_smarty_tpl->getValue('servicio_realizado')['notas'];?>
+                                <td><?php echo $_smarty_tpl->getValue('servicio_realizado')['servicio_realizado_notas'];?>
 </td>
+                                <td>
+                                    <a href="/editar_servicio?id=<?php echo $_smarty_tpl->getValue('servicio_realizado')['servicio_realizado_id'];?>
+" class="btn btn-sm btn-primary">Editar</a>
+                                    <a href="/eliminar_servicio?id=<?php echo $_smarty_tpl->getValue('servicio_realizado')['servicio_realizado_id'];?>
+" class="btn btn-sm btn-danger">Eliminar</a>
+                                </td>
                             </tr>
                         <?php
 }
 $_smarty_tpl->getSmarty()->getRuntime('Foreach')->restore($_smarty_tpl, 1);?>
                     <?php } else { ?>
                         <tr>
-                            <td colspan="8" class="text-center text-danger fw-bold">No hay servicios realizados registrados.</td>
+                            <td colspan="9" class="text-center text-danger fw-bold">No hay servicios realizados registrados.</td>
                         </tr>
                     <?php }?>
                 </tbody>

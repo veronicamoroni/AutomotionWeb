@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 5.4.0, created on 2025-02-16 02:26:20
+/* Smarty version 5.4.0, created on 2025-02-16 15:34:51
   from 'file:eliminarServiciosRealizados.tpl' */
 
 /* @var \Smarty\Template $_smarty_tpl */
 if ($_smarty_tpl->getCompiled()->isFresh($_smarty_tpl, array (
   'version' => '5.4.0',
-  'unifunc' => 'content_67b13ebc0525e4_63598167',
+  'unifunc' => 'content_67b1f78bdde830_37517266',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '4ac190bc44e68f60cca1ab122fec9bfe9a2a6260' => 
     array (
       0 => 'eliminarServiciosRealizados.tpl',
-      1 => 1739669173,
+      1 => 1739716475,
       2 => 'file',
     ),
   ),
@@ -21,7 +21,7 @@ if ($_smarty_tpl->getCompiled()->isFresh($_smarty_tpl, array (
     'file:navbar.tpl' => 1,
   ),
 ))) {
-function content_67b13ebc0525e4_63598167 (\Smarty\Template $_smarty_tpl) {
+function content_67b1f78bdde830_37517266 (\Smarty\Template $_smarty_tpl) {
 $_smarty_current_dir = 'C:\\xampp\\htdocs\\AutomotionWeb\\templates';
 ?><!DOCTYPE html>
 <html lang="es">
@@ -37,7 +37,6 @@ $_smarty_current_dir = 'C:\\xampp\\htdocs\\AutomotionWeb\\templates';
     <?php $_smarty_tpl->renderSubTemplate("file:navbar.tpl", $_smarty_tpl->cache_id, $_smarty_tpl->compile_id, 0, $_smarty_tpl->cache_lifetime, array(), (int) 0, $_smarty_current_dir);
 ?>
   
-    
     <!-- Contenedor principal -->
     <div class="container flex-fill mt-5">
         <div class="row justify-content-center">
@@ -48,21 +47,20 @@ $_smarty_current_dir = 'C:\\xampp\\htdocs\\AutomotionWeb\\templates';
                         <h3 class="mt-2">Eliminar Servicio Realizado</h3>
                     </div>
                     <div class="card-body">
-                        <form action="/index.php?action=eliminarServicioRealizado" method="post" onsubmit="return confirmarEliminacion();">
+                        <form id="formEliminarServicio" method="post">
                             <div class="form-group">
                                 <label for="id">ID del Servicio Realizado a Eliminar:</label>
                                 <input type="text" class="form-control" id="id" name="id" required>
                             </div>
-                            <button type="submit" class="btn btn-danger btn-lg btn-block">Eliminar Servicio</button>
+                            <button type="submit" class="btn btn-danger btn-lg btn-block">
+                                Eliminar Servicio
+                            </button>
                         </form>
 
                         <!-- Mensaje -->
-                        <?php if ((null !== ($_smarty_tpl->getValue('mensaje') ?? null))) {?>
-                            <div id="mensaje" class="message mt-3 alert alert-info">
-                                <?php echo $_smarty_tpl->getValue('mensaje');?>
-
-                            </div>
-                        <?php }?>
+                        <div id="mensaje" class="message mt-3 alert alert-info" style="display:none;">
+                            <!-- El mensaje se actualizará aquí -->
+                        </div>
                     </div>
                 </div>
             </div>
@@ -79,16 +77,6 @@ $_smarty_current_dir = 'C:\\xampp\\htdocs\\AutomotionWeb\\templates';
         <p>© 2025 Automotion - Todos los derechos reservados</p>
     </footer>
 
-
-    <!-- JavaScript para confirmación de eliminación -->
-    <?php echo '<script'; ?>
->
-        function confirmarEliminacion() {
-            return confirm("¿Estás seguro de que deseas eliminar este servicio realizado?");
-        }
-    <?php echo '</script'; ?>
->
-
     <!-- Scripts de Bootstrap -->
     <?php echo '<script'; ?>
  src="https://code.jquery.com/jquery-3.5.1.min.js"><?php echo '</script'; ?>
@@ -99,6 +87,42 @@ $_smarty_current_dir = 'C:\\xampp\\htdocs\\AutomotionWeb\\templates';
     <?php echo '<script'; ?>
  src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"><?php echo '</script'; ?>
 >
+
+    <!-- Script para eliminar servicio con fetch -->
+    <?php echo '<script'; ?>
+>
+        document.getElementById('formEliminarServicio').onsubmit = function(event) {
+            event.preventDefault(); // Evita el envío automático del formulario
+
+            const form = document.getElementById('formEliminarServicio');
+            const formData = new FormData(form);
+
+            // Mostrar confirmación antes de enviar el formulario
+            if (confirm("¿Estás seguro de que deseas eliminar este servicio realizado?")) {
+                fetch('/index.php?action=eliminarServicioRealizado', {
+                    method: 'POST',
+                    body: formData
+                })
+                .then(response => response.text())
+                .then(data => {
+                    // Mostrar el mensaje en el div 'mensaje'
+                    const mensajeDiv = document.getElementById('mensaje');
+                    mensajeDiv.innerHTML = data;
+                    mensajeDiv.style.display = "block"; // Muestra el mensaje
+                    mensajeDiv.className = "alert alert-info"; // Aplica estilos al mensaje
+                    form.reset(); // Resetea el formulario
+                })
+                .catch(error => {
+                    // En caso de error, mostrar el mensaje de error
+                    const mensajeDiv = document.getElementById('mensaje');
+                    mensajeDiv.innerHTML = '<div class="alert alert-danger">Error al eliminar el servicio realizado.</div>';
+                    mensajeDiv.style.display = "block";
+                });
+            }
+        };
+    <?php echo '</script'; ?>
+>
+
 </body>
 </html>
 <?php }

@@ -118,7 +118,8 @@ case '/menu/eliminarServicioRealizado':
         $smarty->assign('servicios_realizados', $servicios);
         $smarty->display('listarServiciosRealizados.tpl'); 
         break;
-}
+        case '/menu/costoTotal':
+// Obtener el detalle del turno
 
 $action = isset($_GET['action']) ? $_GET['action'] : '';
 
@@ -178,6 +179,6 @@ switch ($action) {
         $serviciorealizadoController->eliminarServicioRealizado(); // Llamar al método para crear un servicio
         break;
     }          
-
+}   
 
 ?>

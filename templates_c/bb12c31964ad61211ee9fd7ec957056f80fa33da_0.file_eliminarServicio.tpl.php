@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 5.4.0, created on 2025-02-16 00:07:18
+/* Smarty version 5.4.0, created on 2025-02-16 15:23:29
   from 'file:eliminarServicio.tpl' */
 
 /* @var \Smarty\Template $_smarty_tpl */
 if ($_smarty_tpl->getCompiled()->isFresh($_smarty_tpl, array (
   'version' => '5.4.0',
-  'unifunc' => 'content_67b11e267884d6_39186402',
+  'unifunc' => 'content_67b1f4e10dfc58_35430028',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     'bb12c31964ad61211ee9fd7ec957056f80fa33da' => 
     array (
       0 => 'eliminarServicio.tpl',
-      1 => 1739660833,
+      1 => 1739715792,
       2 => 'file',
     ),
   ),
@@ -21,7 +21,7 @@ if ($_smarty_tpl->getCompiled()->isFresh($_smarty_tpl, array (
     'file:navbar.tpl' => 1,
   ),
 ))) {
-function content_67b11e267884d6_39186402 (\Smarty\Template $_smarty_tpl) {
+function content_67b1f4e10dfc58_35430028 (\Smarty\Template $_smarty_tpl) {
 $_smarty_current_dir = 'C:\\xampp\\htdocs\\AutomotionWeb\\templates';
 ?><!DOCTYPE html>
 <html lang="es">
@@ -51,7 +51,7 @@ $_smarty_current_dir = 'C:\\xampp\\htdocs\\AutomotionWeb\\templates';
                         <h3 class="mt-2">Eliminar Servicio</h3>
                     </div>
                     <div class="card-body">
-                        <form action="/index.php?action=eliminarServicio" method="post" onsubmit="return confirmarEliminacion();">
+                        <form id="formEliminarServicio">
                             <div class="form-group">
                                 <label for="id">ID del Servicio a Eliminar:</label>
                                 <input type="text" class="form-control" id="id" name="id" required>
@@ -60,13 +60,9 @@ $_smarty_current_dir = 'C:\\xampp\\htdocs\\AutomotionWeb\\templates';
                         </form>
 
                         <!-- Mensaje de respuesta -->
-                        <?php if ((null !== ($_smarty_tpl->getValue('mensaje') ?? null))) {?>
-                            <div id="mensaje" class="message mt-3 alert alert-info text-center">
-                                <?php echo $_smarty_tpl->getValue('mensaje');?>
-
-                            </div>
-                        <?php }?>
-
+                        <div id="mensaje" class="message mt-3 alert alert-info text-center" style="display:none;">
+                            <!-- El mensaje se actualizará aquí -->
+                        </div>
                     </div>
                 </div>
             </div>
@@ -78,12 +74,38 @@ $_smarty_current_dir = 'C:\\xampp\\htdocs\\AutomotionWeb\\templates';
         </div>
     </div>
 
-    <!-- JavaScript para confirmación de eliminación -->
+    <!-- Script para enviar el formulario con fetch -->
     <?php echo '<script'; ?>
 >
-        function confirmarEliminacion() {
-            return confirm("¿Estás seguro de que deseas eliminar este servicio?");
-        }
+        document.getElementById('formEliminarServicio').onsubmit = function(event) {
+            event.preventDefault(); // Evita el envío automático del formulario
+
+            const form = document.getElementById('formEliminarServicio');
+            const formData = new FormData(form);
+
+            fetch('/index.php?action=eliminarServicio', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.text())
+            .then(data => {
+                // Mostrar el mensaje en el div 'mensaje'
+                const mensajeDiv = document.getElementById('mensaje');
+                mensajeDiv.innerHTML = data;
+                mensajeDiv.style.display = "block"; // Muestra el mensaje
+                mensajeDiv.className = "alert alert-info"; // Aplica estilos al mensaje
+
+                // Si el mensaje no contiene "Error", puedes reiniciar el formulario
+                if (!data.includes("Error")) {
+                    form.reset();
+                }
+            })
+            .catch(error => {
+                // En caso de error, mostrar el mensaje de error
+                document.getElementById('mensaje').innerHTML = '<div class="alert alert-danger">Error al eliminar el servicio.</div>';
+                document.getElementById('mensaje').style.display = "block";
+            });
+        };
     <?php echo '</script'; ?>
 >
 

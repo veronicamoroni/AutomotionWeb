@@ -21,33 +21,35 @@
             <table class="table table-bordered table-striped table-hover">
                 <thead class="bg-secondary text-white text-center">
                     <tr>
-                        <th>ID</th>
-                        <th>Turno ID</th>
+                        <th>ID</th> <th>Turno ID</th>
                         <th>Fecha</th>
                         <th>Hora</th>
                         <th>Servicio ID</th>
                         <th>Nombre</th>
                         <th>Costo</th>
                         <th>Notas</th>
-                    </tr>
+                        <th>Acciones</th> </tr>
                 </thead>
                 <tbody>
                     {if $servicios_realizados|@count > 0}
                         {foreach from=$servicios_realizados item=servicio_realizado}
                             <tr class="text-center">
-                                <td>{$servicio_realizado.servicio_id}</td>
-                                <td>{$servicio_realizado.turno_id}</td>
-                                <td>{$servicio_realizado.fecha_turno}</td>
-                                <td>{$servicio_realizado.hora_turno}</td>
+                                <td>{$servicio_realizado.servicio_realizado_id}</td> <td>{$servicio_realizado.turno_id}</td>
+                                <td>{$servicio_realizado.turno_fecha}</td>
+                                <td>{$servicio_realizado.turno_hora}</td>
                                 <td>{$servicio_realizado.servicio_id}</td>
                                 <td>{$servicio_realizado.servicio_nombre}</td>
-                                <td>{$servicio_realizado.costo}</td>
-                                <td>{$servicio_realizado.notas}</td>
+                                <td>{$servicio_realizado.servicio_costo}</td>
+                                <td>{$servicio_realizado.servicio_realizado_notas}</td>
+                                <td>
+                                    <a href="/editar_servicio?id={$servicio_realizado.servicio_realizado_id}" class="btn btn-sm btn-primary">Editar</a>
+                                    <a href="/eliminar_servicio?id={$servicio_realizado.servicio_realizado_id}" class="btn btn-sm btn-danger">Eliminar</a>
+                                </td>
                             </tr>
                         {/foreach}
                     {else}
                         <tr>
-                            <td colspan="8" class="text-center text-danger fw-bold">No hay servicios realizados registrados.</td>
+                            <td colspan="9" class="text-center text-danger fw-bold">No hay servicios realizados registrados.</td>
                         </tr>
                     {/if}
                 </tbody>

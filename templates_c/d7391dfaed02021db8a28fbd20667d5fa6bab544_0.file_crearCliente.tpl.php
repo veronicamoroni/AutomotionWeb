@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 5.4.0, created on 2025-02-15 22:53:20
+/* Smarty version 5.4.0, created on 2025-02-16 13:59:51
   from 'file:templates/crearCliente.tpl' */
 
 /* @var \Smarty\Template $_smarty_tpl */
 if ($_smarty_tpl->getCompiled()->isFresh($_smarty_tpl, array (
   'version' => '5.4.0',
-  'unifunc' => 'content_67b10cd0617ce0_74799991',
+  'unifunc' => 'content_67b1e147c0c248_84581103',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     'd7391dfaed02021db8a28fbd20667d5fa6bab544' => 
     array (
       0 => 'templates/crearCliente.tpl',
-      1 => 1739656395,
+      1 => 1739710785,
       2 => 'file',
     ),
   ),
@@ -21,7 +21,7 @@ if ($_smarty_tpl->getCompiled()->isFresh($_smarty_tpl, array (
     'file:navbar.tpl' => 1,
   ),
 ))) {
-function content_67b10cd0617ce0_74799991 (\Smarty\Template $_smarty_tpl) {
+function content_67b1e147c0c248_84581103 (\Smarty\Template $_smarty_tpl) {
 $_smarty_current_dir = 'C:\\xampp\\htdocs\\AutomotionWeb\\templates';
 ?><!DOCTYPE html>
 <html lang="es">
@@ -30,7 +30,7 @@ $_smarty_current_dir = 'C:\\xampp\\htdocs\\AutomotionWeb\\templates';
     <title>Alta de Cliente</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined">
-    <link rel="stylesheet" href="/templates/styles/Formulario.css">
+   <link rel="stylesheet" href="/templates/styles/Formulario.css">
 </head>
 <body class="d-flex flex-column min-vh-100">
 
@@ -89,7 +89,7 @@ $_smarty_current_dir = 'C:\\xampp\\htdocs\\AutomotionWeb\\templates';
             </div>
         </div>
     </div>
-
+    
   
     <!-- Footer -->
     <footer class="text-white text-center py-3 mt-auto" style="background-color: #004085;">
@@ -106,6 +106,7 @@ $_smarty_current_dir = 'C:\\xampp\\htdocs\\AutomotionWeb\\templates';
     <?php echo '<script'; ?>
  src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"><?php echo '</script'; ?>
 >
+    
 </body>
 </html>
 <?php }

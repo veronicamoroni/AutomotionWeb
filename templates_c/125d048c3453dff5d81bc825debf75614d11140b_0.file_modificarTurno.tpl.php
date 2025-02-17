@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 5.4.0, created on 2025-02-15 23:53:27
+/* Smarty version 5.4.0, created on 2025-02-16 15:08:38
   from 'file:templates/modificarTurno.tpl' */
 
 /* @var \Smarty\Template $_smarty_tpl */
 if ($_smarty_tpl->getCompiled()->isFresh($_smarty_tpl, array (
   'version' => '5.4.0',
-  'unifunc' => 'content_67b11ae7d1e402_34179417',
+  'unifunc' => 'content_67b1f166899ed7_89172773',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '125d048c3453dff5d81bc825debf75614d11140b' => 
     array (
       0 => 'templates/modificarTurno.tpl',
-      1 => 1739660000,
+      1 => 1739714914,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->getCompiled()->isFresh($_smarty_tpl, array (
   array (
   ),
 ))) {
-function content_67b11ae7d1e402_34179417 (\Smarty\Template $_smarty_tpl) {
+function content_67b1f166899ed7_89172773 (\Smarty\Template $_smarty_tpl) {
 $_smarty_current_dir = 'C:\\xampp\\htdocs\\AutomotionWeb\\templates';
 ?><!DOCTYPE html>
 <html lang="es">
@@ -53,7 +53,7 @@ $_smarty_current_dir = 'C:\\xampp\\htdocs\\AutomotionWeb\\templates';
                     </div>
                     <div class="card-body">
                         <!-- Formulario de actualización de turno -->
-                        <form action="/index.php?action=modificarTurno" method="post">
+                        <form id="formActualizarTurno" action="/index.php?action=modificarTurno" method="post">
                             <div class="form-group">
                                 <label for="id">ID del Turno:</label>
                                 <input type="text" class="form-control" id="id" name="id" required>
@@ -78,10 +78,7 @@ $_smarty_current_dir = 'C:\\xampp\\htdocs\\AutomotionWeb\\templates';
                         </form>
 
                         <!-- Mensaje de éxito o error -->
-                        <div id="mensaje" class="message mt-3">
-                            <?php echo $_smarty_tpl->getValue('mensaje');?>
-
-                        </div>
+                        <div id="mensaje" class="message mt-3" style="display: none;"></div>
 
                     </div>
                 </div>
@@ -109,6 +106,42 @@ $_smarty_current_dir = 'C:\\xampp\\htdocs\\AutomotionWeb\\templates';
     <?php echo '<script'; ?>
  src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"><?php echo '</script'; ?>
 >
+
+    <!-- Script para enviar el formulario con fetch -->
+    <?php echo '<script'; ?>
+>
+        document.getElementById('formActualizarTurno').onsubmit = function(event) {
+            event.preventDefault(); // Evita el envío automático del formulario
+
+            const form = document.getElementById('formActualizarTurno');
+            const formData = new FormData(form);
+
+            fetch('/index.php?action=modificarTurno', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.text())
+            .then(data => {
+                // Mostrar el mensaje en el div 'mensaje'
+                const mensajeDiv = document.getElementById('mensaje');
+                mensajeDiv.innerHTML = data;
+                mensajeDiv.style.display = "block"; // Muestra el mensaje
+                mensajeDiv.className = "alert alert-info"; // Aplica estilos al mensaje
+
+                // Si el mensaje no contiene "Error", puedes reiniciar el formulario
+                if (!data.includes("Error")) {
+                    form.reset();
+                }
+            })
+            .catch(error => {
+                // En caso de error, mostrar el mensaje de error
+                document.getElementById('mensaje').innerHTML = '<div class="alert alert-danger">Error al actualizar el turno.</div>';
+                document.getElementById('mensaje').style.display = "block";
+            });
+        };
+    <?php echo '</script'; ?>
+>
+
 </body>
 </html>
 <?php }

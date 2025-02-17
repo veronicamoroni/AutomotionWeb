@@ -25,7 +25,7 @@
                         <h3 class="mt-2">Eliminar Turno</h3>
                     </div>
                     <div class="card-body">
-                        <form action="/index.php?action=eliminarTurno" method="post" onsubmit="return confirmarEliminacion();">
+                        <form id="formEliminarTurno">
                             <div class="form-group">
                                 <label for="id">ID del Turno a Eliminar:</label>
                                 <input type="text" class="form-control" id="id" name="id" required>
@@ -34,12 +34,9 @@
                         </form>
 
                         <!-- Mensaje de respuesta -->
-                        {if isset($mensaje)}
-                            <div id="mensaje" class="message mt-3 alert alert-info text-center">
-                                {$mensaje}
-                            </div>
-                        {/if}
-
+                        <div id="mensaje" class="message mt-3 alert alert-info text-center" style="display:none;">
+                            <!-- El mensaje se actualizará aquí -->
+                        </div>
                     </div>
                 </div>
             </div>
@@ -51,11 +48,37 @@
         </div>
     </div>
 
-    <!-- JavaScript para confirmación de eliminación -->
+    <!-- Script para enviar el formulario con fetch -->
     <script>
-        function confirmarEliminacion() {
-            return confirm("¿Estás seguro de que deseas eliminar este turno?");
-        }
+        document.getElementById('formEliminarTurno').onsubmit = function(event) {
+            event.preventDefault(); // Evita el envío automático del formulario
+
+            const form = document.getElementById('formEliminarTurno');
+            const formData = new FormData(form);
+
+            fetch('/index.php?action=eliminarTurno', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.text())
+            .then(data => {
+                // Mostrar el mensaje en el div 'mensaje'
+                const mensajeDiv = document.getElementById('mensaje');
+                mensajeDiv.innerHTML = data;
+                mensajeDiv.style.display = "block"; // Muestra el mensaje
+                mensajeDiv.className = "alert alert-info"; // Aplica estilos al mensaje
+
+                // Si el mensaje no contiene "Error", puedes reiniciar el formulario
+                if (!data.includes("Error")) {
+                    form.reset();
+                }
+            })
+            .catch(error => {
+                // En caso de error, mostrar el mensaje de error
+                document.getElementById('mensaje').innerHTML = '<div class="alert alert-danger">Error al eliminar el turno.</div>';
+                document.getElementById('mensaje').style.display = "block";
+            });
+        };
     </script>
 
     <!-- Footer -->

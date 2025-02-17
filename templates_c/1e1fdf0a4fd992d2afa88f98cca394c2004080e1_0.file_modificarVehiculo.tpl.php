@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 5.4.0, created on 2025-02-15 23:35:07
+/* Smarty version 5.4.0, created on 2025-02-16 15:06:24
   from 'file:templates/modificarVehiculo.tpl' */
 
 /* @var \Smarty\Template $_smarty_tpl */
 if ($_smarty_tpl->getCompiled()->isFresh($_smarty_tpl, array (
   'version' => '5.4.0',
-  'unifunc' => 'content_67b1169b797320_40357906',
+  'unifunc' => 'content_67b1f0e0db48d1_86657830',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '1e1fdf0a4fd992d2afa88f98cca394c2004080e1' => 
     array (
       0 => 'templates/modificarVehiculo.tpl',
-      1 => 1739658902,
+      1 => 1739714774,
       2 => 'file',
     ),
   ),
@@ -21,7 +21,7 @@ if ($_smarty_tpl->getCompiled()->isFresh($_smarty_tpl, array (
     'file:navbar.tpl' => 1,
   ),
 ))) {
-function content_67b1169b797320_40357906 (\Smarty\Template $_smarty_tpl) {
+function content_67b1f0e0db48d1_86657830 (\Smarty\Template $_smarty_tpl) {
 $_smarty_current_dir = 'C:\\xampp\\htdocs\\AutomotionWeb\\templates';
 ?><!DOCTYPE html>
 <html lang="es">
@@ -82,12 +82,7 @@ echo $_smarty_tpl->getValue('vehiculo')['dni_cliente'];
                     </form>
 
                     <!-- Mostrar mensaje de éxito o error -->
-                    <?php if ((null !== ($_smarty_tpl->getValue('mensaje') ?? null))) {?>
-                        <div id="mensaje" class="message mt-3 alert alert-info">
-                            <?php echo $_smarty_tpl->getValue('mensaje');?>
-
-                        </div>
-                    <?php }?>
+                    <div id="mensaje" class="message mt-3"></div>
 
                     <!-- Volver al Menú -->
                     <div class="text-center mt-3">
@@ -113,6 +108,39 @@ echo $_smarty_tpl->getValue('vehiculo')['dni_cliente'];
     <?php echo '<script'; ?>
  src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"><?php echo '</script'; ?>
 >
+
+    <!-- Script para enviar el formulario de forma asincrónica -->
+    <?php echo '<script'; ?>
+>
+        document.getElementById('formModificarVehiculo').onsubmit = function(event) {
+            event.preventDefault(); // Evita el envío automático del formulario
+
+            const form = document.getElementById('formModificarVehiculo');
+            const formData = new FormData(form);
+
+            fetch('/index.php?action=modificarVehiculo', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.text())
+            .then(data => {
+                // Mostrar el mensaje en el div 'mensaje'
+                const mensajeDiv = document.getElementById('mensaje');
+                mensajeDiv.innerHTML = data;
+                mensajeDiv.className = "alert alert-info"; // Aplica estilos al mensaje
+
+                // Reiniciar el formulario si el mensaje no indica error
+                if (!data.includes("Error")) {
+                    form.reset();
+                }
+            })
+            .catch(error => {
+                document.getElementById('mensaje').innerHTML = '<div class="alert alert-danger">Error al modificar el vehículo.</div>';
+            });
+        };
+    <?php echo '</script'; ?>
+>
+
 </body>
 </html>
 <?php }

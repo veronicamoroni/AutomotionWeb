@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 5.4.0, created on 2025-02-16 00:01:06
+/* Smarty version 5.4.0, created on 2025-02-16 15:00:37
   from 'file:templates/crearTurno.tpl' */
 
 /* @var \Smarty\Template $_smarty_tpl */
 if ($_smarty_tpl->getCompiled()->isFresh($_smarty_tpl, array (
   'version' => '5.4.0',
-  'unifunc' => 'content_67b11cb26110e7_36357073',
+  'unifunc' => 'content_67b1ef854c0172_93314879',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '8ec9c689850f14dbf0bccf47bcf94be997acaf8c' => 
     array (
       0 => 'templates/crearTurno.tpl',
-      1 => 1739660462,
+      1 => 1739714432,
       2 => 'file',
     ),
   ),
@@ -21,7 +21,7 @@ if ($_smarty_tpl->getCompiled()->isFresh($_smarty_tpl, array (
     'file:navbar.tpl' => 1,
   ),
 ))) {
-function content_67b11cb26110e7_36357073 (\Smarty\Template $_smarty_tpl) {
+function content_67b1ef854c0172_93314879 (\Smarty\Template $_smarty_tpl) {
 $_smarty_current_dir = 'C:\\xampp\\htdocs\\AutomotionWeb\\templates';
 ?><!DOCTYPE html>
 <html lang="es">
@@ -50,7 +50,7 @@ $_smarty_current_dir = 'C:\\xampp\\htdocs\\AutomotionWeb\\templates';
                     </div>
 
                     <!-- Formulario de registro de turno -->
-                    <form id="formCrearTurno" action="/index.php?action=crearTurno" method="post">
+                    <form id="formCrearTurno">
                         <div class="form-group">
                             <label for="fecha">Fecha:</label>
                             <input type="date" class="form-control" id="fecha" name="fecha" required>
@@ -71,12 +71,9 @@ $_smarty_current_dir = 'C:\\xampp\\htdocs\\AutomotionWeb\\templates';
                     </form>
 
                     <!-- Mensaje de éxito o error -->
-                    <?php if ((null !== ($_smarty_tpl->getValue('mensaje') ?? null))) {?>
-                        <div id="mensaje" class="message mt-3 alert alert-info text-center">
-                            <?php echo $_smarty_tpl->getValue('mensaje');?>
-
-                        </div>
-                    <?php }?>
+                    <div id="mensaje" class="message mt-3 alert alert-info text-center" style="display:none;">
+                        <!-- El mensaje se actualizará aquí -->
+                    </div>
 
                     <!-- Volver al Menú -->
                     <div class="text-center mt-3">
@@ -91,6 +88,41 @@ $_smarty_current_dir = 'C:\\xampp\\htdocs\\AutomotionWeb\\templates';
     <footer class="text-white text-center py-3 mt-auto" style="background-color: #004085;">
         <p>© 2025 Automotion - Todos los derechos reservados</p>
     </footer>
+
+    <!-- Script para enviar el formulario con fetch -->
+    <?php echo '<script'; ?>
+>
+        document.getElementById('formCrearTurno').onsubmit = function(event) {
+            event.preventDefault(); // Evita el envío automático del formulario
+
+            const form = document.getElementById('formCrearTurno');
+            const formData = new FormData(form);
+
+            fetch('/index.php?action=crearTurno', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.text())
+            .then(data => {
+                // Mostrar el mensaje en el div 'mensaje'
+                const mensajeDiv = document.getElementById('mensaje');
+                mensajeDiv.innerHTML = data;
+                mensajeDiv.style.display = "block"; // Muestra el mensaje
+                mensajeDiv.className = "alert alert-info"; // Aplica estilos al mensaje
+
+                // Si el mensaje no contiene "Error", puedes reiniciar el formulario
+                if (!data.includes("Error")) {
+                    form.reset();
+                }
+            })
+            .catch(error => {
+                // En caso de error, mostrar el mensaje de error
+                document.getElementById('mensaje').innerHTML = '<div class="alert alert-danger">Error al registrar el turno.</div>';
+                document.getElementById('mensaje').style.display = "block";
+            });
+        };
+    <?php echo '</script'; ?>
+>
 
     <!-- Scripts de Bootstrap -->
     <?php echo '<script'; ?>

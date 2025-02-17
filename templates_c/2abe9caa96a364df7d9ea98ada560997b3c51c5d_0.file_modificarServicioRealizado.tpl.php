@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 5.4.0, created on 2025-02-16 02:22:33
+/* Smarty version 5.4.0, created on 2025-02-16 15:31:16
   from 'file:modificarServicioRealizado.tpl' */
 
 /* @var \Smarty\Template $_smarty_tpl */
 if ($_smarty_tpl->getCompiled()->isFresh($_smarty_tpl, array (
   'version' => '5.4.0',
-  'unifunc' => 'content_67b13dd998b225_88275381',
+  'unifunc' => 'content_67b1f6b416b308_15512567',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '2abe9caa96a364df7d9ea98ada560997b3c51c5d' => 
     array (
       0 => 'modificarServicioRealizado.tpl',
-      1 => 1739665981,
+      1 => 1739716265,
       2 => 'file',
     ),
   ),
@@ -21,7 +21,7 @@ if ($_smarty_tpl->getCompiled()->isFresh($_smarty_tpl, array (
     'file:navbar.tpl' => 1,
   ),
 ))) {
-function content_67b13dd998b225_88275381 (\Smarty\Template $_smarty_tpl) {
+function content_67b1f6b416b308_15512567 (\Smarty\Template $_smarty_tpl) {
 $_smarty_current_dir = 'C:\\xampp\\htdocs\\AutomotionWeb\\templates';
 ?><!DOCTYPE html>
 <html lang="es">
@@ -74,6 +74,11 @@ $_smarty_current_dir = 'C:\\xampp\\htdocs\\AutomotionWeb\\templates';
                                 <span class="material-symbols-outlined" style="font-size: 20px;">build</span> Actualizar Servicio Realizado
                             </button>
                         </form>
+
+                        <!-- Mensaje de respuesta -->
+                        <div id="mensaje" class="message mt-3 alert alert-info text-center" style="display:none;">
+                            <!-- El mensaje se actualizará aquí -->
+                        </div>
                     </div>
                 </div>
             </div>
@@ -99,6 +104,41 @@ $_smarty_current_dir = 'C:\\xampp\\htdocs\\AutomotionWeb\\templates';
 >
     <?php echo '<script'; ?>
  src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"><?php echo '</script'; ?>
+>
+
+    <!-- Script para enviar el formulario con fetch -->
+    <?php echo '<script'; ?>
+>
+        document.getElementById('formmodificarServicioRealizado').onsubmit = function(event) {
+            event.preventDefault(); // Evita el envío automático del formulario
+
+            const form = document.getElementById('formmodificarServicioRealizado');
+            const formData = new FormData(form);
+
+            fetch('/index.php?action=modificarServicioRealizado', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.text())
+            .then(data => {
+                // Mostrar el mensaje en el div 'mensaje'
+                const mensajeDiv = document.getElementById('mensaje');
+                mensajeDiv.innerHTML = data;
+                mensajeDiv.style.display = "block"; // Muestra el mensaje
+                mensajeDiv.className = "alert alert-info"; // Aplica estilos al mensaje
+
+                // Si el mensaje no contiene "Error", puedes reiniciar el formulario
+                if (!data.includes("Error")) {
+                    form.reset();
+                }
+            })
+            .catch(error => {
+                // En caso de error, mostrar el mensaje de error
+                document.getElementById('mensaje').innerHTML = '<div class="alert alert-danger">Error al actualizar el servicio realizado.</div>';
+                document.getElementById('mensaje').style.display = "block";
+            });
+        };
+    <?php echo '</script'; ?>
 >
 
 </body>
