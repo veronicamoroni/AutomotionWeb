@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 5.4.0, created on 2025-02-15 22:44:47
+/* Smarty version 5.4.0, created on 2025-02-21 17:01:06
   from 'file:templates/menu.tpl' */
 
 /* @var \Smarty\Template $_smarty_tpl */
 if ($_smarty_tpl->getCompiled()->isFresh($_smarty_tpl, array (
   'version' => '5.4.0',
-  'unifunc' => 'content_67b10acfc3bb50_30678600',
+  'unifunc' => 'content_67b8a34261cc64_00188535',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '30c2da8b33c45004fcc00d034640c1f569fec217' => 
     array (
       0 => 'templates/menu.tpl',
-      1 => 1739655884,
+      1 => 1740153662,
       2 => 'file',
     ),
   ),
@@ -21,7 +21,7 @@ if ($_smarty_tpl->getCompiled()->isFresh($_smarty_tpl, array (
     'file:footer.tpl' => 1,
   ),
 ))) {
-function content_67b10acfc3bb50_30678600 (\Smarty\Template $_smarty_tpl) {
+function content_67b8a34261cc64_00188535 (\Smarty\Template $_smarty_tpl) {
 $_smarty_current_dir = 'C:\\xampp\\htdocs\\AutomotionWeb\\templates';
 ?><!DOCTYPE html>
 <html lang="es">
@@ -37,7 +37,7 @@ $_smarty_current_dir = 'C:\\xampp\\htdocs\\AutomotionWeb\\templates';
 <body>
     <header class="text-white py-2"> 
         <div class="navbar-custom d-flex justify-content-start align-items-center">
-            <img src="/logo.png" alt="Logo AUTOMOTION" class="img-fluid" style="max-width: 150px;">
+            <img src="templates/logo.png" alt="Logo AUTOMOTION" class="img-fluid" style="max-width: 150px;">
             <h1 class="custom-font mx-auto">AUTOMOTION</h1>
         </div>
         

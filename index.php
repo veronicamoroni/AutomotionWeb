@@ -3,7 +3,6 @@
 // Asegúrate de que las rutas a los archivos son correctas
 require_once('libs/Smarty.class.php');
 require_once('./Model/Model.php');
-require_once('./controllers/UserController.php');
 require_once('./controllers/ClienteController.php'); 
 require_once('./controllers/VehiculoController.php'); 
 require_once('./controllers/TurnoController.php');
@@ -15,7 +14,7 @@ $database = new Model();
 $db = $database->getDb();
 
 // Instanciar los controladores
-$usuarioController = new UsuarioController($db);
+
 $clienteController = new ClienteController($db);
 $vehiculoController = new VehiculoController($db);
 $turnoController = new TurnoController($db);
@@ -33,9 +32,8 @@ $request = $_SERVER['REQUEST_URI'];
 
 // Manejo de rutas
 switch ($request) {
-    case '/registrarse':
-        $smarty->display('templates/Registrarse.tpl');
-        break;
+  
+     
     case '/menu':
         $smarty->display('templates/menu.tpl');
         break;
@@ -123,9 +121,8 @@ case '/menu/eliminarServicioRealizado':
 $action = isset($_GET['action']) ? $_GET['action'] : '';
 
 switch ($action) {
-    case 'registrarse':
-        $usuarioController->registrarse();
-        break;
+
+   
     case 'crearCliente':
         $clienteController->crearCliente();
         break;

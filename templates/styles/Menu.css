@@ -35,7 +35,7 @@
     
     /* Fondo de la página */
     body {
-        background-image: url('/imagen.jpeg');
+        background-image: url('/templates/imagen.jpeg');
         background-size: cover;
         background-position: center;
         background-repeat: no-repeat;

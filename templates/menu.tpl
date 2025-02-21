@@ -12,7 +12,7 @@
 <body>
     <header class="text-white py-2"> 
         <div class="navbar-custom d-flex justify-content-start align-items-center">
-            <img src="/logo.png" alt="Logo AUTOMOTION" class="img-fluid" style="max-width: 150px;">
+            <img src="templates/logo.png" alt="Logo AUTOMOTION" class="img-fluid" style="max-width: 150px;">
             <h1 class="custom-font mx-auto">AUTOMOTION</h1>
         </div>
         
